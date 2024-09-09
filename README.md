@@ -14,3 +14,4 @@ Good Fetures to implement:
 - Make it `SEO` optimized
 - CI/CD pipeline
 - Make the architecture to `Terraform`
+- `Elastic Search` to implement the blogs 
