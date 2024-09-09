@@ -5,8 +5,9 @@ What's new ?
 - Every Blog Requires `Beta Approval` before going public.
 - Check via NLP if this content already exist in our dataabase. 
 - **BLOG WRITING EDITOR** (support `.md` files).
-- `FORK` the blog. make you own version 
+- `FORK` the blog. make you own version
 - Supports Embedding `Image, GIFs`
+- Request `Beta Member` approval
 
 Good Fetures to implement: 
 - `Redis` for caching (fast access to vlogs)
