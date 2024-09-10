@@ -52,8 +52,8 @@ const SignInSection = () => {
         <div className="flex flex-col items-center justify-center bg-white">
           <div className="max-w-lg px-5 py-16 text-center md:px-10 md:py-24 lg:py-32">
             {/* Title */}
-            <h2 className="mb-8 text-3xl font-bold md:mb-12 md:text-5xl">
-              {isSignIn ? 'Start your 14-day free trial' : 'Create your account'}
+            <h2 className="mb-8 text-2xl w-full font-bold md:mb-12 md:text-5xl">
+              {isSignIn ? 'Welcome back Login' : 'Create your account'}
             </h2>
             {/* Form */}
             {isSignIn ? (
@@ -129,6 +129,21 @@ const SignInSection = () => {
                     className="absolute bottom-0 left-[5%] right-auto top-[26%] inline-block"
                   />
                   <input
+                    type="name"
+                    className="block h-12 w-full border border-black bg-[#f2f2f7] px-3 py-4 pl-14 text-sm text-[#333333] rounded"
+                    maxLength="256"
+                    name="name"
+                    placeholder="Full Name"
+                    required
+                  />
+                </div>
+                <div className="relative mb-4">
+                  <img
+                    alt=""
+                    src="https://assets.website-files.com/6357722e2a5f19121d37f84d/6357722e2a5f190b7e37f878_EnvelopeSimple.svg"
+                    className="absolute bottom-0 left-[5%] right-auto top-[26%] inline-block"
+                  />
+                  <input
                     type="email"
                     className="block h-12 w-full border border-black bg-[#f2f2f7] px-3 py-4 pl-14 text-sm text-[#333333] rounded"
                     maxLength="256"
@@ -153,9 +168,9 @@ const SignInSection = () => {
                   />
                 </div>
                 <div className="relative mb-4">
-                  <img
+                <img
                     alt=""
-                    src="https://assets.website-files.com/6357722e2a5f19121d37f84d/6357722e2a5f190b7e37f878_EnvelopeSimple.svg"
+                    src="https://assets.website-files.com/6357722e2a5f19121d37f84d/6357722e2a5f19601037f879_Lock-2.svg"
                     className="absolute bottom-0 left-[5%] right-auto top-[26%] inline-block"
                   />
                   <input
