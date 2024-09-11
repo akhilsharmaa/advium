@@ -10,8 +10,9 @@ What's new ?
 - Request `Beta Member` approval
 
 Good Fetures to implement: 
-- `Redis` for caching (fast access to vlogs)
-- Make it `SEO` optimized
-- CI/CD pipeline
+- `JWT` every request to server for security. 
+- `Redis` for caching (fast access to databbase vlogs)
+- CI/CD pipeline for development.
 - Make the architecture to `Terraform`
 - `Elastic Search` to search the blogs 
+- Make it `SEO` optimized
