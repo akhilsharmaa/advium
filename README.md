@@ -11,7 +11,7 @@ What's new ?
 
 Good Fetures to implement: 
 - `JWT` every request to server for security. 
-- `Redis` for caching (fast access to databbase vlogs)
+- `Redis` for caching (fast access to databbase blogs)
     - Non redis commment section beacuse not needed at all
 - CI/CD pipeline for development.
 - Make the architecture to `Terraform`
