@@ -45,8 +45,12 @@ body{
   color: #888;
 }
 
+.tab-content{
+  width: 60rem;
+
+}
 
 #writingArea{
-  width: 60rem;
+  width: 100%;
   background-color: #ffffff;
 }
