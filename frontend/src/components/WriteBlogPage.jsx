@@ -1,6 +1,8 @@
-import { useState } from 'react';
-// import marked from 'marked';
+import { useState, useEffect } from 'react';
 import MarkdownComponent from './MarkdownComponent';
+import { HELLO_USER_MARKDOWN } from './constants';
+import './css/WriteBlogPage.css'
+
 
 const WriteBlogPage = () => {
 
@@ -10,53 +12,55 @@ const WriteBlogPage = () => {
   const lineHeight = 20, totalLines = 60;
   const textareaHeight = totalLines * lineHeight;
 
+  useEffect(() => {
+      setText(HELLO_USER_MARKDOWN);
+  }, []);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
   return (
+    <div className="blog-page">
 
-    <div>
-      <div className="tab-container">
-        <button
-          className={`tab-button ${activeTab === 'tab1' ? 'active' : ''}`}
-          onClick={() => handleTabClick('tab1')}>
-          Tab 1
-        </button>
-        <button
-          className={`tab-button ${activeTab === 'tab2' ? 'active' : ''}`}
-          onClick={() => handleTabClick('tab2')} >
-          Tab 2
-        </button>
-      </div>
-    
-      <div>
-      <h1>Text Editor</h1>  
+      <div className="editor-container">
 
-      
-      <div className="tab-content">
-        {activeTab === 'tab1' && <div>
+        <div className="tab-container">
+          <button
+            className={`tab-button ${activeTab === 'tab1' ? 'active' : ''}`}
+            onClick={() => handleTabClick('tab1')}
+          >
+            Write
+          </button>
+          <button
+            className={`tab-button ${activeTab === 'tab2' ? 'active' : ''}`}
+            onClick={() => handleTabClick('tab2')}
+          >
+            Preview
+          </button>
+        </div>
+
+        <div className="tab-content">
+          {activeTab === 'tab1' && (
             <textarea
               value={text}
-              id='writingArea'
+              id="writingArea"
               onChange={(e) => setText(e.target.value)}
               style={{
                 height: `${textareaHeight}px`,
                 lineHeight: `${lineHeight}px`,
-                // resize: "none", // Disable manual resizing
-                padding: "10px",
-                fontSize: "18px"
               }}
               placeholder="Start typing..."
+              className="editor-textarea"
             />
-        </div>}
-        {activeTab === 'tab2' && 
-          <div>
-            <MarkdownComponent body={text} />
-          </div>}
-        </div>
+          )}
 
+          {activeTab === 'tab2' && (
+            <div className="markdown-preview">
+              <MarkdownComponent body={text} />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
