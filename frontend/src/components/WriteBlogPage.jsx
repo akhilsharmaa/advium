@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import MarkdownComponent from './MarkdownComponent';
 import { HELLO_USER_MARKDOWN } from './constants';
 import './css/WriteBlogPage.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faEye } from '@fortawesome/free-solid-svg-icons'; // Import icons
+import Markdown from 'react-markdown';
 
 
 const WriteBlogPage = () => {
@@ -67,5 +67,12 @@ const WriteBlogPage = () => {
     </div>
   );
 };
+
+const MarkdownComponent = (text) => {
+  return (
+    <Markdown>{text.body}</Markdown>
+  );
+};
+
 
 export default WriteBlogPage;
