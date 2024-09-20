@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import MarkdownComponent from './MarkdownComponent';
 import { HELLO_USER_MARKDOWN } from './constants';
 import './css/WriteBlogPage.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faEye } from '@fortawesome/free-solid-svg-icons'; // Import icons
 
 
 const WriteBlogPage = () => {
@@ -26,18 +28,18 @@ const WriteBlogPage = () => {
       <div className="editor-container">
 
         <div className="tab-container">
-          <button
-            className={`tab-button ${activeTab === 'tab1' ? 'active' : ''}`}
-            onClick={() => handleTabClick('tab1')}
-          >
-            Write
-          </button>
-          <button
-            className={`tab-button ${activeTab === 'tab2' ? 'active' : ''}`}
-            onClick={() => handleTabClick('tab2')}
-          >
-            Preview
-          </button>
+        <button
+          className={`tab-button ${activeTab === 'tab1' ? 'active' : ''}`}
+          onClick={() => handleTabClick('tab1')}
+        >
+          <FontAwesomeIcon color='black' icon={faPen} /> {/* Write icon */}
+        </button>
+        <button
+          className={`tab-button ${activeTab === 'tab2' ? 'active' : ''}`}
+          onClick={() => handleTabClick('tab2')}
+        >
+          <FontAwesomeIcon color='black' icon={faEye} /> {/* Preview icon */}
+        </button>
         </div>
 
         <div className="tab-content">
