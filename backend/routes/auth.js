@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 
 /**
  * @swagger
- * /users:
+ * /auth:
  *   post:
  *     summary: Create a new user
  *     responses:
@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
 
 /**
  * @swagger
- * /users/{id}:
+ * /auth/{id}:
  *   get:
  *     summary: Get a user by ID
  *     parameters:
