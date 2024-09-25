@@ -1,10 +1,12 @@
 # Variables
 variable "aws_access_key" {
-    default = "AKIAR7WOPRTPL7M74FE6"
+    # TODO: Replace with new one 
+    default = "AKIAsd12PsdL7M74FE6"
 }
 
 variable "aws_secret_key" {
-    default = "wfrrrkU0DczaAaRo1E/fsR1WBYwM2+vhQev2m+mO"
+    # TODO: Replace with actual one
+    default = "1233rfvkUasddsadasd23+vhQev2m+mO"
 }
 
 variable "key_name" {
