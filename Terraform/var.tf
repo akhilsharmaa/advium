@@ -1,18 +1,20 @@
-# Variables
 variable "aws_access_key" {
-    # TODO: Replace with new one 
-    default = "AKIAsd12PsdL7M74FE6"
+  description = "AWS Access Key"
+  type        = string
 }
 
 variable "aws_secret_key" {
-    # TODO: Replace with actual one
-    default = "1233rfvkUasddsadasd23+vhQev2m+mO"
+  description = "AWS Secret Key"
+  type        = string
 }
 
 variable "key_name" {
-    default = "captain-server-key"
+  description = "Key Name for EC2"
+  type        = string
 }
 
 variable "region" {
+  description = "AWS Region"
+  type        = string
   default = "us-east-1"
 }
