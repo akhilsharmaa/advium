@@ -16,12 +16,14 @@ resource "aws_security_group" "nginx_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # Inbound MongoDB connection 
   ingress {
-    from_port   = 5432
-    to_port     = 5432
+    from_port   = 27017
+    to_port     = 27017
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
 
   egress {
     from_port   = 0
