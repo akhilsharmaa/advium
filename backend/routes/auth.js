@@ -1,7 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const User = require('../models/user');
+var asyncHandler = require("express-async-handler");
 const bcrypt = require('bcrypt');
+const cors = require('cors')
+
 
 const router = express.Router();
 require('dotenv').config()
@@ -52,36 +55,82 @@ connect();
  *         description: Internal server error.
  */
 router.post('/signup', async (req, res) => {
-    
-    console.log(req.body);
 
     const newUser = new User({
       firstName: req.body.firstName,
       lastName:  req.body.lastName,
       email:  req.body.email,
-      password: req.body.password,
+      password: req.body.password, 
     });
     
     // Hash the password before saving the user
-    const saltRounds = 10; // Cost factor for hashing
-    newUser.password = await bcrypt.hash(newUser.password, saltRounds);
+    var hashedPassword = await newUser.createHash(newUser.password);
+    newUser.password = hashedPassword;
     
     try {
-      const savedUser = await newUser.save();
-      console.log('User created:', savedUser);
-      
+      await newUser.save();
     } catch (error) {
+
       console.error('Error creating user:', error);
-    
       const formattedError = {
         message: error.message
       };
       
-      res.status(400).send(formattedError); 
-      return;
+      return res.status(400).send(formattedError); 
     }
 
-    res.status(200).send("User Created Successfully");
+    return res.status(200).send("User Created Successfully");
+});
+
+
+
+
+/**
+ * @swagger
+ * /auth/signin:
+ *   post:
+ *     summary: SignIn as Registed User 
+ *     description: This endpoint allows you to create a new user account.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: johndoe@example.com
+ *               password:
+ *                 type: string
+ *                 example: securepassword123
+ *     responses:
+ *       200:
+ *         description: Logined Successfully 
+ *       400:
+ *         description: Bad request, invalid input data.
+ *       500:
+ *         description: Internal server error.
+ */
+router.post('/signin', async (req, res) => {
+
+    let user = await User.findOne({ email: req.body.email });
+
+    if (user === null) {
+      return res.status(400).json({
+        message: "User not found.",
+      });
+    } else {
+      if ( await bcrypt.compare(req.body.password, user.password)) {
+        return res.status(200).json({
+          message: "User Successfully Logged In",
+        });
+      } else {
+        return res.status(400).json({
+          message: "Incorrect Password",
+        });
+      }
+    }
 });
 
 
