@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 setupSwagger(app);
 
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 // Routes
 app.use('/auth', authRoutes);
