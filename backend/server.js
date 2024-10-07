@@ -4,6 +4,7 @@ const swaggerUi = require('swagger-ui-express');
 const listEndpoints = require('express-list-endpoints');
 
 const authRoutes = require('./routes/auth.js');
+const writeRoutes = require('./routes/write.js');
 const setupSwagger = require('./swagger/swagger.js');
 
 
@@ -15,6 +16,7 @@ const PORT = process.env.PORT;
 
 // Routes
 app.use('/auth', authRoutes);
+app.use('/write', writeRoutes);
 
 // Route to list all endpoints
 app.get('/routes', (req, res) => {
