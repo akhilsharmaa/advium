@@ -6,9 +6,12 @@ const listEndpoints = require('express-list-endpoints');
 const authRoutes = require('./routes/auth.js');
 const setupSwagger = require('./swagger/swagger.js');
 
+
 const app = express();
 app.use(express.json());
 setupSwagger(app);
+
+const PORT = 3000;
 
 // Routes
 app.use('/auth', authRoutes);
@@ -19,8 +22,16 @@ app.get('/routes', (req, res) => {
   res.json(routes);
 });
 
+app.get('/', (req, res) => {
+  return res.json(
+    {
+      "message": "Welcome to backend API!", 
+      "swagger UI": "/docs"
+    }
+  );
+});
+
 // Start the server
-const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

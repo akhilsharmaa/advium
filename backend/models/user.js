@@ -1,6 +1,7 @@
 // User.js
 const mongoose = require('mongoose');
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const UserSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
@@ -19,9 +20,11 @@ UserSchema.methods.createHash = async function (plainTextPassword) {
   // First method to generate a salt and then create hash
   const salt = await bcrypt.genSalt(saltRounds);
   return await bcrypt.hash(plainTextPassword, salt);
+};
 
-  // Second mehtod - Or we can create salt and hash in a single method also
-  // return await bcrypt.hash(plainTextPassword, saltRounds);
+UserSchema.methods.generateAuthToken = function () {
+  const token =  jwt.sign({ _id: this._id }, process.env.JWTPRIVATEKEY).toString();;
+  return token;  
 };
 
 // Validating the candidate password with stored hash and hash function
