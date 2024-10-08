@@ -93,10 +93,16 @@ router.post('/new', authenticateJWT, async (req, res) => {
 
         // Insert Blog Tags 
         await newBlogBody.tags.forEach(tagname => {
-            useTag(
-                tagname=tagname, 
-                blogId=newBlogBody._id
-            );
+            try {
+                useTag(
+                    tagname=tagname, 
+                    blogId=newBlogBody._id
+                );
+            }catch (error) {
+                return res.status(400).send({
+                    message: error.message
+                });
+            }
         });
 
         return res.status(200).json({ 

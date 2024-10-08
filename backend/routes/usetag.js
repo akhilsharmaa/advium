@@ -17,6 +17,7 @@ async function useTag(tagname, blogId){
         });
 
         try {
+            
             newTag.usedByBlog(blogId);
             await newTag.save(); 
 
@@ -31,7 +32,7 @@ async function useTag(tagname, blogId){
 
         tag.usedByBlog(blogId);
         tag.save(); 
-        
+
     } catch (error) {
         throw new Error(error);    
     }
