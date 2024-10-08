@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const BlogBodySchema = require('../models/body');
 const authenticateJWT = require('../middleware/jwt');
-const logger = require("../logger/logger")
-
+const logger = require("../logger/logger");
+const useTag = require("./usetag");
 const router = express.Router();
 
 
@@ -92,7 +92,12 @@ router.post('/new', authenticateJWT, async (req, res) => {
         logger.info(`🚀 New Blog Pushed!  BlogId:  ${newBlogBody._id}`)
 
         // Insert Blog Tags 
-        
+        await newBlogBody.tags.forEach(tagname => {
+            useTag(
+                tagname=tagname, 
+                blogId=newBlogBody._id
+            );
+        });
 
         return res.status(200).json({ 
             "message": "Blog Created Successfully", 
