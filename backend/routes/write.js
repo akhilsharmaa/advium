@@ -14,6 +14,8 @@ const router = express.Router();
  *   post:
  *     summary: Create a new blog post
  *     description: This endpoint allows an authenticated user to create a new blog post. The request must include a valid JWT token in the Authorization header.
+ *     tags:
+ *       - Blog
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -88,6 +90,9 @@ router.post('/new', authenticateJWT, async (req, res) => {
         // Save the new blog body to the database
         await newBlogBody.save();         
         logger.info(`🚀 New Blog Pushed!  BlogId:  ${newBlogBody._id}`)
+
+        // Insert Blog Tags 
+        
 
         return res.status(200).json({ 
             "message": "Blog Created Successfully", 

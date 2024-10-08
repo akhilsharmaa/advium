@@ -27,6 +27,8 @@ connect();
  *   post:
  *     summary: Create a new user
  *     description: This endpoint allows you to create a new user account.
+ *     tags:
+ *       - Authentication  
  *     requestBody:
  *       required: true
  *       content:
@@ -96,6 +98,8 @@ router.post('/signup', async (req, res) => {
  *   post:
  *     summary: SignIn as Registed User 
  *     description: This endpoint allows you to create a new user account.
+ *     tags:
+ *       - Authentication 
  *     requestBody:
  *       required: true
  *       content:
@@ -146,6 +150,8 @@ router.post('/signin', async (req, res) => {
  *   post:
  *     summary: Change User Password
  *     description: This endpoint allows a user to change their password. The request must include a valid JWT token in the Authorization header.
+ *     tags:
+ *       - Authentication  
  *     security:
  *       - bearerAuth: []
  *     requestBody:
