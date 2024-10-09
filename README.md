@@ -1,5 +1,4 @@
-# My Project
-## Detailed Explaination: 
+## Details : 
 -  `LangChain` : Verify **"How much content is GPT generated ?"**  using LLM model. (*every blog should at least 60% human written* )
 - `RabbitMQ`  for  queue management system - 
 	- one blog testing at a time (reduce system failure by heavy load). 
@@ -23,62 +22,19 @@
 	-  `Comment Section` ,  `views` (only logined user views are counted)
 	-  Author detail  `uid`, `email`, `username` 
 	-  **version control** of the blogs [after every edit]  
-	<details>
-			<summary> Public Blog Body </summary>
-
-	```
-	{
-		"author": "username", 
-		"upvotes": 10, 
-		"downvotes": 4, 
-		"blogID": "1231123123123"
-		"blog": [	# list of every blog version
-					{
-						"version" : 1, 
-						"title": "This is something blog title..."'
-						"body": "The body text in form of the marddown text."
-						"summary" : "This is ai generated summary...", 
-						"userDefinedTags" : ["tag1", "tag2", "tag3", "tag4", "tag5"]
-						"generatedTags" : ["tag1", "tag2", "tag3", "tag4", "tag5"], 
-						"dataOfPublish": "29-SEP-2024"
-					}, 
-					{
-						"version" : 2, 
-						"title": "This is new something blog title..."
-						. 
-						"dataOfPublish": "31-SEP-2024"
-					}, 
-				.
-				.
-		]
-		"comments" : [
-				{
-						"username": "username"
-						"timeOfPublish":  "2-OCT-2024"
-						"body": "This is comment by a user"  
-						"upvote": 10, 
-						"downvote": 2
-				}, 
-				. 
-		]
-	}
-	```
-	</details>
-
-
-
 
 #### Some Good Fetures to implement:
 - `Redis` for caching (fast access to databbase blogs)
     - Non redis commment section beacuse not needed at all
     - Try to mamage the Session management using redis.
+-  `DROP IMAGE & get public link`  of that image (it will be stored quickly to `S3 bucket` ) and will be publicaly available.
 - `Queue System` for testing the blogs  `RabbitMQ`  
-- Use `FAISS` or `Pinecone` to index millions of blogs.
-- `Text-To-Audio`  feature for the accessiblity 
 - `CI/CD` with `jenkins` or `Git Workflow` pipeline for development.
 - Make the architecture to `Terraform` or make an `Ansible` setup. 
 - `Elastic Search` to search the blogs and contents etc.
 - Make it `SEO` optimized 
+- `Text-To-Audio`  feature for the accessiblity 
+ - Use `FAISS` or `Pinecone` to index millions of blogs.
 
 ### Security Considerations
 - Create session management using `Redis` instead  of `JWT`.  provide every request to server for security. 
