@@ -63,8 +63,7 @@ const WriteBlogPage = () => {
 
   const onDrop = useCallback((acceptedFiles) => {
     
-    const HEIGHT = 16*10; 
-    const WIDTH = 10*10;
+    const IMAGE_QUALITY = 25;
 
     acceptedFiles.forEach((file) => {
       const reader = new FileReader()
@@ -75,9 +74,11 @@ const WriteBlogPage = () => {
         
         setThumbnailImageSrc(reader.result); // setting the image to the image tag 
 
-        resizeBase64Img(reader.result, HEIGHT, WIDTH)
+        resizeBase64Img(reader.result, 16*IMAGE_QUALITY, 10*IMAGE_QUALITY)
         .then((result)=>{
           setThumbnailImageSrc(result);
+          console.log(result);
+          
         });
       }
       reader.readAsDataURL(file);
@@ -89,7 +90,7 @@ const WriteBlogPage = () => {
 
   return (
     <div className="blog-page">
-      
+
       <div className='thumbnail-container'>
         {thumbnailImageSrc ? (
           <div  {...getRootProps()} className="image-wrapper">
@@ -100,12 +101,21 @@ const WriteBlogPage = () => {
               id='thumbnail-image'
             />
               <input {...getInputProps()} />
-            <div className="overlay">Choose / Drop Other Thumbnail</div>
+            <div className="overlay">
+              <div>
+                <p className='text-2xl'>Choose / Drop New Thumbnail</p>
+                <p className='text-sm text-gray-300'>Image will be automatically resize to almost <span className='text-red-600'>300KB</span> .</p>
+              </div>
+
+            </div>
           </div>
         ) : (
-          <div id='drag-arena' {...getRootProps()} className="drag-area  thumbnail">
+          <div {...getRootProps()} className="drag-area  thumbnail">
             <input {...getInputProps()} />
-            <p className='text-2xl'>Choose / Drop Thumbnail</p>
+            <div>
+              <p className='text-2xl'>Choose / Drop Thumbnail</p>
+              <p className='text-sm text-gray-500'>Image will be automatically resize to almost <span className='text-red-600'>300KB</span> .</p>
+            </div>
           </div>
         )}
       </div>
