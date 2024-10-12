@@ -74,6 +74,11 @@ const BlogSchema = new mongoose.Schema({
         type: String, 
         required: false 
     }, 
+    visiblity: {
+        type: Boolean, 
+        required: false, 
+        default: false, 
+    }, 
     secondaryThumbnailBase64: {
         type: String, 
         required: false 
