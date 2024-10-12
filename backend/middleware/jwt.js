@@ -12,7 +12,7 @@ const authenticateJWT = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWTPRIVATEKEY); // Verify JWT token
-    req.body._id = decoded._id; 
+    req.body.userid = decoded._id; 
     next(); 
     
   } catch (error) {

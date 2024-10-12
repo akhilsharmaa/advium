@@ -1,17 +1,21 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const cors = require('cors');
 const BlogBodySchema = require('../models/body');
 const authenticateJWT = require('../middleware/jwt');
 const logger = require("../logger/logger");
+const Blog = require('../models/body');
 const useTag = require("./usetag");
+
 
 const router = express.Router();
 
+
 /**
  * @swagger
- * /write/new:
+ * /write/edit:
  *   post:
- *     summary: Create a new blog post
+ *     summary: Edit The Blog (include blog id)
  *     description: This endpoint allows an authenticated user to create a new blog post. The request must include a valid JWT token in the Authorization header.
  *     tags:
  *       - Blog
@@ -24,6 +28,9 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             properties:
+ *               blogId:
+ *                 type: string
+ *                 example: "670a4dd5a99043dac32eb647"
  *               title:
  *                 type: string
  *                 example: "My First Blog Post"
@@ -67,54 +74,51 @@ const router = express.Router();
  *                   example: "Validation error message"
  */
 
-router.post('/new', authenticateJWT, async (req, res) => {
+router.post('/edit', authenticateJWT, async (req, res) => {
+    logger.info(`NEW REQUEST: /edit by ${req.body.userid}`)
 
-    // Create a new BlogBody object based on the request body data
-    const newBlogBody = new BlogBodySchema({
-        authorId: req.body.userid,
-        title: req.body.title,
-        markdown_body: req.body.markdown_body,
-        tags : req.body.tags,
-        thumbnailBase64: req.body.thumbnailBase64, 
-        secondaryThumbnailBase64: req.body.secondaryThumbnailBase64
-    });
+    let blog; 
 
-    try {
+    try{
+        blog =  await Blog.findById(req.body.blogId);
+        // Check if blog current user is author of the requested blog 
+        if(req.body.userid != blog.authorId)
+            return res.status(400).send({"message": "Editing Access denied"});
+    }catch(error){
+        return res.status(401) .send({"message": "No Blog Found, Retry later", "error": error});
+    }
+
+    /*  Assigning new values of 
+        (title, markdown, tags, thumbnail, secondarythumbnail) */
         
-        // These methods initialize author ID, timestamp, and status initialization
-        newBlogBody.initializeAuthorId(req.body.userid);
-        newBlogBody.initializeTime();
-        newBlogBody.initializeStatus();
+    blog.title = req.body.title; 
+    blog.markdown_body = req.body.markdown_body;
+    blog.tags = req.body.tags;
+    blog.thumbnailBase64 = req.body.thumbnailBase64;
+    blog.secondaryThumbnailBase64 = req.body.secondaryThumbnailBase64;
+    blog.addNewStatus("Edited"); // pushing new status
 
-        // Save the new blog body to the database
-        await newBlogBody.save();         
-        logger.info(`🚀 New Blog Pushed!  BlogId:  ${newBlogBody._id}`)
 
-        // Insert Blog Tags 
-        await newBlogBody.tags.forEach(tagname => {
-            try {
-                useTag(
-                    tagname=tagname, 
-                    blogId=newBlogBody._id
-                );
-            }catch (error) {
-                return res.status(400).send({
-                    message: error.message
-                });
-            }
-        });
+    // Insert Blog Tags 
+    try{
+        await blog.tags.forEach(tagname => useTag(tagname=tagname, blogId=req.body.blogId));
+    }catch(error){
+        return res.status(400) .send({"message": "Fail to add tags, Retry later", "error": error});
+    }
+ 
+    try{
+        // Save the edited blog body to the database
+        await blog.save();         
+        logger.info(`💾 Edited Blog Pushed!  BlogId:  ${blog._id}`)
 
         return res.status(200).json({ 
-            "message": "Blog Created Successfully", 
-            "blogBodyId": newBlogBody._id
+            "message": "Blog Edited Successfully", 
+            "blogBodyId": blog._id
         });
-
-    } catch (error) {
-            
-        return res.status(400).send({
-            message: error.message
-        }); 
+    }catch(error){
+        return res.status(400).send({"message": `Failed To save Edit`, "error": error});
     }
+
 });
 
 

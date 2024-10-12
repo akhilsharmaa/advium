@@ -7,6 +7,7 @@ const logger = require("../logger/logger");
 
 async function useTag(tagname, blogId){
     
+    tagname = tagname.toLowerCase();
     let tag = await Tag.findOne({ name: tagname });
     
     if(!tag){   // If tag no exist with this tagname : creating the tagname

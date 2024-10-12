@@ -185,7 +185,7 @@ router.post('/changepassword', authenticateJWT, async (req, res) => {
 
     try {
       // Find user by ID (from decoded JWT token attached to req.user)
-      let user = await User.findById(req.body._id);
+      let user = await User.findById(req.body.userid);
 
       if (!user) {
         return res.status(400).json({

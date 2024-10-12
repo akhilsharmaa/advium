@@ -10,7 +10,8 @@
     - Every member can request for *Became beta member*.
     - Request predefined number of  `Beta Member` approval for publishing blog.
 - **Blog writing editor** (support `.md` files).
-	- - Supports Embedding `Image, GIFs`
+	- Supports Embedding `Image, GIFs`
+	- ` Drag & Drop Thumbnail`  image (reducing image size).
 - `FORK` the blog. make you own version
 - Each  **Public Blogs includes**: 
 	-    `Title` ,  `Body` ,  `Thumbnail`, `DateOfPublish`,  
