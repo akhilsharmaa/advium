@@ -7,6 +7,68 @@ const User = require('../models/user');
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /blog:
+ *   get:
+ *     summary: Get a blog post by its ID
+ *     description: Fetch a blog post using its ID. If the blog is private, authentication is required to view the content.
+ *     tags:
+ *       - Blog
+ *     parameters:
+ *       - in: header
+ *         name: blog
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the blog to retrieve.
+ *     responses:
+ *       200:
+ *         description: Successfully fetched the blog.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Successfully fetched the blog
+ *                 result:
+ *                   type: object
+ *                   properties:
+ *                     title:
+ *                       type: string
+ *                       example: My Awesome Blog
+ *                     markdown_body:
+ *                       type: string
+ *                       example: This is the body of the blog in markdown format.
+ *                     tags:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                       example: ["tech", "nodejs"]
+ *                     thumbnailBase64:
+ *                       type: string
+ *                       description: Base64 encoded primary thumbnail image
+ *                     secondaryThumbnailBase64:
+ *                       type: string
+ *                       description: Base64 encoded secondary thumbnail image
+ *       401:
+ *         description: Unauthorized or Blog Not Found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Access Denied!
+ *                 error:
+ *                   type: string
+ *                   example: You are not authorized to view this blog
+ *       500:
+ *         description: Internal server error.
+ */
 router.get('', async (req, res) => {
     
     logger.info(`NEW REQUEST: /blog `);
@@ -39,13 +101,7 @@ router.get('', async (req, res) => {
 
     return res.status(200).send(
         {   message: "Successfully fetched the blog", 
-            result: {
-                "title": blog.title, 
-                "markdown_body": blog.markdown_body, 
-                "tags":   blog.tags, 
-                "thumbnailBase64": blog.thumbnailBase64, 
-                "secondaryThumbnailBase64": blog.secondaryThumbnailBase64
-            }
+            result: blog
         }
     );
     
