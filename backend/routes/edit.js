@@ -5,7 +5,7 @@ const BlogBodySchema = require('../models/body');
 const authenticateJWT = require('../middleware/jwt');
 const logger = require("../logger/logger");
 const Blog = require('../models/body');
-const useTag = require("./usetag");
+const useTag = require("../utils/usetag");
 
 
 const router = express.Router();

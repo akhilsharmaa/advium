@@ -11,16 +11,16 @@ const router = express.Router();
  * @swagger
  * /blog:
  *   get:
- *     summary: Get a blog post by its ID
- *     description: Fetch a blog post using its ID. If the blog is private, authentication is required to view the content.
+ *     summary: Fetch a blog by its ID
+ *     description: Retrieve a blog based on the provided blog ID in the request headers. Handles both public and private blogs.
  *     tags:
  *       - Blog
  *     parameters:
  *       - in: header
  *         name: blog
+ *         required: true
  *         schema:
  *           type: string
- *         required: true
  *         description: The ID of the blog to retrieve.
  *     responses:
  *       200:
@@ -35,26 +35,42 @@ const router = express.Router();
  *                   example: Successfully fetched the blog
  *                 result:
  *                   type: object
+ *                   description: The blog object.
  *                   properties:
+ *                     authorId:
+ *                       type: string
+ *                       example: "author123"
  *                     title:
  *                       type: string
- *                       example: My Awesome Blog
+ *                       example: "My First Blog"
  *                     markdown_body:
  *                       type: string
- *                       example: This is the body of the blog in markdown format.
+ *                       example: "This is the blog content."
  *                     tags:
  *                       type: array
  *                       items:
  *                         type: string
- *                       example: ["tech", "nodejs"]
+ *                       example: ["coding", "javascript"]
  *                     thumbnailBase64:
  *                       type: string
- *                       description: Base64 encoded primary thumbnail image
+ *                       example: "base64encodedthumbnail"
  *                     secondaryThumbnailBase64:
  *                       type: string
- *                       description: Base64 encoded secondary thumbnail image
+ *                       example: "base64encodedthumbnail2"
+ *                     visiblity:
+ *                       type: boolean
+ *                       example: false
+ *                     status:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                       example: []
+ *                     time:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2024-10-12T14:48:00.000Z"
  *       401:
- *         description: Unauthorized or Blog Not Found.
+ *         description: Access denied or blog not found.
  *         content:
  *           application/json:
  *             schema:
@@ -65,10 +81,9 @@ const router = express.Router();
  *                   example: Access Denied!
  *                 error:
  *                   type: string
- *                   example: You are not authorized to view this blog
- *       500:
- *         description: Internal server error.
+ *                   example: "You are not authorized to view this blog"
  */
+
 router.get('', async (req, res) => {
     
     logger.info(`NEW REQUEST: /blog `);
