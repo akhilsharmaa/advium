@@ -7,7 +7,8 @@ const UserSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: String, required: true }, 
+  assets: []
 });
 
 
@@ -30,6 +31,17 @@ UserSchema.methods.generateAuthToken = function () {
 // Validating the candidate password with stored hash and hash function
 UserSchema.methods.validatePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password_hash);
+};
+
+// Validating the candidate password with stored hash and hash function
+UserSchema.methods.insertNewAssetUsed = async function (imageName) {
+ 
+  const param = {
+    name: imageName, 
+    time: Date.now()
+  }
+
+  this.assets.push(param);
 };
 
 const User = mongoose.model('Users', UserSchema);
