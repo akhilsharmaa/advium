@@ -23,6 +23,62 @@ const s3 = new S3Client({
     region: process.env.S3_BUCKET_REGION
 })
 
+/**
+ * @swagger
+ * /upload:
+ *   post:
+ *     summary: Upload a new asset/image. 
+ *     tags:
+ *       - Assets
+ *     description: This endpoint uploads a user assets, resizes the image, stores it in an S3 bucket, and returns the public URL of the image. The uploaded image is also associated with the user's account in the database.
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - image
+ *             properties:
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *                 description: The image file to be uploaded.
+ *     responses:
+ *       200:
+ *         description: File uploaded successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Success message.
+ *                   example: File Uploaded Successfully
+ *                 imageUrl:
+ *                   type: string
+ *                   description: The public URL of the uploaded image.
+ *                   example: https://your-bucket.s3.amazonaws.com/assets/userid/imagefile.jpg
+ *       400:
+ *         description: File upload failed due to error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: File Upload Failed! Retry later
+ *                 error:
+ *                   type: string
+ *                   description: Detailed error message.
+ *                   example: Error details here...
+ */
+
 router.post('',  upload.single('image'), authenticateJWT, async (req, res) => {
     
     logger.info(`NEW REQUEST: /profile `);

@@ -34,10 +34,11 @@ UserSchema.methods.validatePassword = async function (candidatePassword) {
 };
 
 // Validating the candidate password with stored hash and hash function
-UserSchema.methods.insertNewAssetUsed = async function (imageName) {
+UserSchema.methods.insertNewAssetUsed = async function (imageName, publicUrl) {
  
   const param = {
     name: imageName, 
+    url: publicUrl, 
     time: Date.now()
   }
 
