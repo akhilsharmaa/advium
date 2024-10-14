@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const logger = require('../logger/logger');
 
 const UserSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
@@ -34,15 +35,22 @@ UserSchema.methods.validatePassword = async function (candidatePassword) {
 };
 
 // Validating the candidate password with stored hash and hash function
-UserSchema.methods.insertNewAssetUsed = async function (imageName, publicUrl) {
- 
-  const param = {
-    name: imageName, 
-    url: publicUrl, 
-    time: Date.now()
-  }
+UserSchema.methods.insertNewAssetUsed = async function (publicUrl) {
+  try {
+    
+    this.assets.push({
+      url: publicUrl, 
+      time: Date.now()
+    });
 
-  this.assets.push(param);
+    //** Save the updated document to the database
+    await this.save();
+    logger.info(`Success: Asset ${publicUrl.substring(0, 20)} successfully added to user assets database.`);
+
+  } catch (error) {
+    logger.error(`Error adding asset ${publicUrl} to user assets: ${error.message}`);
+    throw error; // Optionally rethrow to handle it elsewhere
+  }
 };
 
 const User = mongoose.model('Users', UserSchema);
