@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const Comment = require('../models/comment')
+const Reply = require('../models/reply.model')
 const Blog = require('../models/body')
 const authenticateJWT = require('../middleware/jwt');
 const logger = require("../logger/logger");
@@ -12,7 +13,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /comment:
+ * /reply:
  *   post:
  *     summary: Add new Comment
  *     description: This endpoint allows an authenticated user to create a new blog post. The request must include a valid JWT token in the Authorization header.
@@ -59,21 +60,18 @@ const router = express.Router();
  *                   example: "Validation error message"
  */
 
-router.post('/comment', authenticateJWT, async (req, res) => {
-    logger.info(`NEW REQUEST: /comment by ${req.body.userid}`)
-    
+router.post('/reply', authenticateJWT, async (req, res) => {
+    logger.info(`NEW REQUEST: /reply by ${req.body.userid}`)
 
-    //** Checking User: if the blog exist or not in the database */
+    //** Checking User is valid: if the blog exist or not in the database */
     try{ 
         var user = await User.findById(req.body.userid);
-        if(!user) 
-            return res.status(401) .send({"message": "Invalid User, No User Found."});
+        if(!user) return res.status(401) .send({"message": "Invalid User, No User Found."});
     }catch(err){
         return res.status(401) .send({"message": "Invalid User, No User Found.", "error": err});
     }
 
-
-    //** Checking Blog: if the blog exist or not in the database */
+    //** Checking Blog is valid: if the blog exist or not in the database */
     try{ 
         var blog = await Blog.findById(req.body.blogId);
         if(!blog) 
@@ -83,27 +81,38 @@ router.post('/comment', authenticateJWT, async (req, res) => {
     }
 
 
+    //** Checking Comment is Valid: if the blog exist or not in the database */
+    try{ 
+        var reply = await Reply.findById(req.body.parentCommentId);
+        var comment = await Comment.findById(req.body.parentCommentId);
+        
+        if(reply === null && comment === null){
+            return res.status(401).send({"message": "Invalid Comment, No Parent Comment or Reply Found!"});
+        }
+    }catch(err){
+        return res.status(401) .send({"message": "Invalid Blog, No Blog Found.", "error": err});
+    }
+
     try{
-        const newComment = new Comment({
+        const newReply = new Reply({
+            parentCommentId: req.body.parentCommentId, 
             blogId: blog._id, 
             authorId: user._id, 
-            authorFirstName: user.firstName, 
+            authorFirstfName: user.firstName, 
             authorLastName: user.lastName, 
             content: req.body.comment, 
         });
 
-        const result = await newComment.save();  // Insert the blog 
+        const result = await newReply.save();  // Insert the Reply
         if(result){
-            return res.status(200).send({"message": "Commented Successfully"});
+            return res.status(200).send({"message": "Comment Successfully"});
         }
     }catch(err){
         logger.error(err);
-        return res.status(401) .send({"message": "Failed Comment!", "error": err});
+        return res.status(401) .send({"message": "Reply Failed!", "error": err});
     }
 
-
     return res.status(500).send({"message": "Something Went wrong"});
-
 });
 
 
