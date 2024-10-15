@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const User = require('../models/user');
+const User = require('../models/user.model');
 var asyncHandler = require("express-async-handler");
 const bcrypt = require('bcrypt');
 const cors = require('cors');

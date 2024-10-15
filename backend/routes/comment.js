@@ -1,10 +1,10 @@
 const express = require('express');
 const cors = require('cors');
-const Comment = require('../models/comment')
-const Blog = require('../models/body')
+const Comment = require('../models/comment.model')
+const Blog = require('../models/body.model')
 const authenticateJWT = require('../middleware/jwt');
 const logger = require("../logger/logger");
-const User = require('../models/user');
+const User = require('../models/user.model');
 
 
 const router = express.Router();
@@ -35,7 +35,7 @@ const router = express.Router();
  *                 example: "This is a log comment which is a apreciation for the blog content"
  *     responses:
  *       200:
- *         description: Blog created successfully
+ *         description: Comment created successfully
  *         content:
  *           application/json:
  *             schema:
@@ -43,20 +43,7 @@ const router = express.Router();
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Blog Created Successfully"
- *                 blogId:
- *                   type: string
- *                   example: "60d21b4667d0d8992e610c87"
- *       400:
- *         description: Bad request, validation error
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "Validation error message"
+ *                   example: "Comment Successfully"
  */
 
 router.post('/comment', authenticateJWT, async (req, res) => {

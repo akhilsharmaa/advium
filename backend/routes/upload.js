@@ -11,7 +11,7 @@ const multer  = require('multer');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage })
 const logger = require("../logger/logger");
-const User = require("../models/user");
+const User = require("../models/user.model");
 
 const router = express.Router();
 

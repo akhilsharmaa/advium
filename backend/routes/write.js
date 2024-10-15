@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const BlogBodySchema = require('../models/body');
+const BlogBodySchema = require('../models/body.model');
 const authenticateJWT = require('../middleware/jwt');
 const logger = require("../logger/logger");
 const useTag = require("../utils/usetag");

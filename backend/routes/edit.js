@@ -1,10 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const BlogBodySchema = require('../models/body');
 const authenticateJWT = require('../middleware/jwt');
 const logger = require("../logger/logger");
-const Blog = require('../models/body');
+const Blog = require('../models/body.model');
 const useTag = require("../utils/usetag");
 
 

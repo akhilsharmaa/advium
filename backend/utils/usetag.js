@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const cors = require('cors');
-const Tag = require('../models/tag');
+const Tag = require('../models/tag.model');
 const logger = require("../logger/logger");
 
 

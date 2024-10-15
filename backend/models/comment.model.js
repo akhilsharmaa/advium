@@ -1,6 +1,6 @@
 // User.js
 const mongoose = require('mongoose');
-const User = require('./user');
+const User = require('./user.model');
 const logger = require('../logger/logger');
 
 const CommentSchema = new mongoose.Schema({

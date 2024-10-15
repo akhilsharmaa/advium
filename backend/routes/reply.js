@@ -1,11 +1,11 @@
 const express = require('express');
 const cors = require('cors');
-const Comment = require('../models/comment')
+const Comment = require('../models/comment.model')
 const Reply = require('../models/reply.model')
-const Blog = require('../models/body')
+const Blog = require('../models/body.model')
 const authenticateJWT = require('../middleware/jwt');
 const logger = require("../logger/logger");
-const User = require('../models/user');
+const User = require('../models/user.model');
 
 
 const router = express.Router();
@@ -15,7 +15,7 @@ const router = express.Router();
  * @swagger
  * /reply:
  *   post:
- *     summary: Add new Comment
+ *     summary: Add new Reply
  *     description: This endpoint allows an authenticated user to create a new blog post. The request must include a valid JWT token in the Authorization header.
  *     tags:
  *       - Comments
@@ -28,6 +28,9 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             properties:
+ *               parentCommentId:
+ *                 type: string
+ *                 example: "670a4dd5a99043dsddfeb647" 
  *               blogId:
  *                 type: string
  *                 example: "670a4dd5a99043dac32eb647"
@@ -44,20 +47,7 @@ const router = express.Router();
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Blog Created Successfully"
- *                 blogId:
- *                   type: string
- *                   example: "60d21b4667d0d8992e610c87"
- *       400:
- *         description: Bad request, validation error
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "Validation error message"
+ *                   example: "Reply Successfully"
  */
 
 router.post('/reply', authenticateJWT, async (req, res) => {
@@ -87,7 +77,7 @@ router.post('/reply', authenticateJWT, async (req, res) => {
         var comment = await Comment.findById(req.body.parentCommentId);
         
         if(reply === null && comment === null){
-            return res.status(401).send({"message": "Invalid Comment, No Parent Comment or Reply Found!"});
+            return res.status(401).send({"message": "Invalid Reply, No Parent Comment/Reply Found!"});
         }
     }catch(err){
         return res.status(401) .send({"message": "Invalid Blog, No Blog Found.", "error": err});
@@ -98,14 +88,14 @@ router.post('/reply', authenticateJWT, async (req, res) => {
             parentCommentId: req.body.parentCommentId, 
             blogId: blog._id, 
             authorId: user._id, 
-            authorFirstfName: user.firstName, 
+            authorFirstName: user.firstName, 
             authorLastName: user.lastName, 
             content: req.body.comment, 
         });
 
         const result = await newReply.save();  // Insert the Reply
         if(result){
-            return res.status(200).send({"message": "Comment Successfully"});
+            return res.status(200).send({"message": "Reply Successfully"});
         }
     }catch(err){
         logger.error(err);

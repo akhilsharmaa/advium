@@ -1,9 +1,8 @@
 const express = require('express');
 const fetchUserID = require('../middleware/fetchUserId');
 const logger = require("../logger/logger");
-const Blog = require('../models/body');
+const Blog = require('../models/body.model');
 const authenticateJWT = require('../middleware/jwt');
-const User = require('../models/user');
 
 const router = express.Router();
 
