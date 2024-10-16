@@ -53,7 +53,9 @@ const router = express.Router();
 router.post('/reply', authenticateJWT, async (req, res) => {
     logger.info(`NEW REQUEST: /reply by ${req.body.userid}`)
 
-    //** Checking User is valid: if the blog exist or not in the database */
+    const parentCommentOrReplyId = req.body.parentCommentOrReplyId; 
+    
+    //** Checking User is valid: if the user exist or not in the database */
     try{ 
         var user = await User.findById(req.body.userid);
         if(!user) return res.status(401) .send({"message": "Invalid User, No User Found."});
@@ -61,20 +63,10 @@ router.post('/reply', authenticateJWT, async (req, res) => {
         return res.status(401) .send({"message": "Invalid User, No User Found.", "error": err});
     }
 
-    //** Checking Blog is valid: if the blog exist or not in the database */
-    try{ 
-        var blog = await Blog.findById(req.body.blogId);
-        if(!blog) 
-            return res.status(401) .send({"message": "Invalid Blog, No Blog Found."});
-    }catch(err){
-        return res.status(401) .send({"message": "Invalid Blog, No Blog Found.", "error": err});
-    }
-
-
     //** Checking Comment is Valid: if the blog exist or not in the database */
     try{ 
-        var reply = await Reply.findById(req.body.parentCommentId);
-        var comment = await Comment.findById(req.body.parentCommentId);
+        var reply = await Reply.findById(parentCommentOrReplyId);
+        var comment = await Comment.findById(parentCommentOrReplyId);
         
         if(reply === null && comment === null){
             return res.status(401).send({"message": "Invalid Reply, No Parent Comment/Reply Found!"});
@@ -85,8 +77,7 @@ router.post('/reply', authenticateJWT, async (req, res) => {
 
     try{
         const newReply = new Reply({
-            parentCommentId: req.body.parentCommentId, 
-            blogId: blog._id, 
+            parentCommentId: parentCommentOrReplyId, 
             authorId: user._id, 
             authorFirstName: user.firstName, 
             authorLastName: user.lastName, 
@@ -95,7 +86,10 @@ router.post('/reply', authenticateJWT, async (req, res) => {
 
         const result = await newReply.save();  // Insert the Reply
         if(result){
-            return res.status(200).send({"message": "Reply Successfully"});
+            return res.status(200).send({
+                    "message": "Reply Successfully", 
+                    "replyId": result._id
+            });
         }
     }catch(err){
         logger.error(err);

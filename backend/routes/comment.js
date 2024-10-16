@@ -81,7 +81,10 @@ router.post('/comment', authenticateJWT, async (req, res) => {
 
         const result = await newComment.save();  // Insert the blog 
         if(result){
-            return res.status(200).send({"message": "Commented Successfully"});
+            return res.status(200).send({
+                "message": "Commented Successfully", 
+                "_id": result._id
+            });
         }
     }catch(err){
         logger.error(err);

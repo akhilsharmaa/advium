@@ -9,6 +9,7 @@ const uploadRoutes = require('./routes/upload.js');
 const commentRoutes = require('./routes/comment.js');
 const replyRoutes = require('./routes/reply.js');
 const getCommentsRoutes = require('./routes/getComments.js');
+const getReplysRoutes = require('./routes/getReplys.js');
 
 const setupSwagger = require('./utils/swaggerui.js');
 
@@ -25,7 +26,7 @@ app.use('/write', [writeRoutes, editRoutes]);
 app.use('/blog', [blogRoutes]);
 app.use('/upload', uploadRoutes);
 app.use('', [commentRoutes, replyRoutes]);
-app.use('', [getCommentsRoutes]);
+app.use('', [getCommentsRoutes, getReplysRoutes]);
 
 // Route to list all endpoints
 app.get('/routes', (req, res) => {

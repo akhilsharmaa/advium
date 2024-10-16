@@ -7,11 +7,7 @@ const ReplySchema = new mongoose.Schema({
     parentCommentId: {
         type: String, 
         required: true 
-    }, 
-    blogId: { 
-        type: String, 
-        required: true 
-    }, 
+    },
     authorId: { 
         type: String, 
         required: true 
