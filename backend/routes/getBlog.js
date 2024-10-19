@@ -91,6 +91,9 @@ router.get('', async (req, res) => {
 
     try { 
         blog = await Blog.findById(req.headers['blog']);
+        if(!blog){
+            return res.status(401).send({"message": "No Blog Found, Retry later"});
+        }
     }catch(error){
         return res.status(401).send({"message": "No Blog Found, Retry later", "error": error});
     } 

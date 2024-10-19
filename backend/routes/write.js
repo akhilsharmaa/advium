@@ -68,6 +68,7 @@ const router = express.Router();
  */
 
 router.post('/new', authenticateJWT, async (req, res) => {
+    logger.info(`NEW REQUEST: /new by ${req.body.userid}, ${req.body.title}`)
 
     // Create a new BlogBody object based on the request body data
     const newBlogBody = new BlogBodySchema({
@@ -87,8 +88,8 @@ router.post('/new', authenticateJWT, async (req, res) => {
         newBlogBody.initializeStatus();
 
         // Save the new blog body to the database
-        await newBlogBody.save();         
-        logger.info(`🚀 New Blog Pushed!  BlogId:  ${newBlogBody._id}`)
+        const result =  await newBlogBody.save();         
+        logger.info(`🚀 New Blog Pushed!  BlogId:  ${newBlogBody._id} ${result}`)
 
         // Insert Blog Tags 
         await newBlogBody.tags.forEach(tagname => {

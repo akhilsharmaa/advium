@@ -9,14 +9,18 @@ import {useDropzone} from 'react-dropzone'
 import axios from "axios";
 import ErrorDialog from './micro-components/ErrorDialog';
 import SuccessDialog from './micro-components/SuccessDialog';
+import Loading from './micro-components/Loading';
+import { useLocation } from 'react-router-dom';
 
 const HOST = "http://localhost:3000"; 
 
 const WriteBlogPage = () => {
 
+  const { blogid } = useLocation();
   const [text, setText] = useState("");
   const [activeTab, setActiveTab] = useState('tab1');
   const [loading,   setLoading] = useState(false);
+  const [isFetchingBlog,   setIsFetchingBlog] = useState(false);
   const [titleInput,   setTitleInput] = useState("This is Title of the Blog");
   const [thumbnailImageSrc, setThumbnailImageSrc] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -26,12 +30,51 @@ const WriteBlogPage = () => {
   const textareaHeight = totalLines * lineHeight;
 
   useEffect(() => {
+      getBlogDetails();
       setText(HELLO_USER_MARKDOWN);
   }, []);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+
+  
+  const getBlogDetails = async () => {      
+
+      // To get search parameters
+      const queryParams = new URLSearchParams(location.search);
+      const blogid = queryParams.get('blogid');
+
+      if(blogid === undefined || blogid === null || blogid === "")
+        return; 
+
+      console.log(blogid);
+      setIsFetchingBlog(true);
+
+      try {
+
+        const response = await axios.get(`${HOST}/blog`, {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("authToken")}`, 
+            "blog": `${blogid}`, 
+          },
+        });
+
+        // setSuccessMessage(response.data.message)
+        setTitleInput(response.data.result.title)
+        setText(response.data.result.markdown_body)
+        setThumbnailImageSrc(response.data.result.thumbnailBase64)
+
+    } catch (error) {
+        
+        console.log(error.response);
+        setErrorMessage(error.response.data.message);
+    }
+
+    setIsFetchingBlog(false);
+    
+  }
 
   function resizeBase64Img(base64, newWidth, newHeight) {
     return new Promise((resolve, reject) => {
@@ -138,7 +181,8 @@ const WriteBlogPage = () => {
 
       {errorMessage && <ErrorDialog message={errorMessage}/>}
       {successMessage && <SuccessDialog message={successMessage}/>}
-      
+      {isFetchingBlog && <Loading/> }
+
       {/* <errorDialog></errorDialog> */}
       <div className='thumbnail-container'>
         {thumbnailImageSrc ? (
@@ -169,6 +213,12 @@ const WriteBlogPage = () => {
         )}
       </div>
 
+      <input 
+             type="text" placeholder="Your Blog Title..." 
+             className="input text-2xl text-bold input-bordered w-full max-w p-8 my-4"
+             onChange={(e) => setTitleInput(e.target.value)}
+             value={titleInput}
+      />
 
     <div className="editor-container">
 
