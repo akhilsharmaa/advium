@@ -1,10 +1,24 @@
 import React, { useState } from 'react';
+import axios from "axios";
+import ErrorDialog from './micro-components/ErrorDialog';
+import SuccessDialog from './micro-components/SuccessDialog';
+
+const HOST = "http://localhost:3000"; 
 
 const SignInSection = () => {
+
   const [isSignIn, setIsSignIn] = useState(true);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [firstNameInput, setFirstNameInput] = useState('');
+  const [lastNameInput, setLastNameInput] = useState('');
+  const [emailInput, setEmailInput] = useState('');
   const [passwordMismatch, setPasswordMismatch] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
+
 
   const handleSwitch = () => {
     setIsSignIn(!isSignIn);
@@ -13,21 +27,98 @@ const SignInSection = () => {
     setPasswordMismatch(false);
   };
 
-  const handleSignUpSubmit = (event) => {
+  const handleSignUpSubmit = async (event)  => {
+
     event.preventDefault();
-    if (password !== confirmPassword) {
-      setPasswordMismatch(true);
-    } else {
-      setPasswordMismatch(false);
-      // Handle successful signup
-      alert('Sign Up Successful');
+    setPasswordMismatch(password !== confirmPassword);
+    setIsLoading(true);
+    
+    setErrorMessage(null);
+    setSuccessMessage(null);
+
+    const requestData = {
+      "firstName": firstNameInput, 
+      "lastName": lastNameInput, 
+      "email" : emailInput, 
+      "password" : password 
+    };
+
+    try {
+
+        const response = await axios.post(`${HOST}/auth/signup`, requestData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+              
+        const { message, token } = response.data;
+
+        // Save the token to localStorage
+        localStorage.setItem('authToken', token);
+
+        console.log(message);
+        setSuccessMessage(message);
+
+    } catch (error) {
+        
+        console.log(error.response);
+        setErrorMessage(error.response.data.message);
+
     }
+
+  
+    setIsLoading(false);
+  };
+
+  const handleLoginSubmit = async (event)  => {
+    event.preventDefault();
+
+    setPasswordMismatch(password !== confirmPassword);
+    setIsLoading(true);
+    
+    setErrorMessage(null);
+    setSuccessMessage(null);
+
+    const requestData = {
+      "email" : emailInput, 
+      "password" : password 
+    };
+
+    try {
+
+        const response = await axios.post(`${HOST}/auth/signin`, requestData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+              
+        const { message, token } = response.data;
+
+        // Save the token to localStorage
+        localStorage.setItem('authToken', token);
+
+        console.log(message);
+        setSuccessMessage(message);
+        
+
+    } catch (error) {
+        
+        console.log(error.response);
+        setErrorMessage(error.response.data.message);
+
+    }
+
+  
+    setIsLoading(false);
+    
   };
 
   return (
     <section>
+
+
       <div className="grid md:h-screen md:grid-cols-2">
-        
+
         {/* Component */}
         <div className="flex flex-col items-center justify-center bg-[#f2f2f7]">
           <div className="max-w-lg px-5 py-16 md:px-10 md:py-24 lg:py-32">
@@ -50,10 +141,12 @@ const SignInSection = () => {
         
         {/* Form Container */}
         <div className="flex flex-col items-center justify-center bg-white">
+          
           <div className="max-w-lg px-5 py-16 text-center md:px-10 md:py-24 lg:py-32">
+            
             {/* Title */}
             <h2 className="mb-8 text-2xl w-full font-bold md:mb-12 md:text-5xl">
-              {isSignIn ? 'Welcome back Login' : 'Create your account'}
+              {isSignIn ? 'Login' : 'Register'}
             </h2>
             {/* Form */}
             {isSignIn ? (
@@ -61,6 +154,7 @@ const SignInSection = () => {
                 className="mx-auto mb-4 max-w-sm pb-4"
                 name="wf-form-signin"
                 method="get"
+                onSubmit={handleLoginSubmit}
               >
                 <div className="relative mb-4">
                   <img
@@ -74,6 +168,7 @@ const SignInSection = () => {
                     maxLength="256"
                     name="email"
                     placeholder="Email Address"
+                    onChange={(e) => setEmailInput(e.target.value)}
                     required
                   />
                 </div>
@@ -87,10 +182,11 @@ const SignInSection = () => {
                     type="password"
                     className="block h-12 w-full border border-black bg-[#f2f2f7] px-3 py-4 pl-14 text-sm text-[#333333] rounded"
                     placeholder="Password (min 8 characters)"
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                 </div>
-                <label className="mb-6 flex items-center pb-12 font-medium lg:mb-1">
+                <label className="mb-6 flex items-center font-medium lg:mb-1">
                   <input type="checkbox" name="checkbox" />
                   <span className="ml-4 inline-block cursor-pointer text-sm">
                     I agree with the{" "}
@@ -102,8 +198,9 @@ const SignInSection = () => {
                 <a
                   href="#"
                   className="flex items-center justify-center bg-[#276ef1] px-8 py-4 text-center font-semibold text-white transition [box-shadow:rgb(171,_196,_245)_-8px_8px] hover:[box-shadow:rgb(171,_196,_245)_0px_0px] rounded"
+                  onClick={handleLoginSubmit}
                 >
-                  <p className="mr-6 font-bold">Join Flowspark</p>
+                  <p className="mr-6 font-bold">Login Now</p>
                   <svg
                     className="h-4 w-4 flex-none"
                     fill="currentColor"
@@ -133,7 +230,24 @@ const SignInSection = () => {
                     className="block h-12 w-full border border-black bg-[#f2f2f7] px-3 py-4 pl-14 text-sm text-[#333333] rounded"
                     maxLength="256"
                     name="name"
-                    placeholder="Full Name"
+                    placeholder="First Name"
+                    onChange={(e) => setFirstNameInput(e.target.value)}
+                    required
+                  />
+                </div>                
+                <div className="relative mb-4">
+                  <img
+                    alt=""
+                    src="https://assets.website-files.com/6357722e2a5f19121d37f84d/6357722e2a5f190b7e37f878_EnvelopeSimple.svg"
+                    className="absolute bottom-0 left-[5%] right-auto top-[26%] inline-block"
+                  />
+                  <input
+                    type="name"
+                    className="block h-12 w-full border border-black bg-[#f2f2f7] px-3 py-4 pl-14 text-sm text-[#333333] rounded"
+                    maxLength="256"
+                    name="name"
+                    placeholder="Last Name"
+                    onChange={(e) => setLastNameInput(e.target.value)}
                     required
                   />
                 </div>
@@ -149,6 +263,7 @@ const SignInSection = () => {
                     maxLength="256"
                     name="email"
                     placeholder="Email Address"
+                    onChange={(e) => setEmailInput(e.target.value)}
                     required
                   />
                 </div>
@@ -187,7 +302,7 @@ const SignInSection = () => {
                     Passwords do not match.
                   </p>
                 )}
-                <label className="mb-6 flex items-center pb-12 font-medium lg:mb-1">
+                <label className="mb-6 flex items-center font-medium lg:mb-1">
                   <input type="checkbox" name="checkbox" />
                   <span className="ml-4 inline-block cursor-pointer text-sm">
                     I agree with the{" "}
@@ -198,8 +313,10 @@ const SignInSection = () => {
                 </label>
                 <a
                   href="#"
+                  onClick={handleSignUpSubmit}
                   className="flex items-center justify-center bg-[#276ef1] px-8 py-4 text-center font-semibold text-white transition [box-shadow:rgb(171,_196,_245)_-8px_8px] hover:[box-shadow:rgb(171,_196,_245)_0px_0px] rounded"
                 >
+                  {isLoading && <span className="loading loading-spinner"></span>}
                   <p className="mr-6 font-bold">Sign Up</p>
                   <svg
                     className="h-4 w-4 flex-none"
@@ -231,6 +348,11 @@ const SignInSection = () => {
                 </>
               )}
             </p>
+          
+                    
+            {errorMessage && <ErrorDialog message={errorMessage}/>}
+            {successMessage && <SuccessDialog message={successMessage}/>}
+            
           </div>
         </div>
       </div>
