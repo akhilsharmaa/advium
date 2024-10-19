@@ -10,17 +10,23 @@ import axios from "axios";
 import ErrorDialog from './micro-components/ErrorDialog';
 import SuccessDialog from './micro-components/SuccessDialog';
 import Loading from './micro-components/Loading';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+
 import { useLocation } from 'react-router-dom';
 
 const HOST = "http://localhost:3000"; 
 
 const WriteBlogPage = () => {
 
+  const navigate = useNavigate(); // Initialize useNavigate
   const { blogid } = useLocation();
+
   const [text, setText] = useState("");
   const [activeTab, setActiveTab] = useState('tab1');
   const [loading,   setLoading] = useState(false);
   const [isFetchingBlog,   setIsFetchingBlog] = useState(false);
+  const [blogId, setBlogId] = useState(null);
+  const [isEditing,   setIsEditing] = useState(false);
   const [titleInput,   setTitleInput] = useState("This is Title of the Blog");
   const [thumbnailImageSrc, setThumbnailImageSrc] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -65,11 +71,14 @@ const WriteBlogPage = () => {
         setTitleInput(response.data.result.title)
         setText(response.data.result.markdown_body)
         setThumbnailImageSrc(response.data.result.thumbnailBase64)
+        setIsEditing(true);
+        setBlogId(blogid);
 
     } catch (error) {
         
         console.log(error.response);
         setErrorMessage(error.response.data.message);
+
     }
 
     setIsFetchingBlog(false);
@@ -171,10 +180,46 @@ const WriteBlogPage = () => {
           console.log(error.response);
           setErrorMessage(error.response.data.message);
           setLoading(false);
-      }
-  
-    
+
+            
+      }    
   }
+
+  const handleEditing = async () => {      
+
+    setLoading(true);
+    setErrorMessage(null);
+    setSuccessMessage(null);
+  
+    const requestData = {
+      blogId: blogId, 
+      title: titleInput, 
+      tags: [], 
+      markdown_body: text,
+      thumbnailBase64: thumbnailImageSrc, 
+      secondaryThumbnailBase64 : thumbnailImageSrc
+    };
+
+    try {
+
+        const response = await axios.post(`${HOST}/write/edit`, requestData, {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("authToken")}`, 
+          },
+        });
+
+        console.log(response);
+        setSuccessMessage(response.data.message)
+        setLoading(false);
+
+    } catch (error) {
+        
+        console.log(error.response);
+        setErrorMessage(error.response.data.message);
+        setLoading(false);
+    }    
+}
 
   return (
     <div className="blog-page">
@@ -257,12 +302,25 @@ const WriteBlogPage = () => {
               <MarkdownComponent body={text} />
             </div>
           )}
+
         </div>
-        <button className="btn btn-warning mb-2"
-            onClick={handleSubmit}>
-            {loading && <span className="loading loading-spinner"></span>}
-            Publish
-        </button>
+
+        <div className="flex p-2 justify-end items-center bg-gray-200">
+        { isEditing ? 
+            <button className="btn btn-warning mb-2"
+              onClick={handleEditing}>
+              {loading && <span className="loading loading-spinner"></span>}
+              Save Edit
+            </button>
+            : 
+            <button className="btn btn-success text-white mb-2"
+              onClick={handleSubmit}>
+              {loading && <span className="loading loading-spinner"></span>}
+              Create Blog
+            </button> 
+          }
+        </div>
+
       </div>
       {errorMessage && <ErrorDialog message={errorMessage}/>}
       {successMessage && <SuccessDialog message={successMessage}/>}
