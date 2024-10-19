@@ -10,6 +10,7 @@ const commentRoutes = require('./routes/comment.js');
 const replyRoutes = require('./routes/reply.js');
 const getCommentsRoutes = require('./routes/getComments.js');
 const getReplysRoutes = require('./routes/getReplys.js');
+const bodyParser = require('body-parser');
 
 const setupSwagger = require('./utils/swaggerui.js');
 const cors = require('cors');
@@ -21,7 +22,10 @@ app.use(cors({
   origin: 'http://localhost:5173', // Allow requests from the React frontend
 }));
 
-app.use(express.json());
+
+// OR if using express' own middleware (no body-parser)
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ limit: '1mb', extended: true }));
 setupSwagger(app);
 
 const PORT = process.env.PORT;

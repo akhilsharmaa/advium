@@ -17,6 +17,7 @@ const WriteBlogPage = () => {
   const [text, setText] = useState("");
   const [activeTab, setActiveTab] = useState('tab1');
   const [loading,   setLoading] = useState(false);
+  const [titleInput,   setTitleInput] = useState("This is Title of the Blog");
   const [thumbnailImageSrc, setThumbnailImageSrc] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
@@ -102,8 +103,11 @@ const WriteBlogPage = () => {
       setSuccessMessage(null);
     
       const requestData = {
-        name: "John Doe",
-        email: "john@example.com",
+        title: titleInput, 
+        tags: [], 
+        markdown_body: text,
+        thumbnailBase64: thumbnailImageSrc, 
+        secondaryThumbnailBase64 : thumbnailImageSrc
       };
   
       try {
@@ -111,27 +115,29 @@ const WriteBlogPage = () => {
           const response = await axios.post(`${HOST}/write/new`, requestData, {
             headers: {
               "Content-Type": "application/json",
+              "Authorization": `Bearer ${localStorage.getItem("authToken")}`, 
             },
           });
 
-          setSuccessMessage(response.response.data.message)
+          console.log(response);
+          setSuccessMessage(response.data.message)
+          setLoading(false);
 
       } catch (error) {
           
           console.log(error.response);
           setErrorMessage(error.response.data.message);
-
+          setLoading(false);
       }
   
     
-      setLoading(false);
   }
 
   return (
     <div className="blog-page">
 
       {errorMessage && <ErrorDialog message={errorMessage}/>}
-      {successMessage && <SuccessDialog message={errorMessage}/>}
+      {successMessage && <SuccessDialog message={successMessage}/>}
       
       {/* <errorDialog></errorDialog> */}
       <div className='thumbnail-container'>

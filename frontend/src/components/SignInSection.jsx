@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from "axios";
 import ErrorDialog from './micro-components/ErrorDialog';
 import SuccessDialog from './micro-components/SuccessDialog';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const HOST = "http://localhost:3000"; 
 
 const SignInSection = () => {
+
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const [isSignIn, setIsSignIn] = useState(true);
   const [password, setPassword] = useState('');
@@ -59,6 +62,12 @@ const SignInSection = () => {
         console.log(message);
         setSuccessMessage(message);
 
+      // Wait for 1 second (1000 milliseconds) before redirecting
+        setTimeout(() => {
+          navigate('/home'); // Redirect after 1 second
+        }, 1000);// Redirect after 1 second
+
+
     } catch (error) {
         
         console.log(error.response);
@@ -100,6 +109,10 @@ const SignInSection = () => {
         console.log(message);
         setSuccessMessage(message);
         
+        // Wait for 1 second (1000 milliseconds) before redirecting
+        setTimeout(() => {
+          navigate('/home'); // Redirect after 1 second
+        }, 1000);
 
     } catch (error) {
         
