@@ -71,6 +71,14 @@ router.post('/signup', async (req, res) => {
     
     try {
       await newUser.save();
+
+      return res.status(200).json(
+        { 
+          "message": "user registered successfully", 
+          "token": newUser.generateAuthToken()
+        }
+      );
+
     } catch (error) {
 
       console.error('Error creating user:', error);
@@ -81,12 +89,6 @@ router.post('/signup', async (req, res) => {
       return res.status(400).send(formattedError); 
     }
 
-    return res.status(200).json(
-      { 
-        "message": "user registered successfully", 
-        "token": newUser.generateAuthToken()
-      }
-    );
 });
 
 
