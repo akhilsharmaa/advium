@@ -4,15 +4,22 @@ import './css/WriteBlogPage.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faEye } from '@fortawesome/free-solid-svg-icons'; // Import icons
 import Markdown from 'react-markdown';
-
 import {useCallback} from 'react'
 import {useDropzone} from 'react-dropzone'
+import axios from "axios";
+import ErrorDialog from './micro-components/ErrorDialog';
+import SuccessDialog from './micro-components/SuccessDialog';
+
+const HOST = "http://localhost:3000"; 
 
 const WriteBlogPage = () => {
 
   const [text, setText] = useState("");
   const [activeTab, setActiveTab] = useState('tab1');
+  const [loading,   setLoading] = useState(false);
   const [thumbnailImageSrc, setThumbnailImageSrc] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const lineHeight = 20, totalLines = 60;
   const textareaHeight = totalLines * lineHeight;
@@ -88,9 +95,45 @@ const WriteBlogPage = () => {
 
   const {getRootProps, getInputProps} = useDropzone({onDrop})
 
+  const handleSubmit = async () => {      
+
+      setLoading(true);
+      setErrorMessage(null);
+      setSuccessMessage(null);
+    
+      const requestData = {
+        name: "John Doe",
+        email: "john@example.com",
+      };
+  
+      try {
+
+          const response = await axios.post(`${HOST}/write/new`, requestData, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+
+          setSuccessMessage(response.response.data.message)
+
+      } catch (error) {
+          
+          console.log(error.response);
+          setErrorMessage(error.response.data.message);
+
+      }
+  
+    
+      setLoading(false);
+  }
+
   return (
     <div className="blog-page">
 
+      {errorMessage && <ErrorDialog message={errorMessage}/>}
+      {successMessage && <SuccessDialog message={errorMessage}/>}
+      
+      {/* <errorDialog></errorDialog> */}
       <div className='thumbnail-container'>
         {thumbnailImageSrc ? (
           <div  {...getRootProps()} className="image-wrapper">
@@ -138,11 +181,11 @@ const WriteBlogPage = () => {
         </button>
         </div>
 
-        <div className="tab-content">
+        <div >
           {activeTab === 'tab1' && (
             <textarea
               value={text}
-              id="writingArea"
+              id="writinsgArea"
               onChange={(e) => setText(e.target.value)}
               style={{
                 height: `${textareaHeight}px`,
@@ -159,7 +202,14 @@ const WriteBlogPage = () => {
             </div>
           )}
         </div>
+        <button className="btn btn-warning mb-2"
+            onClick={handleSubmit}>
+            {loading && <span className="loading loading-spinner"></span>}
+            Publish
+        </button>
       </div>
+      {errorMessage && <ErrorDialog message={errorMessage}/>}
+      {successMessage && <SuccessDialog message={successMessage}/>}
     </div>
   );
 };

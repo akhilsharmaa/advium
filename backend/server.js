@@ -12,9 +12,15 @@ const getCommentsRoutes = require('./routes/getComments.js');
 const getReplysRoutes = require('./routes/getReplys.js');
 
 const setupSwagger = require('./utils/swaggerui.js');
+const cors = require('cors');
 
 
 const app = express();
+
+app.use(cors({
+  origin: 'http://localhost:5173', // Allow requests from the React frontend
+}));
+
 app.use(express.json());
 setupSwagger(app);
 
