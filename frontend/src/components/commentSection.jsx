@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 import ErrorDialog from './micro-components/ErrorDialog';
 import SuccessDialog from './micro-components/SuccessDialog';
+import CommentBody from './micro-components/CommentBody';
 import Loading from './micro-components/Loading';
 import './css/comments.css'
 
@@ -38,41 +39,45 @@ const initialComments = [
 // eslint-disable-next-line react/prop-types
 function CommentSection({ blogid }) {
 
-  const [comments, setComments] = useState(initialComments);
+  const [comments, setComments] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [currentBlogId, setCurrentBlogId] = useState(blogid);
   const [commentLoading, setCommentLoading] = useState(null);
   const [commentSubmitLoading, setCommentSubmitLoading] = useState(false);
-  const [commentTextInput, setCommentTextInput] = useState(null);
+  const [commentTextInput, setCommentTextInput] = useState("");
 
   useEffect(() => {
-    console.log("comment section blogid:", blogid);
     setCurrentBlogId(blogid);
-    fetchCommetsComments();
-  }, []);
+    fetchComments(blogid);
+  }, [blogid]);
 
-  const fetchCommetsComments = async () => {
-
-    if (blogid === undefined || blogid === null || blogid === "")return;
+  
+  const fetchComments = async (blogid) => {
+    setCommentLoading(true);
 
     try {
 
-      const response = await axios.get(`${HOST}/blog`, {
+      const response = await axios.get(`${HOST}/comments`, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${localStorage.getItem("authToken")}`,
-          "blog": `${blogid}`,
+          "blog": blogid,
         },
       });
 
+
+      console.log("response.data: ", response.data);
+
+      setComments(response.data);
       // setSuccessMessage(response.data.message)
+      setCommentLoading(false);
 
     } catch (error) {
-
-      console.log(error.response);
-      setErrorMessage(error.response.data.message);
-
+      
+      console.log(error);
+      // setErrorMessage(error.response.data);
+      setCommentLoading(false);
     }
 
   }
@@ -138,47 +143,22 @@ function CommentSection({ blogid }) {
       <div className="divider"></div>
 
       {/* Comment List */}
-      <div className="space-y-4">
-        {comments.map((comment) => (
-          <div key={comment.id} className="card bg-base-100 shadow-md p-4">
-            <div className="flex justify-between items-center mb-2">
-              <span className="font-bold">{comment.username}</span>
-              <span className="text-sm text-gray-500">Likes: {comment.likes}</span>
-            </div>
-            <p>{comment.text}</p>
-            <div className="mt-2">
-              <button
-                className="btn btn-sm btn-outline"
-                // onClick={() => handleLike(comment.id)}
-              >
-                Like
-              </button>
-            </div>
 
-            {/* Replies */}
-            {comment.replies.length > 0 && (
-              <div className="mt-4 space-y-2">
-                {comment.replies.map((reply) => (
-                  <div key={reply.id} className="ml-8 card bg-base-200 shadow-sm p-3">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="font-bold">{reply.username}</span>
-                      <span className="text-sm text-gray-500">Likes: {reply.likes}</span>
-                    </div>
-                    <p>{reply.text}</p>
-                    <button className="btn btn-sm btn-outline mt-2">
-                      Like
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+      {comments ? 
+         <div className="space-y-4">
+        {comments.map((comment) => (
+          <CommentBody key={comment._id} 
+              id={comment._id}
+              firstName={comment.authorFirstName}
+              lastName={comment.authorLastName}
+              content={comment.content} 
+              time={comment.time}
+          />
         ))}
       </div>
-    </div>
-
+      : <span className='loading'> </span>}
     
-
+    </div>
     </div>
   );
 };

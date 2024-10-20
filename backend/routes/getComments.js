@@ -48,14 +48,16 @@ const router = express.Router();
  *         description: Internal server error.
  */
 router.get('/comments', async (req, res) => {
-    logger.info(`NEW GET REQUEST: /comments`);
+
+    var blogIdValue = req.headers['blog'];  
+    logger.info(`NEW GET REQUEST: /comments for ${blogIdValue}`);
+
+    var blog = await Blog.findById(blogIdValue); // Check if the blog exists
+    if (!blog) 
+        return res.status(401).send({ "message": "Invalid Blog!" });
+
     
     try { 
-        var blogIdValue = req.headers['blog'];  
-
-        var blog = await Blog.findById(blogIdValue); // Check if the blog exists
-        if (!blog) 
-            return res.status(401).send({ "message": "Invalid Blog!" });
 
     } catch (err) {
         logger.error(err);
