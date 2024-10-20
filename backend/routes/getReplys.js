@@ -48,9 +48,8 @@ const router = express.Router();
  *         description: Internal server error.
  */
 router.get('/replys', async (req, res) => {
-    logger.info(`NEW GET REQUEST: /comments`);
-
-    var parentCommentIdValue = req.headers['parentCommentOrReplyId'];  
+    var parentCommentIdValue = req.headers['parentcommentid'];  
+    logger.info(`NEW GET REQUEST: /replys of ${parentCommentIdValue}`);
     
     try {
 

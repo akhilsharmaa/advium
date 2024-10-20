@@ -6,16 +6,19 @@ import SuccessDialog from './SuccessDialog';
 const HOST = "http://localhost:3000";
 
 // eslint-disable-next-line react/prop-types
-function CommentBody({id, author, firstName, lastName, content, time }) {
+function CommentBody({_id, author, firstName, lastName, content, time }) {
 
   const [isReplyDialogOpen, setIsReplyDialogOpen] = useState(false);
   const [replyTextInput, setReplyTextInput] = useState("");
+  const [replys, setReplys] = useState(null);
+  const [replysLoading, setReplysLoading] = useState(false);
   const [replySubmitLoading, setReplySubmitLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   
   const handleOnReplyButton = () => {
       setIsReplyDialogOpen(!isReplyDialogOpen); 
+      fetchReplys(_id);
   }
 
   const handleSubmitNewReply = async ()  => {
@@ -25,7 +28,7 @@ function CommentBody({id, author, firstName, lastName, content, time }) {
       setSuccessMessage(null);
 
       const requestData = {
-          "parentCommentOrReplyId": id,
+          "parentCommentOrReplyId": _id,
           "comment": replyTextInput
       };
 
@@ -41,6 +44,7 @@ function CommentBody({id, author, firstName, lastName, content, time }) {
         setSuccessMessage(response.data.message)
         setReplySubmitLoading(false)
         setReplyTextInput("");
+        fetchReplys(_id);
 
       } catch (error) {
 
@@ -50,14 +54,50 @@ function CommentBody({id, author, firstName, lastName, content, time }) {
       }
   }
 
+  const fetchReplys = async (commentOrReplyId) => {
+
+    setReplysLoading(true);
+
+    try {
+
+      console.log("fetchReplys: _id:", _id);
+      console.log("fetchReplys: commentOrReplyId: ", commentOrReplyId);
+      
+
+      const response = await axios.get(`${HOST}/replys`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("authToken")}`,
+          "parentcommentid": commentOrReplyId,
+        },
+      });
+
+
+      console.log("response.data: ", response.data);
+      setReplys(response.data.body);
+      setReplysLoading(false);
+
+    } catch (error) {
+      
+      console.log(error);
+      setErrorMessage(error.response.data);
+      setReplysLoading(false);
+    }
+
+  }
+
   return (
 
     <div className="ml-10 max mx text-black">
+        <div className='divider'></div>
+
         <div className="flex items-center justify-between ">
           <div>
             <h2 className="text-lg font-semibold text-gray-700">
               {firstName} {lastName}
+              <span className=' ml-6 text-gray-400 text-xs'>{_id}</span>
             </h2>
+            
             <p className="text-sm text-gray-500">{author}</p>
           </div>
           <p className="text-sm text-gray-400">{time}</p>
@@ -78,6 +118,19 @@ function CommentBody({id, author, firstName, lastName, content, time }) {
         {errorMessage && <ErrorDialog message={errorMessage} />}
         {successMessage && <SuccessDialog message={successMessage} />}
 
+
+        {isReplyDialogOpen && replys && 
+          replys.map((reply) => (
+            <CommentBody key={reply._id} 
+                _id={reply._id}
+                firstName={reply.authorFirstName}
+                lastName={reply.authorLastName}
+                content={reply.content} 
+                time={reply.time}
+            />
+          ))
+        }
+
         {/* Add Reply Section */}
         {isReplyDialogOpen && 
           <div className="flex items-center ml-10 mb-4 space-x-4">
@@ -89,12 +142,10 @@ function CommentBody({id, author, firstName, lastName, content, time }) {
               onClick={handleSubmitNewReply}> 
               Comment {replySubmitLoading && <span className="loading "></span>  }
             </button>
-
           </div>
         }
         
 
-        <div className='divider'></div>
     </div>
   );
 }

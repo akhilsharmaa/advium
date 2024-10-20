@@ -120,7 +120,7 @@ function CommentSection({ blogid }) {
          <div className="space-y-4">
         {comments.map((comment) => (
           <CommentBody key={comment._id} 
-              id={comment._id}
+              _id={comment._id}
               firstName={comment.authorFirstName}
               lastName={comment.authorLastName}
               content={comment.content} 
