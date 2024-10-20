@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 function SuccessDialog({ message }) {
   return (
-    <div role="alert" className="alert alert-success my-5">
+    <div role="alert" className="alert text-white alert-success my-5">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-6 w-6 shrink-0 stroke-current"

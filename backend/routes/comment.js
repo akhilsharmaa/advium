@@ -47,7 +47,7 @@ const router = express.Router();
  */
 
 router.post('/comment', authenticateJWT, async (req, res) => {
-    logger.info(`NEW REQUEST: /comment by ${req.body.userid}`)
+    logger.info(`NEW REQUEST: /comment by ${req.body.userid} for ${req.body.blogId}`)
     
 
     //** Checking User: if the blog exist or not in the database */
