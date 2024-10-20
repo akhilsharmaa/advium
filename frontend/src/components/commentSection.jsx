@@ -9,33 +9,6 @@ import './css/comments.css'
 
 const HOST = "http://localhost:3000";
 
-
-// Sample comment data
-const initialComments = [
-  {
-    id: 1,
-    username: 'JohnDoe',
-    text: 'This is an awesome video!',
-    likes: 10,
-    replies: [
-      {
-        id: 11,
-        username: 'JaneDoe',
-        text: 'Totally agree!',
-        likes: 5,
-      }
-    ]
-  },
-  {
-    id: 2,
-    username: 'User123',
-    text: 'Great content as always!',
-    likes: 7,
-    replies: []
-  }
-];
-
-
 // eslint-disable-next-line react/prop-types
 function CommentSection({ blogid }) {
 
@@ -70,7 +43,6 @@ function CommentSection({ blogid }) {
       console.log("response.data: ", response.data);
 
       setComments(response.data);
-      // setSuccessMessage(response.data.message)
       setCommentLoading(false);
 
     } catch (error) {
