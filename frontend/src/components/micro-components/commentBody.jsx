@@ -14,7 +14,6 @@ function CommentBody({_id, author, firstName, lastName, content, time }) {
   const [replysLoading, setReplysLoading] = useState(false);
   const [replySubmitLoading, setReplySubmitLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null);
   
   const handleOnReplyButton = () => {
       setIsReplyDialogOpen(!isReplyDialogOpen); 
@@ -25,7 +24,6 @@ function CommentBody({_id, author, firstName, lastName, content, time }) {
       
       setReplySubmitLoading(true);
       setErrorMessage(null);
-      setSuccessMessage(null);
 
       const requestData = {
           "parentCommentOrReplyId": _id,
@@ -41,7 +39,6 @@ function CommentBody({_id, author, firstName, lastName, content, time }) {
           },
         });
 
-        setSuccessMessage(response.data.message)
         setReplySubmitLoading(false)
         setReplyTextInput("");
         fetchReplys(_id);
@@ -88,8 +85,8 @@ function CommentBody({_id, author, firstName, lastName, content, time }) {
 
   return (
 
-    <div className="ml-10 max mx text-black">
-        <div className='divider'></div>
+    <div className="ml-10 bg-white border-l-2 pl-6 pr-4 pt-4 border-indigo-500 max mx text-black">
+        {/* <div className='divider'></div> */}
 
         <div className="flex items-center justify-between ">
           <div>
@@ -107,17 +104,37 @@ function CommentBody({_id, author, firstName, lastName, content, time }) {
           <p className="text-xl text-gray-800 leading-relaxed">{content}</p>
         </div>
 
-        <div className='flex justify-end mb-4'>
-          <button className='font-bold flex items-center justify-center py-2 bg-white rounded-full'
-            onClick={handleOnReplyButton}>
-            <img src="https://www.kindpng.com/picc/m/25-258178_dropdown-icon-png-free-download-arrow-down-icon.png" className='w-8 pr-2' ></img>
-            <span className='text-blue-600'>Reply</span>
-          </button>
-        </div>
+        { !isReplyDialogOpen && 
+          <div className='flex justify-start pb-4'>
+            <button className='font-bold flex items-center justify-center bg-white p-0'
+              onClick={handleOnReplyButton}>
+              <img src="https://www.kindpng.com/picc/m/25-258178_dropdown-icon-png-free-download-arrow-down-icon.png" 
+                className='w-8 pr-2' >
+              </img>
+              <span className='text-blue-600'>Reply</span>
+            </button>
+          </div>
+        }
+
+        {/* Add Reply Section */}
+        {isReplyDialogOpen && 
+          <div className="flex items-center mt-2 mb-4  space-x-4">
+            <input type="text" placeholder="Add a public comment..."
+              className="input bg-white input-bordered w-full"
+              onChange={(e) => setReplyTextInput(e.target.value)} 
+              value={replyTextInput}/>
+            <button className="btn btn-primary" 
+              onClick={handleSubmitNewReply}> 
+              Comment {replySubmitLoading && <span className="loading "></span>  }
+            </button>
+            <button className="btn btn-circle" 
+              onClick={handleOnReplyButton}> X 
+            </button>
+          </div>
+        }
+
 
         {errorMessage && <ErrorDialog message={errorMessage} />}
-        {successMessage && <SuccessDialog message={successMessage} />}
-
 
         {isReplyDialogOpen && replys && 
           replys.map((reply) => (
@@ -131,19 +148,6 @@ function CommentBody({_id, author, firstName, lastName, content, time }) {
           ))
         }
 
-        {/* Add Reply Section */}
-        {isReplyDialogOpen && 
-          <div className="flex items-center ml-10 mb-4 space-x-4">
-            <input type="text" placeholder="Add a public comment..."
-              className="input bg-white input-bordered w-full"
-              onChange={(e) => setReplyTextInput(e.target.value)} 
-              value={replyTextInput}/>
-            <button className="btn btn-primary" 
-              onClick={handleSubmitNewReply}> 
-              Comment {replySubmitLoading && <span className="loading "></span>  }
-            </button>
-          </div>
-        }
         
 
     </div>
