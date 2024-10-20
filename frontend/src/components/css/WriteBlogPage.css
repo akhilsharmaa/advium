@@ -88,6 +88,18 @@
     line-height: 1.6;
   }
   
+  .markdown-preview-viewing {
+    text-align: left; /* Ensures text is left-aligned */
+    /* Keep the rest of your styling */
+    position: relative;
+    width: 100%;
+    background-color: #f8f9fa;
+    border: 0px solid #ddd;
+    padding: 40px;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+  }
   
   .markdown-preview h1, 
   .markdown-preview h2, 

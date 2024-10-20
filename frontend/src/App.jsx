@@ -7,6 +7,7 @@ import './App.css'
 import Home from './components/Home';
 import SignInSection from './components/SignInSection';
 import WriteBlogPage from './components/WriteBlogPage'
+import ViewBlog from './components/ViewBlog'
 // import Dashboard from './components/Dashboard';
 // import NotFound from './components/NotFound';
 
@@ -41,6 +42,14 @@ function App() {
               </PrivateRoute>
             }
           />
+
+          <Route
+            path="/blog"
+            element={
+                <ViewBlog />
+            }
+          />
+
 
           {/* Catch all other routes */}
           {/* <Route path="*" element={<NotFound />} /> */}

@@ -17,10 +17,7 @@ import { useLocation } from 'react-router-dom';
 const HOST = "http://localhost:3000"; 
 
 const WriteBlogPage = () => {
-
-  const navigate = useNavigate(); // Initialize useNavigate
-  const { blogid } = useLocation();
-
+  
   const [text, setText] = useState("");
   const [activeTab, setActiveTab] = useState('tab1');
   const [loading,   setLoading] = useState(false);
