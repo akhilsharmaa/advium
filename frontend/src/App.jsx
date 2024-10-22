@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import './App.css'
 
 // Importing Components
-import Home from './components/Home';
+import Home from './pages/Home';
 import SignInSection from './components/SignInSection';
 import WriteBlogPage from './components/WriteBlogPage'
 import ViewBlog from './components/ViewBlog'

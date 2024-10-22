@@ -1,0 +1,33 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap');
+
+  
+.blog-heading {
+    font-family: "Newsreader", serif;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 600; 
+
+}
+  
+
+.blog-description {
+    font-family: "Newsreader", serif;
+    font-size: 1rem;
+    line-height: 1.3rem;
+    font-weight: 400; 
+}
+  
+  .blog-card .medium-tag {
+    font-family: "Newsreader", serif;
+}
+  
+  .blog-card .author-info {
+    font-family: "Newsreader", serif;
+    font-weight: 700;
+  }
+  
+  .blog-card .date {
+    font-family: "Newsreader", serif;
+    font-weight: 400;
+  }
