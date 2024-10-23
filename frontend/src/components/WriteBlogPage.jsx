@@ -24,7 +24,7 @@ const WriteBlogPage = () => {
   const [isFetchingBlog,   setIsFetchingBlog] = useState(false);
   const [blogId, setBlogId] = useState(null);
   const [isEditing,   setIsEditing] = useState(false);
-  const [titleInput,   setTitleInput] = useState("This is Title of the Blog");
+  const [titleInput,   setTitleInput] = useState("");
   const [thumbnailImageSrc, setThumbnailImageSrc] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
@@ -34,7 +34,6 @@ const WriteBlogPage = () => {
 
   useEffect(() => {
       getBlogDetails();
-      setText(HELLO_USER_MARKDOWN);
   }, []);
 
   const handleTabClick = (tab) => {
@@ -257,7 +256,7 @@ const WriteBlogPage = () => {
 
       <input 
              type="text" placeholder="Your Blog Title..." 
-             className="input text-2xl text-bold input-bordered w-full max-w p-8 my-4"
+             className="input text-2xl text-bold bg-white input-bordered w-full max-w p-8 my-4"
              onChange={(e) => setTitleInput(e.target.value)}
              value={titleInput}
       />
@@ -279,11 +278,11 @@ const WriteBlogPage = () => {
         </button>
         </div>
 
-        <div >
+        <div id='editor-area'>
           {activeTab === 'tab1' && (
             <textarea
               value={text}
-              id="writinsgArea"
+              id="writingArea"
               onChange={(e) => setText(e.target.value)}
               style={{
                 height: `${textareaHeight}px`,

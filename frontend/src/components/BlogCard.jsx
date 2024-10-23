@@ -12,7 +12,7 @@ const BlogCard = ({ image, title, text, authorImage, authorName, date }) => {
   text = text.substring(0, TEXT_LEN) + textsuff;
 
   return (
-    <article className="bg-white text-start rounded-lg shadow-lg overflow-hidden transform transition flex flex-col h-full">
+    <article className="text-start overflow-hidden transform transition flex flex-col h-full">
       {/* Image Section */}
       <div className="relative overflow-hidden">
         {/* Medium Logo and Text */}
@@ -38,10 +38,10 @@ const BlogCard = ({ image, title, text, authorImage, authorName, date }) => {
       </div>
 
       {/* Content Section */}
-      <div className="flex flex-col justify-between flex-grow p-4 bg-white">
+      <div className="blogcard-footer flex flex-col justify-between flex-grow bg-white">
         <div>
           <a href="#">
-            <h3 className="blog-heading text-gray-800 hover:text-orange-600 transition mb-2 font-semibold">
+            <h3 className="blog-heading transition mb-2 font-semibold">
               {title}
             </h3>
           </a>
@@ -52,7 +52,7 @@ const BlogCard = ({ image, title, text, authorImage, authorName, date }) => {
         </div>
 
         {/* Footer Section */}
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between pb-2 items-center">
           {/* Author Info */}
           <div className="flex items-center">
             <img

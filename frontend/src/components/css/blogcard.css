@@ -2,14 +2,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap');
 
   
+article{
+    border: 2px solid #bebebe;
+    border-radius: 10px;
+}
+
+article:hover{
+  border: 2px solid #000000;
+  border-radius: 10px;
+}
+
+article img{
+  border-bottom: 2px solid #bebebe;
+}
+
 .blog-heading {
     font-family: "Newsreader", serif;
     font-size: 1.5rem;
-    line-height: 2rem;
+    line-height: 1.75rem;
     font-weight: 600; 
-
+    color: #000000;
 }
   
+.blog-heading:hover {
+    color: #282828;
+
+}
+
+.blogcard-footer {
+  padding: 0.75rem 1.25rem;
+}
 
 .blog-description {
     font-family: "Newsreader", serif;

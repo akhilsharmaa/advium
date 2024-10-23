@@ -20,7 +20,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ['./routes/*.js', './models/*.js'], // Path to the API docs in the routes folder
+  apis: [ './routes/blogs/*.js', './routes/*.js',  './models/*.js', ], // Path to the API docs in the routes folder
 };
 
 // Initialize Swagger-JSDoc
