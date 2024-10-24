@@ -5,12 +5,15 @@ var asyncHandler = require("express-async-handler");
 const bcrypt = require('bcrypt');
 const cors = require('cors');
 const authenticateJWT = require('../middleware/jwt');
+const { createClient } = require('redis');
 
 
 const router = express.Router();
+const redisClient = createClient();
+
 require('dotenv').config()
 
-const connect = async () => {
+const connectMongoDB = async () => {
   try{
     mongoose.connect(process.env.MONGODB_URL);
     console.log("[🦊] MongoDB Atlas connected");
@@ -18,8 +21,21 @@ const connect = async () => {
     console.log(err);
   }
 }
-connect();
 
+
+const connectRedis = async () => {
+  try{    
+    redisClient.on('error', err => console.log('Redis Client Error', err));
+    await redisClient.connect();
+    console.log("[🐸] Redis connected");
+
+  }catch(err){
+    logger.error(err);
+  }
+}
+
+connectMongoDB();
+connectRedis();
 
 /**
  * @swagger
