@@ -2,98 +2,100 @@ import BlogCard from "../components/BlogCard"
 import '../App.css';
 import { useState, useEffect } from 'react';
 import axios from "axios";
+import "../components/css/home.css"
 
 const HOST = "http://localhost:3000";
 
 function Home() {
-
-    const [blogs, setBlogs] = useState([]);
-  
-    useEffect(() => {
-      fetchBlogsByDate();
-    }, []);
-
-  const fetchBlogsByDate = async () => {
-
-    try {
-
-      const result = await axios.get(`${HOST}/blogs/sortbytime`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
       
-      console.log(result.data.body);
-      setBlogs(result.data.body);
+      const [loadedBlogCount, setLoadedBlogCount] = useState(0);
+      const [data, setData] = useState([]);
+      const [loading, setLoading] = useState(false);
 
-      let tempBlog = result.data.body; 
-      let final = [];
-      tempBlog.map((blog, index) => {
-          final.push({
-              title : blog.title, 
-              text : blog.markdown_body, 
-              image: 'https://i.postimg.cc/Zq6vZ4D1/drawers.jpg',
-              authorImage: 'https://i.postimg.cc/GmLb9r2W/avatar-michelle.jpg',
-              authorName: 'Akhilesh Sharma',
-              date: blog.time
-          }); 
-      });
+      const fetchBlogsList = async () => {
 
-      console.log(tempBlog);
-      setBlogs(final);
+        const result = await axios.get(`${HOST}/blogs/sortbytime`, {
+          headers: {
+            "Content-Type": "application/json",
+            "skip" : `${loadedBlogCount}`
+          },
+        });
+        
+        // console.log(result.data.body);
+        setData((prevData) => [...prevData, ...result.data.body]);
+        setLoading(false);
+      };
 
-    } catch (error) {
+      useEffect(() => {
+        setLoading(true);
+      }, []);
 
-      console.log(error);
+      useEffect(() => {
+        if (loading == true) {
+          fetchBlogsList();
+          setLoadedBlogCount((prevCount) => prevCount + 6);
+        }
+      }, [loading]);
+      
+      const handleScroll = () => {
+        if (document.body.scrollHeight - 300 < window.scrollY + window.innerHeight) {
+          setLoading(true);
+        }
+      };
 
-    }
-  } 
+      function debounce(func, delay) {
+        let timeoutId;
+        return function (...args) {
+          if (timeoutId) {
+            clearTimeout(timeoutId);
+          }
+          timeoutId = setTimeout(() => {
+            func(...args);
+          }, delay);
+        };
+      }
 
-  // blogs = [
-  //   {
-  //     image: 'https://i.postimg.cc/Zq6vZ4D1/drawers.jpg',
-  //     title: 'Shift the overall look and feel by adding these wonderful touches to furniture in your home',
-  //     text: `Ever been in a room and felt like something was missing? Perhaps it felt slightly bare and uninviting. I've got some simple tips to help you make any room feel complete.`,
-  //     authorImage: 'https://i.postimg.cc/GmLb9r2W/avatar-michelle.jpg',
-  //     authorName: 'Akhilesh Sharma',
-  //     date: '17 Oct 2024',
-  //   },
-  //   {
-  //     image: 'https://cdn-images-1.medium.com/max/2400/1*PhE4MapvxsuKXJ3Z6O4Ijg.jpeg',
-  //     title: 'Learning Javascript in Depth after learning it casually.',
-  //     text: `My journey of learning the javascript in depth. I'm following this udemy course "The Complete JavaScript Course 2024 -by Jonas Schmedtmann"`,
-  //     authorImage: 'https://i.postimg.cc/GmLb9r2W/avatar-michelle.jpg',
-  //     authorName: 'Jane Smith',
-  //     date: '20 Oct 2024',
-  //   },
-  //   {
-  //     image: 'https://i.postimg.cc/Zq6vZ4D1/drawers.jpg',
-  //     title: 'Enhance your kitchen with modern decor',
-  //     text: `A kitchen is more than a place to cook—make it a beautiful and functional space.`,
-  //     authorImage: 'https://i.postimg.cc/GmLb9r2W/avatar-michelle.jpg',
-  //     authorName: 'Chris Johnson',
-  //     date: '22 Oct 2024',
-  //   },
-  // ];
+      window.addEventListener("scroll", debounce(handleScroll, 500));
 
-  return (
-    <div className="min-h-screen bg-gray-100 p-5">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5">
-        {blogs.map((blog, index) => (
-          <BlogCard
-            key={index}
-            image={blog.image}
-            title={blog.title}
-            text={blog.text}
-            authorImage={blog.authorImage}
-            authorName={blog.authorName}
-            date={blog.date}
-          />
-        ))}
-      </div>
-    </div>
-  );
-  
+      return (
+        <home className="flex justify-center">
+          <div className=" min-h-screen w-full lg:w-4/5">
+
+
+          {/* GLOBAL SEARCH */}
+          <div className="bg-blue-00 rounded-md">
+            <div className="container h-96 w-full flex justify-center items-center">
+                <div>
+                    <p className="text-start text-gray-300 pl-8 pb-2 text-sm">Utilizing <span className="text-red-300">ElasticSearch </span>  </p>
+                    <input type="text" 
+                            id="global-searchbar"
+                            className="rounded z-0 focus:shadow focus:outline-none" 
+                            placeholder="Search anything..." />
+                    <div className="absolute top-4 right-3">
+                        <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
+                    </div>
+                </div>
+              </div>
+          </div>
+
+          <div className="grid grid-cols-1 mt-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+              {data.map((blog, index) => (
+                <BlogCard
+                  key={index}
+                  image={blog.image}
+                  title={blog.title}
+                  text={blog.markdown_body}
+                  authorImage={blog.authorImage}
+                  authorName={blog.authorName}
+                  date={blog.time}
+                />
+              ))}
+            </div>
+            {loading && <p className="loading loading-lg m-10  p-10"></p>}
+          </div>
+        </home>
+      );
 }
+
 
 export default Home

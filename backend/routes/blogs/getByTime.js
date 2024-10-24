@@ -57,7 +57,8 @@ router.get('/sortbytime', async (req, res) => {
             null,  
             {   
                 skip:  countOfFirstBlogsToSkip,  // no of blogs to skip 
-                limit: countOfNextBlogsToFetch   // no of blogs to fetch after skiping 
+                limit: countOfNextBlogsToFetch,  // no of blogs to fetch after skiping 
+                sort: { time: -1 }              // sort by "time" in descending order (-1 for descending, 1 for ascending)
             }
         );
 

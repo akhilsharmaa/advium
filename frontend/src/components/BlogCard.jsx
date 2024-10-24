@@ -11,6 +11,11 @@ const BlogCard = ({ image, title, text, authorImage, authorName, date }) => {
   title = title.substring(0, TITLE_LEN) + titlesuff;
   text = text.substring(0, TEXT_LEN) + textsuff;
 
+  const publishdate = new Date(date); 
+  const options = { day: 'numeric', month: 'short', year: 'numeric' };
+  const formattedDate = publishdate.toLocaleDateString('en-GB', options); 
+
+
   return (
     <article className="text-start overflow-hidden transform transition flex flex-col h-full">
       {/* Image Section */}
@@ -66,7 +71,7 @@ const BlogCard = ({ image, title, text, authorImage, authorName, date }) => {
                   {authorName}
                 </h4>
               </a>
-              <p className="text-gray-400 text-sm">{date}</p>
+              <p className="text-gray-400 text-sm">{formattedDate}</p>
             </div>
           </div>
 
