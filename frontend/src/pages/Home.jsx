@@ -21,7 +21,8 @@ function Home() {
           },
         });
         
-        // console.log(result.data.body);
+        console.log(result.data.message);
+        console.log(result.data.body);
         setData((prevData) => [...prevData, ...result.data.body]);
         setLoading(false);
       };
@@ -84,7 +85,7 @@ function Home() {
                   key={index}
                   image={blog.image}
                   title={blog.title}
-                  text={blog.markdown_body}
+                  text={blog.title}
                   authorImage={blog.authorImage}
                   authorName={blog.authorName}
                   date={blog.time}
