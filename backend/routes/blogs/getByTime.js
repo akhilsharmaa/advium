@@ -7,7 +7,10 @@ const {blogCardObject, listOfBlogsByDateObject} = require("../../constants/redis
 // const {deserializer} = require("../../utils/redis/deserializer.js")
 
 const router = express.Router();
-const redisClient = createClient();
+const redisClient = createClient({
+    url: process.env.REDIS_URL || "redis://redis-server:6379",
+});
+
 
 const expiryInSeconds = 60; 
 

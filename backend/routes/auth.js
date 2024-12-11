@@ -9,7 +9,9 @@ const { createClient } = require('redis');
 
 
 const router = express.Router();
-const redisClient = createClient();
+const redisClient = createClient({
+  url: process.env.REDIS_URL || "redis://redis-server:6379",
+});
 
 require('dotenv').config()
 
