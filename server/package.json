@@ -21,6 +21,8 @@
   },
   "dependencies": {
     "@types/cors": "^2.8.17",
-    "cors": "^2.8.5"
+    "@types/morgan": "^1.9.9",
+    "cors": "^2.8.5",
+    "morgan": "^1.10.0"
   }
 }
