@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int        @id @default(autoincrement())
+  email      String     @unique
+  name       String
+  username   String
+  password   String
+  created_at DateTime   @default(now())
+  posts      Post[]
+  reactions  Reaction[]
+}
+
+model Image {
+  id         Int      @id @default(autoincrement())
+  url        String
+  created_at DateTime @default(now())
+  posts      Post[]
+}
+
+enum PostStatusEnum {
+  PUBLIC
+  PRIVATE
+}
+
+model Post {
+  id         Int            @id @default(autoincrement())
+  body       String
+  images     Image          @relation(fields: [imageId], references: [id])
+  created_at DateTime       @default(now())
+  updated_at DateTime       @default(now())
+  author     User           @relation(fields: [author_id], references: [id])
+  author_id  Int
+  reactions  Reaction[]
+  visiblity  PostStatusEnum @default(PUBLIC)
+  imageId    Int
+}
+
+enum ReactionEnum {
+  LIKE
+  DISLIKE
+}
+
+model Reaction {
+  id          Int          @id @default(autoincrement())
+  reaction    ReactionEnum
+  created_at  DateTime     @default(now())
+  reaction_of Post         @relation(fields: [post_id], references: [id])
+  post_id     Int
+  reactor     User         @relation(fields: [reactor_id], references: [id])
+  reactor_id  Int
+}

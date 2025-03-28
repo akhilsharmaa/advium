@@ -16,10 +16,13 @@
     "@types/express": "^5.0.1",
     "@types/node": "^22.13.14",
     "express": "^4.21.2",
+    "prisma": "^6.5.0",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
     "typescript": "^5.8.2"
   },
   "dependencies": {
+    "@prisma/client": "^6.5.0",
     "@types/cors": "^2.8.17",
     "@types/morgan": "^1.9.9",
     "cors": "^2.8.5",
