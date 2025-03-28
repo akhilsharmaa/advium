@@ -5,8 +5,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node src/app.ts",
-    "build": "tsc",
-    "serve": "node dist/app.js"
+    "dev": "npx tsc -w & nodemon dist/app.js",
+    "serve": "nodemon dist/app.js",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +27,7 @@
     "@types/cors": "^2.8.17",
     "@types/morgan": "^1.9.9",
     "cors": "^2.8.5",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.9"
   }
 }

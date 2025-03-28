@@ -14,15 +14,15 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
- * Model User
- * 
- */
-export type User = $Result.DefaultSelection<Prisma.$UserPayload>
-/**
  * Model Image
  * 
  */
 export type Image = $Result.DefaultSelection<Prisma.$ImagePayload>
+/**
+ * Model User
+ * 
+ */
+export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
  * Model Post
  * 
@@ -47,8 +47,7 @@ export type PostStatusEnum = (typeof PostStatusEnum)[keyof typeof PostStatusEnum
 
 
 export const ReactionEnum: {
-  LIKE: 'LIKE',
-  DISLIKE: 'DISLIKE'
+  LIKE: 'LIKE'
 };
 
 export type ReactionEnum = (typeof ReactionEnum)[keyof typeof ReactionEnum]
@@ -70,8 +69,8 @@ export const ReactionEnum: typeof $Enums.ReactionEnum
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more Images
+ * const images = await prisma.image.findMany()
  * ```
  *
  *
@@ -91,8 +90,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Users
-   * const users = await prisma.user.findMany()
+   * // Fetch zero or more Images
+   * const images = await prisma.image.findMany()
    * ```
    *
    *
@@ -189,16 +188,6 @@ export class PrismaClient<
   }>>
 
       /**
-   * `prisma.user`: Exposes CRUD operations for the **User** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Users
-    * const users = await prisma.user.findMany()
-    * ```
-    */
-  get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.image`: Exposes CRUD operations for the **Image** model.
     * Example usage:
     * ```ts
@@ -207,6 +196,16 @@ export class PrismaClient<
     * ```
     */
   get image(): Prisma.ImageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.user`: Exposes CRUD operations for the **User** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Users
+    * const users = await prisma.user.findMany()
+    * ```
+    */
+  get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.post`: Exposes CRUD operations for the **Post** model.
@@ -667,8 +666,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    User: 'User',
     Image: 'Image',
+    User: 'User',
     Post: 'Post',
     Reaction: 'Reaction'
   };
@@ -689,84 +688,10 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "image" | "post" | "reaction"
+      modelProps: "image" | "user" | "post" | "reaction"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
-      User: {
-        payload: Prisma.$UserPayload<ExtArgs>
-        fields: Prisma.UserFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.UserFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.UserFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>
-          }
-          findFirst: {
-            args: Prisma.UserFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.UserFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>
-          }
-          findMany: {
-            args: Prisma.UserFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
-          }
-          create: {
-            args: Prisma.UserCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>
-          }
-          createMany: {
-            args: Prisma.UserCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
-          }
-          delete: {
-            args: Prisma.UserDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>
-          }
-          update: {
-            args: Prisma.UserUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>
-          }
-          deleteMany: {
-            args: Prisma.UserDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.UserUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.UserUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
-          }
-          upsert: {
-            args: Prisma.UserUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>
-          }
-          aggregate: {
-            args: Prisma.UserAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateUser>
-          }
-          groupBy: {
-            args: Prisma.UserGroupByArgs<ExtArgs>
-            result: $Utils.Optional<UserGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.UserCountArgs<ExtArgs>
-            result: $Utils.Optional<UserCountAggregateOutputType> | number
-          }
-        }
-      }
       Image: {
         payload: Prisma.$ImagePayload<ExtArgs>
         fields: Prisma.ImageFieldRefs
@@ -838,6 +763,80 @@ export namespace Prisma {
           count: {
             args: Prisma.ImageCountArgs<ExtArgs>
             result: $Utils.Optional<ImageCountAggregateOutputType> | number
+          }
+        }
+      }
+      User: {
+        payload: Prisma.$UserPayload<ExtArgs>
+        fields: Prisma.UserFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          findFirst: {
+            args: Prisma.UserFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          findMany: {
+            args: Prisma.UserFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
+          }
+          create: {
+            args: Prisma.UserCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          createMany: {
+            args: Prisma.UserCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
+          }
+          delete: {
+            args: Prisma.UserDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          update: {
+            args: Prisma.UserUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          aggregate: {
+            args: Prisma.UserAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUser>
+          }
+          groupBy: {
+            args: Prisma.UserGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserCountArgs<ExtArgs>
+            result: $Utils.Optional<UserCountAggregateOutputType> | number
           }
         }
       }
@@ -1073,8 +1072,8 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
-    user?: UserOmit
     image?: ImageOmit
+    user?: UserOmit
     post?: PostOmit
     reaction?: ReactionOmit
   }
@@ -1167,6 +1166,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type ImageCountOutputType
+   */
+
+  export type ImageCountOutputType = {
+    User: number
+  }
+
+  export type ImageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    User?: boolean | ImageCountOutputTypeCountUserArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ImageCountOutputType without action
+   */
+  export type ImageCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImageCountOutputType
+     */
+    select?: ImageCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ImageCountOutputType without action
+   */
+  export type ImageCountOutputTypeCountUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+  }
+
+
+  /**
    * Count Type UserCountOutputType
    */
 
@@ -1207,45 +1237,16 @@ export namespace Prisma {
 
 
   /**
-   * Count Type ImageCountOutputType
-   */
-
-  export type ImageCountOutputType = {
-    posts: number
-  }
-
-  export type ImageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    posts?: boolean | ImageCountOutputTypeCountPostsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * ImageCountOutputType without action
-   */
-  export type ImageCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ImageCountOutputType
-     */
-    select?: ImageCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * ImageCountOutputType without action
-   */
-  export type ImageCountOutputTypeCountPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PostWhereInput
-  }
-
-
-  /**
    * Count Type PostCountOutputType
    */
 
   export type PostCountOutputType = {
+    images: number
     reactions: number
   }
 
   export type PostCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    images?: boolean | PostCountOutputTypeCountImagesArgs
     reactions?: boolean | PostCountOutputTypeCountReactionsArgs
   }
 
@@ -1263,6 +1264,13 @@ export namespace Prisma {
   /**
    * PostCountOutputType without action
    */
+  export type PostCountOutputTypeCountImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ImageWhereInput
+  }
+
+  /**
+   * PostCountOutputType without action
+   */
   export type PostCountOutputTypeCountReactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ReactionWhereInput
   }
@@ -1271,1151 +1279,6 @@ export namespace Prisma {
   /**
    * Models
    */
-
-  /**
-   * Model User
-   */
-
-  export type AggregateUser = {
-    _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
-    _min: UserMinAggregateOutputType | null
-    _max: UserMaxAggregateOutputType | null
-  }
-
-  export type UserAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type UserSumAggregateOutputType = {
-    id: number | null
-  }
-
-  export type UserMinAggregateOutputType = {
-    id: number | null
-    email: string | null
-    name: string | null
-    username: string | null
-    password: string | null
-    created_at: Date | null
-  }
-
-  export type UserMaxAggregateOutputType = {
-    id: number | null
-    email: string | null
-    name: string | null
-    username: string | null
-    password: string | null
-    created_at: Date | null
-  }
-
-  export type UserCountAggregateOutputType = {
-    id: number
-    email: number
-    name: number
-    username: number
-    password: number
-    created_at: number
-    _all: number
-  }
-
-
-  export type UserAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type UserSumAggregateInputType = {
-    id?: true
-  }
-
-  export type UserMinAggregateInputType = {
-    id?: true
-    email?: true
-    name?: true
-    username?: true
-    password?: true
-    created_at?: true
-  }
-
-  export type UserMaxAggregateInputType = {
-    id?: true
-    email?: true
-    name?: true
-    username?: true
-    password?: true
-    created_at?: true
-  }
-
-  export type UserCountAggregateInputType = {
-    id?: true
-    email?: true
-    name?: true
-    username?: true
-    password?: true
-    created_at?: true
-    _all?: true
-  }
-
-  export type UserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which User to aggregate.
-     */
-    where?: UserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Users to fetch.
-     */
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: UserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Users from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Users.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Users
-    **/
-    _count?: true | UserCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: UserAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UserSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: UserMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: UserMaxAggregateInputType
-  }
-
-  export type GetUserAggregateType<T extends UserAggregateArgs> = {
-        [P in keyof T & keyof AggregateUser]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateUser[P]>
-      : GetScalarType<T[P], AggregateUser[P]>
-  }
-
-
-
-
-  export type UserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserWhereInput
-    orderBy?: UserOrderByWithAggregationInput | UserOrderByWithAggregationInput[]
-    by: UserScalarFieldEnum[] | UserScalarFieldEnum
-    having?: UserScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: UserCountAggregateInputType | true
-    _avg?: UserAvgAggregateInputType
-    _sum?: UserSumAggregateInputType
-    _min?: UserMinAggregateInputType
-    _max?: UserMaxAggregateInputType
-  }
-
-  export type UserGroupByOutputType = {
-    id: number
-    email: string
-    name: string
-    username: string
-    password: string
-    created_at: Date
-    _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
-    _min: UserMinAggregateOutputType | null
-    _max: UserMaxAggregateOutputType | null
-  }
-
-  type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<UserGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof UserGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], UserGroupByOutputType[P]>
-            : GetScalarType<T[P], UserGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    email?: boolean
-    name?: boolean
-    username?: boolean
-    password?: boolean
-    created_at?: boolean
-    posts?: boolean | User$postsArgs<ExtArgs>
-    reactions?: boolean | User$reactionsArgs<ExtArgs>
-    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["user"]>
-
-  export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    email?: boolean
-    name?: boolean
-    username?: boolean
-    password?: boolean
-    created_at?: boolean
-  }, ExtArgs["result"]["user"]>
-
-  export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    email?: boolean
-    name?: boolean
-    username?: boolean
-    password?: boolean
-    created_at?: boolean
-  }, ExtArgs["result"]["user"]>
-
-  export type UserSelectScalar = {
-    id?: boolean
-    email?: boolean
-    name?: boolean
-    username?: boolean
-    password?: boolean
-    created_at?: boolean
-  }
-
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "username" | "password" | "created_at", ExtArgs["result"]["user"]>
-  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    posts?: boolean | User$postsArgs<ExtArgs>
-    reactions?: boolean | User$reactionsArgs<ExtArgs>
-    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-
-  export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "User"
-    objects: {
-      posts: Prisma.$PostPayload<ExtArgs>[]
-      reactions: Prisma.$ReactionPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      email: string
-      name: string
-      username: string
-      password: string
-      created_at: Date
-    }, ExtArgs["result"]["user"]>
-    composites: {}
-  }
-
-  type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = $Result.GetResult<Prisma.$UserPayload, S>
-
-  type UserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: UserCountAggregateInputType | true
-    }
-
-  export interface UserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['User'], meta: { name: 'User' } }
-    /**
-     * Find zero or one User that matches the filter.
-     * @param {UserFindUniqueArgs} args - Arguments to find a User
-     * @example
-     * // Get one User
-     * const user = await prisma.user.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends UserFindUniqueArgs>(args: SelectSubset<T, UserFindUniqueArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one User that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {UserFindUniqueOrThrowArgs} args - Arguments to find a User
-     * @example
-     * // Get one User
-     * const user = await prisma.user.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs>(args: SelectSubset<T, UserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first User that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserFindFirstArgs} args - Arguments to find a User
-     * @example
-     * // Get one User
-     * const user = await prisma.user.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends UserFindFirstArgs>(args?: SelectSubset<T, UserFindFirstArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first User that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserFindFirstOrThrowArgs} args - Arguments to find a User
-     * @example
-     * // Get one User
-     * const user = await prisma.user.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends UserFindFirstOrThrowArgs>(args?: SelectSubset<T, UserFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Users that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Users
-     * const users = await prisma.user.findMany()
-     * 
-     * // Get first 10 Users
-     * const users = await prisma.user.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends UserFindManyArgs>(args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a User.
-     * @param {UserCreateArgs} args - Arguments to create a User.
-     * @example
-     * // Create one User
-     * const User = await prisma.user.create({
-     *   data: {
-     *     // ... data to create a User
-     *   }
-     * })
-     * 
-     */
-    create<T extends UserCreateArgs>(args: SelectSubset<T, UserCreateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Users.
-     * @param {UserCreateManyArgs} args - Arguments to create many Users.
-     * @example
-     * // Create many Users
-     * const user = await prisma.user.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Users and returns the data saved in the database.
-     * @param {UserCreateManyAndReturnArgs} args - Arguments to create many Users.
-     * @example
-     * // Create many Users
-     * const user = await prisma.user.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Users and only return the `id`
-     * const userWithIdOnly = await prisma.user.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends UserCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a User.
-     * @param {UserDeleteArgs} args - Arguments to delete one User.
-     * @example
-     * // Delete one User
-     * const User = await prisma.user.delete({
-     *   where: {
-     *     // ... filter to delete one User
-     *   }
-     * })
-     * 
-     */
-    delete<T extends UserDeleteArgs>(args: SelectSubset<T, UserDeleteArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one User.
-     * @param {UserUpdateArgs} args - Arguments to update one User.
-     * @example
-     * // Update one User
-     * const user = await prisma.user.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends UserUpdateArgs>(args: SelectSubset<T, UserUpdateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Users.
-     * @param {UserDeleteManyArgs} args - Arguments to filter Users to delete.
-     * @example
-     * // Delete a few Users
-     * const { count } = await prisma.user.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends UserDeleteManyArgs>(args?: SelectSubset<T, UserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Users.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Users
-     * const user = await prisma.user.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends UserUpdateManyArgs>(args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Users and returns the data updated in the database.
-     * @param {UserUpdateManyAndReturnArgs} args - Arguments to update many Users.
-     * @example
-     * // Update many Users
-     * const user = await prisma.user.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Users and only return the `id`
-     * const userWithIdOnly = await prisma.user.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends UserUpdateManyAndReturnArgs>(args: SelectSubset<T, UserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one User.
-     * @param {UserUpsertArgs} args - Arguments to update or create a User.
-     * @example
-     * // Update or create a User
-     * const user = await prisma.user.upsert({
-     *   create: {
-     *     // ... data to create a User
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the User we want to update
-     *   }
-     * })
-     */
-    upsert<T extends UserUpsertArgs>(args: SelectSubset<T, UserUpsertArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Users.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserCountArgs} args - Arguments to filter Users to count.
-     * @example
-     * // Count the number of Users
-     * const count = await prisma.user.count({
-     *   where: {
-     *     // ... the filter for the Users we want to count
-     *   }
-     * })
-    **/
-    count<T extends UserCountArgs>(
-      args?: Subset<T, UserCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], UserCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a User.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends UserAggregateArgs>(args: Subset<T, UserAggregateArgs>): Prisma.PrismaPromise<GetUserAggregateType<T>>
-
-    /**
-     * Group by User.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends UserGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: UserGroupByArgs['orderBy'] }
-        : { orderBy?: UserGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the User model
-   */
-  readonly fields: UserFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for User.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    posts<T extends User$postsArgs<ExtArgs> = {}>(args?: Subset<T, User$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    reactions<T extends User$reactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the User model
-   */ 
-  interface UserFieldRefs {
-    readonly id: FieldRef<"User", 'Int'>
-    readonly email: FieldRef<"User", 'String'>
-    readonly name: FieldRef<"User", 'String'>
-    readonly username: FieldRef<"User", 'String'>
-    readonly password: FieldRef<"User", 'String'>
-    readonly created_at: FieldRef<"User", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * User findUnique
-   */
-  export type UserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * Filter, which User to fetch.
-     */
-    where: UserWhereUniqueInput
-  }
-
-  /**
-   * User findUniqueOrThrow
-   */
-  export type UserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * Filter, which User to fetch.
-     */
-    where: UserWhereUniqueInput
-  }
-
-  /**
-   * User findFirst
-   */
-  export type UserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * Filter, which User to fetch.
-     */
-    where?: UserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Users to fetch.
-     */
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Users.
-     */
-    cursor?: UserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Users from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Users.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Users.
-     */
-    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
-  }
-
-  /**
-   * User findFirstOrThrow
-   */
-  export type UserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * Filter, which User to fetch.
-     */
-    where?: UserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Users to fetch.
-     */
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Users.
-     */
-    cursor?: UserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Users from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Users.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Users.
-     */
-    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
-  }
-
-  /**
-   * User findMany
-   */
-  export type UserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * Filter, which Users to fetch.
-     */
-    where?: UserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Users to fetch.
-     */
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Users.
-     */
-    cursor?: UserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Users from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Users.
-     */
-    skip?: number
-    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
-  }
-
-  /**
-   * User create
-   */
-  export type UserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * The data needed to create a User.
-     */
-    data: XOR<UserCreateInput, UserUncheckedCreateInput>
-  }
-
-  /**
-   * User createMany
-   */
-  export type UserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Users.
-     */
-    data: UserCreateManyInput | UserCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * User createManyAndReturn
-   */
-  export type UserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * The data used to create many Users.
-     */
-    data: UserCreateManyInput | UserCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * User update
-   */
-  export type UserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * The data needed to update a User.
-     */
-    data: XOR<UserUpdateInput, UserUncheckedUpdateInput>
-    /**
-     * Choose, which User to update.
-     */
-    where: UserWhereUniqueInput
-  }
-
-  /**
-   * User updateMany
-   */
-  export type UserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Users.
-     */
-    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
-    /**
-     * Filter which Users to update
-     */
-    where?: UserWhereInput
-    /**
-     * Limit how many Users to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * User updateManyAndReturn
-   */
-  export type UserUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * The data used to update Users.
-     */
-    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
-    /**
-     * Filter which Users to update
-     */
-    where?: UserWhereInput
-    /**
-     * Limit how many Users to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * User upsert
-   */
-  export type UserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * The filter to search for the User to update in case it exists.
-     */
-    where: UserWhereUniqueInput
-    /**
-     * In case the User found by the `where` argument doesn't exist, create a new User with this data.
-     */
-    create: XOR<UserCreateInput, UserUncheckedCreateInput>
-    /**
-     * In case the User was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<UserUpdateInput, UserUncheckedUpdateInput>
-  }
-
-  /**
-   * User delete
-   */
-  export type UserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * Filter which User to delete.
-     */
-    where: UserWhereUniqueInput
-  }
-
-  /**
-   * User deleteMany
-   */
-  export type UserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Users to delete
-     */
-    where?: UserWhereInput
-    /**
-     * Limit how many Users to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * User.posts
-   */
-  export type User$postsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Post
-     */
-    select?: PostSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Post
-     */
-    omit?: PostOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PostInclude<ExtArgs> | null
-    where?: PostWhereInput
-    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
-    cursor?: PostWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
-  }
-
-  /**
-   * User.reactions
-   */
-  export type User$reactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Reaction
-     */
-    select?: ReactionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Reaction
-     */
-    omit?: ReactionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ReactionInclude<ExtArgs> | null
-    where?: ReactionWhereInput
-    orderBy?: ReactionOrderByWithRelationInput | ReactionOrderByWithRelationInput[]
-    cursor?: ReactionWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ReactionScalarFieldEnum | ReactionScalarFieldEnum[]
-  }
-
-  /**
-   * User without action
-   */
-  export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-  }
-
 
   /**
    * Model Image
@@ -2431,56 +1294,66 @@ export namespace Prisma {
 
   export type ImageAvgAggregateOutputType = {
     id: number | null
+    post_id: number | null
   }
 
   export type ImageSumAggregateOutputType = {
     id: number | null
+    post_id: number | null
   }
 
   export type ImageMinAggregateOutputType = {
     id: number | null
     url: string | null
     created_at: Date | null
+    post_id: number | null
   }
 
   export type ImageMaxAggregateOutputType = {
     id: number | null
     url: string | null
     created_at: Date | null
+    post_id: number | null
   }
 
   export type ImageCountAggregateOutputType = {
     id: number
     url: number
     created_at: number
+    post_id: number
     _all: number
   }
 
 
   export type ImageAvgAggregateInputType = {
     id?: true
+    post_id?: true
   }
 
   export type ImageSumAggregateInputType = {
     id?: true
+    post_id?: true
   }
 
   export type ImageMinAggregateInputType = {
     id?: true
     url?: true
     created_at?: true
+    post_id?: true
   }
 
   export type ImageMaxAggregateInputType = {
     id?: true
     url?: true
     created_at?: true
+    post_id?: true
   }
 
   export type ImageCountAggregateInputType = {
     id?: true
     url?: true
     created_at?: true
+    post_id?: true
     _all?: true
   }
 
@@ -2574,6 +1447,7 @@ export namespace Prisma {
     id: number
     url: string
     created_at: Date
+    post_id: number
     _count: ImageCountAggregateOutputType | null
     _avg: ImageAvgAggregateOutputType | null
     _sum: ImageSumAggregateOutputType | null
@@ -2599,7 +1473,9 @@ export namespace Prisma {
     id?: boolean
     url?: boolean
     created_at?: boolean
-    posts?: boolean | Image$postsArgs<ExtArgs>
+    post_id?: boolean
+    image_of?: boolean | PostDefaultArgs<ExtArgs>
+    User?: boolean | Image$UserArgs<ExtArgs>
     _count?: boolean | ImageCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["image"]>
 
@@ -2607,37 +1483,49 @@ export namespace Prisma {
     id?: boolean
     url?: boolean
     created_at?: boolean
+    post_id?: boolean
+    image_of?: boolean | PostDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["image"]>
 
   export type ImageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     url?: boolean
     created_at?: boolean
+    post_id?: boolean
+    image_of?: boolean | PostDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["image"]>
 
   export type ImageSelectScalar = {
     id?: boolean
     url?: boolean
     created_at?: boolean
+    post_id?: boolean
   }
 
-  export type ImageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "created_at", ExtArgs["result"]["image"]>
+  export type ImageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "created_at" | "post_id", ExtArgs["result"]["image"]>
   export type ImageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    posts?: boolean | Image$postsArgs<ExtArgs>
+    image_of?: boolean | PostDefaultArgs<ExtArgs>
+    User?: boolean | Image$UserArgs<ExtArgs>
     _count?: boolean | ImageCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type ImageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type ImageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ImageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    image_of?: boolean | PostDefaultArgs<ExtArgs>
+  }
+  export type ImageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    image_of?: boolean | PostDefaultArgs<ExtArgs>
+  }
 
   export type $ImagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Image"
     objects: {
-      posts: Prisma.$PostPayload<ExtArgs>[]
+      image_of: Prisma.$PostPayload<ExtArgs>
+      User: Prisma.$UserPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       url: string
       created_at: Date
+      post_id: number
     }, ExtArgs["result"]["image"]>
     composites: {}
   }
@@ -3032,7 +1920,8 @@ export namespace Prisma {
    */
   export interface Prisma__ImageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    posts<T extends Image$postsArgs<ExtArgs> = {}>(args?: Subset<T, Image$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    image_of<T extends PostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PostDefaultArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    User<T extends Image$UserArgs<ExtArgs> = {}>(args?: Subset<T, Image$UserArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3065,6 +1954,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Image", 'Int'>
     readonly url: FieldRef<"Image", 'String'>
     readonly created_at: FieldRef<"Image", 'DateTime'>
+    readonly post_id: FieldRef<"Image", 'Int'>
   }
     
 
@@ -3314,6 +2204,10 @@ export namespace Prisma {
      */
     data: ImageCreateManyInput | ImageCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3384,6 +2278,10 @@ export namespace Prisma {
      * Limit how many Images to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3453,27 +2351,27 @@ export namespace Prisma {
   }
 
   /**
-   * Image.posts
+   * Image.User
    */
-  export type Image$postsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Image$UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the User
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the User
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostInclude<ExtArgs> | null
-    where?: PostWhereInput
-    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
-    cursor?: PostWhereUniqueInput
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
   /**
@@ -3496,6 +2394,1186 @@ export namespace Prisma {
 
 
   /**
+   * Model User
+   */
+
+  export type AggregateUser = {
+    _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
+    _min: UserMinAggregateOutputType | null
+    _max: UserMaxAggregateOutputType | null
+  }
+
+  export type UserAvgAggregateOutputType = {
+    id: number | null
+    imageId: number | null
+  }
+
+  export type UserSumAggregateOutputType = {
+    id: number | null
+    imageId: number | null
+  }
+
+  export type UserMinAggregateOutputType = {
+    id: number | null
+    email: string | null
+    name: string | null
+    username: string | null
+    password: string | null
+    created_at: Date | null
+    imageId: number | null
+  }
+
+  export type UserMaxAggregateOutputType = {
+    id: number | null
+    email: string | null
+    name: string | null
+    username: string | null
+    password: string | null
+    created_at: Date | null
+    imageId: number | null
+  }
+
+  export type UserCountAggregateOutputType = {
+    id: number
+    email: number
+    name: number
+    username: number
+    password: number
+    created_at: number
+    imageId: number
+    _all: number
+  }
+
+
+  export type UserAvgAggregateInputType = {
+    id?: true
+    imageId?: true
+  }
+
+  export type UserSumAggregateInputType = {
+    id?: true
+    imageId?: true
+  }
+
+  export type UserMinAggregateInputType = {
+    id?: true
+    email?: true
+    name?: true
+    username?: true
+    password?: true
+    created_at?: true
+    imageId?: true
+  }
+
+  export type UserMaxAggregateInputType = {
+    id?: true
+    email?: true
+    name?: true
+    username?: true
+    password?: true
+    created_at?: true
+    imageId?: true
+  }
+
+  export type UserCountAggregateInputType = {
+    id?: true
+    email?: true
+    name?: true
+    username?: true
+    password?: true
+    created_at?: true
+    imageId?: true
+    _all?: true
+  }
+
+  export type UserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which User to aggregate.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Users
+    **/
+    _count?: true | UserCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserMaxAggregateInputType
+  }
+
+  export type GetUserAggregateType<T extends UserAggregateArgs> = {
+        [P in keyof T & keyof AggregateUser]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUser[P]>
+      : GetScalarType<T[P], AggregateUser[P]>
+  }
+
+
+
+
+  export type UserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithAggregationInput | UserOrderByWithAggregationInput[]
+    by: UserScalarFieldEnum[] | UserScalarFieldEnum
+    having?: UserScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserCountAggregateInputType | true
+    _avg?: UserAvgAggregateInputType
+    _sum?: UserSumAggregateInputType
+    _min?: UserMinAggregateInputType
+    _max?: UserMaxAggregateInputType
+  }
+
+  export type UserGroupByOutputType = {
+    id: number
+    email: string
+    name: string
+    username: string
+    password: string
+    created_at: Date
+    imageId: number
+    _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
+    _min: UserMinAggregateOutputType | null
+    _max: UserMaxAggregateOutputType | null
+  }
+
+  type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserGroupByOutputType[P]>
+            : GetScalarType<T[P], UserGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    email?: boolean
+    name?: boolean
+    username?: boolean
+    password?: boolean
+    created_at?: boolean
+    imageId?: boolean
+    img?: boolean | ImageDefaultArgs<ExtArgs>
+    posts?: boolean | User$postsArgs<ExtArgs>
+    reactions?: boolean | User$reactionsArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["user"]>
+
+  export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    email?: boolean
+    name?: boolean
+    username?: boolean
+    password?: boolean
+    created_at?: boolean
+    imageId?: boolean
+    img?: boolean | ImageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["user"]>
+
+  export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    email?: boolean
+    name?: boolean
+    username?: boolean
+    password?: boolean
+    created_at?: boolean
+    imageId?: boolean
+    img?: boolean | ImageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["user"]>
+
+  export type UserSelectScalar = {
+    id?: boolean
+    email?: boolean
+    name?: boolean
+    username?: boolean
+    password?: boolean
+    created_at?: boolean
+    imageId?: boolean
+  }
+
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "username" | "password" | "created_at" | "imageId", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    img?: boolean | ImageDefaultArgs<ExtArgs>
+    posts?: boolean | User$postsArgs<ExtArgs>
+    reactions?: boolean | User$reactionsArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    img?: boolean | ImageDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    img?: boolean | ImageDefaultArgs<ExtArgs>
+  }
+
+  export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "User"
+    objects: {
+      img: Prisma.$ImagePayload<ExtArgs>
+      posts: Prisma.$PostPayload<ExtArgs>[]
+      reactions: Prisma.$ReactionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      email: string
+      name: string
+      username: string
+      password: string
+      created_at: Date
+      imageId: number
+    }, ExtArgs["result"]["user"]>
+    composites: {}
+  }
+
+  type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = $Result.GetResult<Prisma.$UserPayload, S>
+
+  type UserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserCountAggregateInputType | true
+    }
+
+  export interface UserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['User'], meta: { name: 'User' } }
+    /**
+     * Find zero or one User that matches the filter.
+     * @param {UserFindUniqueArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserFindUniqueArgs>(args: SelectSubset<T, UserFindUniqueArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one User that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserFindUniqueOrThrowArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs>(args: SelectSubset<T, UserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first User that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindFirstArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserFindFirstArgs>(args?: SelectSubset<T, UserFindFirstArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first User that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindFirstOrThrowArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserFindFirstOrThrowArgs>(args?: SelectSubset<T, UserFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Users that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Users
+     * const users = await prisma.user.findMany()
+     * 
+     * // Get first 10 Users
+     * const users = await prisma.user.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserFindManyArgs>(args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a User.
+     * @param {UserCreateArgs} args - Arguments to create a User.
+     * @example
+     * // Create one User
+     * const User = await prisma.user.create({
+     *   data: {
+     *     // ... data to create a User
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserCreateArgs>(args: SelectSubset<T, UserCreateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Users.
+     * @param {UserCreateManyArgs} args - Arguments to create many Users.
+     * @example
+     * // Create many Users
+     * const user = await prisma.user.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Users and returns the data saved in the database.
+     * @param {UserCreateManyAndReturnArgs} args - Arguments to create many Users.
+     * @example
+     * // Create many Users
+     * const user = await prisma.user.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Users and only return the `id`
+     * const userWithIdOnly = await prisma.user.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a User.
+     * @param {UserDeleteArgs} args - Arguments to delete one User.
+     * @example
+     * // Delete one User
+     * const User = await prisma.user.delete({
+     *   where: {
+     *     // ... filter to delete one User
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserDeleteArgs>(args: SelectSubset<T, UserDeleteArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one User.
+     * @param {UserUpdateArgs} args - Arguments to update one User.
+     * @example
+     * // Update one User
+     * const user = await prisma.user.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserUpdateArgs>(args: SelectSubset<T, UserUpdateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Users.
+     * @param {UserDeleteManyArgs} args - Arguments to filter Users to delete.
+     * @example
+     * // Delete a few Users
+     * const { count } = await prisma.user.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserDeleteManyArgs>(args?: SelectSubset<T, UserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Users
+     * const user = await prisma.user.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserUpdateManyArgs>(args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Users and returns the data updated in the database.
+     * @param {UserUpdateManyAndReturnArgs} args - Arguments to update many Users.
+     * @example
+     * // Update many Users
+     * const user = await prisma.user.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Users and only return the `id`
+     * const userWithIdOnly = await prisma.user.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserUpdateManyAndReturnArgs>(args: SelectSubset<T, UserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one User.
+     * @param {UserUpsertArgs} args - Arguments to update or create a User.
+     * @example
+     * // Update or create a User
+     * const user = await prisma.user.upsert({
+     *   create: {
+     *     // ... data to create a User
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the User we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserUpsertArgs>(args: SelectSubset<T, UserUpsertArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserCountArgs} args - Arguments to filter Users to count.
+     * @example
+     * // Count the number of Users
+     * const count = await prisma.user.count({
+     *   where: {
+     *     // ... the filter for the Users we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserCountArgs>(
+      args?: Subset<T, UserCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a User.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserAggregateArgs>(args: Subset<T, UserAggregateArgs>): Prisma.PrismaPromise<GetUserAggregateType<T>>
+
+    /**
+     * Group by User.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserGroupByArgs['orderBy'] }
+        : { orderBy?: UserGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the User model
+   */
+  readonly fields: UserFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for User.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    img<T extends ImageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ImageDefaultArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    posts<T extends User$postsArgs<ExtArgs> = {}>(args?: Subset<T, User$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reactions<T extends User$reactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the User model
+   */ 
+  interface UserFieldRefs {
+    readonly id: FieldRef<"User", 'Int'>
+    readonly email: FieldRef<"User", 'String'>
+    readonly name: FieldRef<"User", 'String'>
+    readonly username: FieldRef<"User", 'String'>
+    readonly password: FieldRef<"User", 'String'>
+    readonly created_at: FieldRef<"User", 'DateTime'>
+    readonly imageId: FieldRef<"User", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * User findUnique
+   */
+  export type UserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User findUniqueOrThrow
+   */
+  export type UserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User findFirst
+   */
+  export type UserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Users.
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Users.
+     */
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * User findFirstOrThrow
+   */
+  export type UserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Users.
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Users.
+     */
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * User findMany
+   */
+  export type UserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which Users to fetch.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Users.
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * User create
+   */
+  export type UserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * The data needed to create a User.
+     */
+    data: XOR<UserCreateInput, UserUncheckedCreateInput>
+  }
+
+  /**
+   * User createMany
+   */
+  export type UserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Users.
+     */
+    data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * User createManyAndReturn
+   */
+  export type UserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * The data used to create many Users.
+     */
+    data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * User update
+   */
+  export type UserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * The data needed to update a User.
+     */
+    data: XOR<UserUpdateInput, UserUncheckedUpdateInput>
+    /**
+     * Choose, which User to update.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User updateMany
+   */
+  export type UserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Users.
+     */
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
+    /**
+     * Filter which Users to update
+     */
+    where?: UserWhereInput
+    /**
+     * Limit how many Users to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * User updateManyAndReturn
+   */
+  export type UserUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * The data used to update Users.
+     */
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
+    /**
+     * Filter which Users to update
+     */
+    where?: UserWhereInput
+    /**
+     * Limit how many Users to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * User upsert
+   */
+  export type UserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * The filter to search for the User to update in case it exists.
+     */
+    where: UserWhereUniqueInput
+    /**
+     * In case the User found by the `where` argument doesn't exist, create a new User with this data.
+     */
+    create: XOR<UserCreateInput, UserUncheckedCreateInput>
+    /**
+     * In case the User was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserUpdateInput, UserUncheckedUpdateInput>
+  }
+
+  /**
+   * User delete
+   */
+  export type UserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter which User to delete.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User deleteMany
+   */
+  export type UserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Users to delete
+     */
+    where?: UserWhereInput
+    /**
+     * Limit how many Users to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * User.posts
+   */
+  export type User$postsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Post
+     */
+    omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    where?: PostWhereInput
+    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
+    cursor?: PostWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+  }
+
+  /**
+   * User.reactions
+   */
+  export type User$reactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reaction
+     */
+    select?: ReactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reaction
+     */
+    omit?: ReactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReactionInclude<ExtArgs> | null
+    where?: ReactionWhereInput
+    orderBy?: ReactionOrderByWithRelationInput | ReactionOrderByWithRelationInput[]
+    cursor?: ReactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReactionScalarFieldEnum | ReactionScalarFieldEnum[]
+  }
+
+  /**
+   * User without action
+   */
+  export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Post
    */
 
@@ -3510,13 +3588,13 @@ export namespace Prisma {
   export type PostAvgAggregateOutputType = {
     id: number | null
     author_id: number | null
-    imageId: number | null
+    reaction_count: number | null
   }
 
   export type PostSumAggregateOutputType = {
     id: number | null
     author_id: number | null
-    imageId: number | null
+    reaction_count: number | null
   }
 
   export type PostMinAggregateOutputType = {
@@ -3525,8 +3603,8 @@ export namespace Prisma {
     created_at: Date | null
     updated_at: Date | null
     author_id: number | null
+    reaction_count: number | null
     visiblity: $Enums.PostStatusEnum | null
-    imageId: number | null
   }
 
   export type PostMaxAggregateOutputType = {
@@ -3535,8 +3613,8 @@ export namespace Prisma {
     created_at: Date | null
     updated_at: Date | null
     author_id: number | null
+    reaction_count: number | null
     visiblity: $Enums.PostStatusEnum | null
-    imageId: number | null
   }
 
   export type PostCountAggregateOutputType = {
@@ -3545,8 +3623,8 @@ export namespace Prisma {
     created_at: number
     updated_at: number
     author_id: number
+    reaction_count: number
     visiblity: number
-    imageId: number
     _all: number
   }
 
@@ -3554,13 +3632,13 @@ export namespace Prisma {
   export type PostAvgAggregateInputType = {
     id?: true
     author_id?: true
-    imageId?: true
+    reaction_count?: true
   }
 
   export type PostSumAggregateInputType = {
     id?: true
     author_id?: true
-    imageId?: true
+    reaction_count?: true
   }
 
   export type PostMinAggregateInputType = {
@@ -3569,8 +3647,8 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     author_id?: true
+    reaction_count?: true
     visiblity?: true
-    imageId?: true
   }
 
   export type PostMaxAggregateInputType = {
@@ -3579,8 +3657,8 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     author_id?: true
+    reaction_count?: true
     visiblity?: true
-    imageId?: true
   }
 
   export type PostCountAggregateInputType = {
@@ -3589,8 +3667,8 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     author_id?: true
+    reaction_count?: true
     visiblity?: true
-    imageId?: true
     _all?: true
   }
 
@@ -3686,8 +3764,8 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     author_id: number
+    reaction_count: number
     visiblity: $Enums.PostStatusEnum
-    imageId: number
     _count: PostCountAggregateOutputType | null
     _avg: PostAvgAggregateOutputType | null
     _sum: PostSumAggregateOutputType | null
@@ -3715,10 +3793,10 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     author_id?: boolean
+    reaction_count?: boolean
     visiblity?: boolean
-    imageId?: boolean
-    images?: boolean | ImageDefaultArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
+    images?: boolean | Post$imagesArgs<ExtArgs>
     reactions?: boolean | Post$reactionsArgs<ExtArgs>
     _count?: boolean | PostCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
@@ -3729,9 +3807,8 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     author_id?: boolean
+    reaction_count?: boolean
     visiblity?: boolean
-    imageId?: boolean
-    images?: boolean | ImageDefaultArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
 
@@ -3741,9 +3818,8 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     author_id?: boolean
+    reaction_count?: boolean
     visiblity?: boolean
-    imageId?: boolean
-    images?: boolean | ImageDefaultArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
 
@@ -3753,31 +3829,29 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     author_id?: boolean
+    reaction_count?: boolean
     visiblity?: boolean
-    imageId?: boolean
   }
 
-  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "body" | "created_at" | "updated_at" | "author_id" | "visiblity" | "imageId", ExtArgs["result"]["post"]>
+  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "body" | "created_at" | "updated_at" | "author_id" | "reaction_count" | "visiblity", ExtArgs["result"]["post"]>
   export type PostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    images?: boolean | ImageDefaultArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
+    images?: boolean | Post$imagesArgs<ExtArgs>
     reactions?: boolean | Post$reactionsArgs<ExtArgs>
     _count?: boolean | PostCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PostIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    images?: boolean | ImageDefaultArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type PostIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    images?: boolean | ImageDefaultArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $PostPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Post"
     objects: {
-      images: Prisma.$ImagePayload<ExtArgs>
       author: Prisma.$UserPayload<ExtArgs>
+      images: Prisma.$ImagePayload<ExtArgs>[]
       reactions: Prisma.$ReactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -3786,8 +3860,8 @@ export namespace Prisma {
       created_at: Date
       updated_at: Date
       author_id: number
+      reaction_count: number
       visiblity: $Enums.PostStatusEnum
-      imageId: number
     }, ExtArgs["result"]["post"]>
     composites: {}
   }
@@ -4182,8 +4256,8 @@ export namespace Prisma {
    */
   export interface Prisma__PostClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    images<T extends ImageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ImageDefaultArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    images<T extends Post$imagesArgs<ExtArgs> = {}>(args?: Subset<T, Post$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reactions<T extends Post$reactionsArgs<ExtArgs> = {}>(args?: Subset<T, Post$reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4219,8 +4293,8 @@ export namespace Prisma {
     readonly created_at: FieldRef<"Post", 'DateTime'>
     readonly updated_at: FieldRef<"Post", 'DateTime'>
     readonly author_id: FieldRef<"Post", 'Int'>
+    readonly reaction_count: FieldRef<"Post", 'Int'>
     readonly visiblity: FieldRef<"Post", 'PostStatusEnum'>
-    readonly imageId: FieldRef<"Post", 'Int'>
   }
     
 
@@ -4617,6 +4691,30 @@ export namespace Prisma {
   }
 
   /**
+   * Post.images
+   */
+  export type Post$imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    where?: ImageWhereInput
+    orderBy?: ImageOrderByWithRelationInput | ImageOrderByWithRelationInput[]
+    cursor?: ImageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ImageScalarFieldEnum | ImageScalarFieldEnum[]
+  }
+
+  /**
    * Post.reactions
    */
   export type Post$reactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4866,7 +4964,7 @@ export namespace Prisma {
     post_id?: boolean
     reactor_id?: boolean
     reaction_of?: boolean | PostDefaultArgs<ExtArgs>
-    reactor?: boolean | UserDefaultArgs<ExtArgs>
+    reactor_by?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reaction"]>
 
   export type ReactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4876,7 +4974,7 @@ export namespace Prisma {
     post_id?: boolean
     reactor_id?: boolean
     reaction_of?: boolean | PostDefaultArgs<ExtArgs>
-    reactor?: boolean | UserDefaultArgs<ExtArgs>
+    reactor_by?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reaction"]>
 
   export type ReactionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4886,7 +4984,7 @@ export namespace Prisma {
     post_id?: boolean
     reactor_id?: boolean
     reaction_of?: boolean | PostDefaultArgs<ExtArgs>
-    reactor?: boolean | UserDefaultArgs<ExtArgs>
+    reactor_by?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reaction"]>
 
   export type ReactionSelectScalar = {
@@ -4900,22 +4998,22 @@ export namespace Prisma {
   export type ReactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "reaction" | "created_at" | "post_id" | "reactor_id", ExtArgs["result"]["reaction"]>
   export type ReactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reaction_of?: boolean | PostDefaultArgs<ExtArgs>
-    reactor?: boolean | UserDefaultArgs<ExtArgs>
+    reactor_by?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type ReactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reaction_of?: boolean | PostDefaultArgs<ExtArgs>
-    reactor?: boolean | UserDefaultArgs<ExtArgs>
+    reactor_by?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type ReactionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reaction_of?: boolean | PostDefaultArgs<ExtArgs>
-    reactor?: boolean | UserDefaultArgs<ExtArgs>
+    reactor_by?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $ReactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Reaction"
     objects: {
       reaction_of: Prisma.$PostPayload<ExtArgs>
-      reactor: Prisma.$UserPayload<ExtArgs>
+      reactor_by: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -5318,7 +5416,7 @@ export namespace Prisma {
   export interface Prisma__ReactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     reaction_of<T extends PostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PostDefaultArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    reactor<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    reactor_by<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5781,25 +5879,27 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const ImageScalarFieldEnum: {
+    id: 'id',
+    url: 'url',
+    created_at: 'created_at',
+    post_id: 'post_id'
+  };
+
+  export type ImageScalarFieldEnum = (typeof ImageScalarFieldEnum)[keyof typeof ImageScalarFieldEnum]
+
+
   export const UserScalarFieldEnum: {
     id: 'id',
     email: 'email',
     name: 'name',
     username: 'username',
     password: 'password',
-    created_at: 'created_at'
+    created_at: 'created_at',
+    imageId: 'imageId'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
-  export const ImageScalarFieldEnum: {
-    id: 'id',
-    url: 'url',
-    created_at: 'created_at'
-  };
-
-  export type ImageScalarFieldEnum = (typeof ImageScalarFieldEnum)[keyof typeof ImageScalarFieldEnum]
 
 
   export const PostScalarFieldEnum: {
@@ -5808,8 +5908,8 @@ export namespace Prisma {
     created_at: 'created_at',
     updated_at: 'updated_at',
     author_id: 'author_id',
-    visiblity: 'visiblity',
-    imageId: 'imageId'
+    reaction_count: 'reaction_count',
+    visiblity: 'visiblity'
   };
 
   export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
@@ -5934,6 +6034,61 @@ export namespace Prisma {
    */
 
 
+  export type ImageWhereInput = {
+    AND?: ImageWhereInput | ImageWhereInput[]
+    OR?: ImageWhereInput[]
+    NOT?: ImageWhereInput | ImageWhereInput[]
+    id?: IntFilter<"Image"> | number
+    url?: StringFilter<"Image"> | string
+    created_at?: DateTimeFilter<"Image"> | Date | string
+    post_id?: IntFilter<"Image"> | number
+    image_of?: XOR<PostScalarRelationFilter, PostWhereInput>
+    User?: UserListRelationFilter
+  }
+
+  export type ImageOrderByWithRelationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    created_at?: SortOrder
+    post_id?: SortOrder
+    image_of?: PostOrderByWithRelationInput
+    User?: UserOrderByRelationAggregateInput
+  }
+
+  export type ImageWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ImageWhereInput | ImageWhereInput[]
+    OR?: ImageWhereInput[]
+    NOT?: ImageWhereInput | ImageWhereInput[]
+    url?: StringFilter<"Image"> | string
+    created_at?: DateTimeFilter<"Image"> | Date | string
+    post_id?: IntFilter<"Image"> | number
+    image_of?: XOR<PostScalarRelationFilter, PostWhereInput>
+    User?: UserListRelationFilter
+  }, "id">
+
+  export type ImageOrderByWithAggregationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    created_at?: SortOrder
+    post_id?: SortOrder
+    _count?: ImageCountOrderByAggregateInput
+    _avg?: ImageAvgOrderByAggregateInput
+    _max?: ImageMaxOrderByAggregateInput
+    _min?: ImageMinOrderByAggregateInput
+    _sum?: ImageSumOrderByAggregateInput
+  }
+
+  export type ImageScalarWhereWithAggregatesInput = {
+    AND?: ImageScalarWhereWithAggregatesInput | ImageScalarWhereWithAggregatesInput[]
+    OR?: ImageScalarWhereWithAggregatesInput[]
+    NOT?: ImageScalarWhereWithAggregatesInput | ImageScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Image"> | number
+    url?: StringWithAggregatesFilter<"Image"> | string
+    created_at?: DateTimeWithAggregatesFilter<"Image"> | Date | string
+    post_id?: IntWithAggregatesFilter<"Image"> | number
+  }
+
   export type UserWhereInput = {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
@@ -5944,6 +6099,8 @@ export namespace Prisma {
     username?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     created_at?: DateTimeFilter<"User"> | Date | string
+    imageId?: IntFilter<"User"> | number
+    img?: XOR<ImageScalarRelationFilter, ImageWhereInput>
     posts?: PostListRelationFilter
     reactions?: ReactionListRelationFilter
   }
@@ -5955,6 +6112,8 @@ export namespace Prisma {
     username?: SortOrder
     password?: SortOrder
     created_at?: SortOrder
+    imageId?: SortOrder
+    img?: ImageOrderByWithRelationInput
     posts?: PostOrderByRelationAggregateInput
     reactions?: ReactionOrderByRelationAggregateInput
   }
@@ -5969,6 +6128,8 @@ export namespace Prisma {
     username?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     created_at?: DateTimeFilter<"User"> | Date | string
+    imageId?: IntFilter<"User"> | number
+    img?: XOR<ImageScalarRelationFilter, ImageWhereInput>
     posts?: PostListRelationFilter
     reactions?: ReactionListRelationFilter
   }, "id" | "email">
@@ -5980,6 +6141,7 @@ export namespace Prisma {
     username?: SortOrder
     password?: SortOrder
     created_at?: SortOrder
+    imageId?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -5997,53 +6159,7 @@ export namespace Prisma {
     username?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     created_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
-  }
-
-  export type ImageWhereInput = {
-    AND?: ImageWhereInput | ImageWhereInput[]
-    OR?: ImageWhereInput[]
-    NOT?: ImageWhereInput | ImageWhereInput[]
-    id?: IntFilter<"Image"> | number
-    url?: StringFilter<"Image"> | string
-    created_at?: DateTimeFilter<"Image"> | Date | string
-    posts?: PostListRelationFilter
-  }
-
-  export type ImageOrderByWithRelationInput = {
-    id?: SortOrder
-    url?: SortOrder
-    created_at?: SortOrder
-    posts?: PostOrderByRelationAggregateInput
-  }
-
-  export type ImageWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    AND?: ImageWhereInput | ImageWhereInput[]
-    OR?: ImageWhereInput[]
-    NOT?: ImageWhereInput | ImageWhereInput[]
-    url?: StringFilter<"Image"> | string
-    created_at?: DateTimeFilter<"Image"> | Date | string
-    posts?: PostListRelationFilter
-  }, "id">
-
-  export type ImageOrderByWithAggregationInput = {
-    id?: SortOrder
-    url?: SortOrder
-    created_at?: SortOrder
-    _count?: ImageCountOrderByAggregateInput
-    _avg?: ImageAvgOrderByAggregateInput
-    _max?: ImageMaxOrderByAggregateInput
-    _min?: ImageMinOrderByAggregateInput
-    _sum?: ImageSumOrderByAggregateInput
-  }
-
-  export type ImageScalarWhereWithAggregatesInput = {
-    AND?: ImageScalarWhereWithAggregatesInput | ImageScalarWhereWithAggregatesInput[]
-    OR?: ImageScalarWhereWithAggregatesInput[]
-    NOT?: ImageScalarWhereWithAggregatesInput | ImageScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Image"> | number
-    url?: StringWithAggregatesFilter<"Image"> | string
-    created_at?: DateTimeWithAggregatesFilter<"Image"> | Date | string
+    imageId?: IntWithAggregatesFilter<"User"> | number
   }
 
   export type PostWhereInput = {
@@ -6055,10 +6171,10 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Post"> | Date | string
     updated_at?: DateTimeFilter<"Post"> | Date | string
     author_id?: IntFilter<"Post"> | number
+    reaction_count?: IntFilter<"Post"> | number
     visiblity?: EnumPostStatusEnumFilter<"Post"> | $Enums.PostStatusEnum
-    imageId?: IntFilter<"Post"> | number
-    images?: XOR<ImageScalarRelationFilter, ImageWhereInput>
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    images?: ImageListRelationFilter
     reactions?: ReactionListRelationFilter
   }
 
@@ -6068,10 +6184,10 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     author_id?: SortOrder
+    reaction_count?: SortOrder
     visiblity?: SortOrder
-    imageId?: SortOrder
-    images?: ImageOrderByWithRelationInput
     author?: UserOrderByWithRelationInput
+    images?: ImageOrderByRelationAggregateInput
     reactions?: ReactionOrderByRelationAggregateInput
   }
 
@@ -6084,10 +6200,10 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Post"> | Date | string
     updated_at?: DateTimeFilter<"Post"> | Date | string
     author_id?: IntFilter<"Post"> | number
+    reaction_count?: IntFilter<"Post"> | number
     visiblity?: EnumPostStatusEnumFilter<"Post"> | $Enums.PostStatusEnum
-    imageId?: IntFilter<"Post"> | number
-    images?: XOR<ImageScalarRelationFilter, ImageWhereInput>
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    images?: ImageListRelationFilter
     reactions?: ReactionListRelationFilter
   }, "id">
 
@@ -6097,8 +6213,8 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     author_id?: SortOrder
+    reaction_count?: SortOrder
     visiblity?: SortOrder
-    imageId?: SortOrder
     _count?: PostCountOrderByAggregateInput
     _avg?: PostAvgOrderByAggregateInput
     _max?: PostMaxOrderByAggregateInput
@@ -6115,8 +6231,8 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"Post"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Post"> | Date | string
     author_id?: IntWithAggregatesFilter<"Post"> | number
+    reaction_count?: IntWithAggregatesFilter<"Post"> | number
     visiblity?: EnumPostStatusEnumWithAggregatesFilter<"Post"> | $Enums.PostStatusEnum
-    imageId?: IntWithAggregatesFilter<"Post"> | number
   }
 
   export type ReactionWhereInput = {
@@ -6129,7 +6245,7 @@ export namespace Prisma {
     post_id?: IntFilter<"Reaction"> | number
     reactor_id?: IntFilter<"Reaction"> | number
     reaction_of?: XOR<PostScalarRelationFilter, PostWhereInput>
-    reactor?: XOR<UserScalarRelationFilter, UserWhereInput>
+    reactor_by?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type ReactionOrderByWithRelationInput = {
@@ -6139,7 +6255,7 @@ export namespace Prisma {
     post_id?: SortOrder
     reactor_id?: SortOrder
     reaction_of?: PostOrderByWithRelationInput
-    reactor?: UserOrderByWithRelationInput
+    reactor_by?: UserOrderByWithRelationInput
   }
 
   export type ReactionWhereUniqueInput = Prisma.AtLeast<{
@@ -6152,7 +6268,7 @@ export namespace Prisma {
     post_id?: IntFilter<"Reaction"> | number
     reactor_id?: IntFilter<"Reaction"> | number
     reaction_of?: XOR<PostScalarRelationFilter, PostWhereInput>
-    reactor?: XOR<UserScalarRelationFilter, UserWhereInput>
+    reactor_by?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type ReactionOrderByWithAggregationInput = {
@@ -6179,14 +6295,64 @@ export namespace Prisma {
     reactor_id?: IntWithAggregatesFilter<"Reaction"> | number
   }
 
+  export type ImageCreateInput = {
+    url: string
+    created_at?: Date | string
+    image_of: PostCreateNestedOneWithoutImagesInput
+    User?: UserCreateNestedManyWithoutImgInput
+  }
+
+  export type ImageUncheckedCreateInput = {
+    id?: number
+    url: string
+    created_at?: Date | string
+    post_id: number
+    User?: UserUncheckedCreateNestedManyWithoutImgInput
+  }
+
+  export type ImageUpdateInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_of?: PostUpdateOneRequiredWithoutImagesNestedInput
+    User?: UserUpdateManyWithoutImgNestedInput
+  }
+
+  export type ImageUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    post_id?: IntFieldUpdateOperationsInput | number
+    User?: UserUncheckedUpdateManyWithoutImgNestedInput
+  }
+
+  export type ImageCreateManyInput = {
+    id?: number
+    url: string
+    created_at?: Date | string
+    post_id: number
+  }
+
+  export type ImageUpdateManyMutationInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImageUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    post_id?: IntFieldUpdateOperationsInput | number
+  }
+
   export type UserCreateInput = {
     email: string
     name: string
     username: string
     password: string
     created_at?: Date | string
+    img: ImageCreateNestedOneWithoutUserInput
     posts?: PostCreateNestedManyWithoutAuthorInput
-    reactions?: ReactionCreateNestedManyWithoutReactorInput
+    reactions?: ReactionCreateNestedManyWithoutReactor_byInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -6196,8 +6362,9 @@ export namespace Prisma {
     username: string
     password: string
     created_at?: Date | string
+    imageId: number
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
-    reactions?: ReactionUncheckedCreateNestedManyWithoutReactorInput
+    reactions?: ReactionUncheckedCreateNestedManyWithoutReactor_byInput
   }
 
   export type UserUpdateInput = {
@@ -6206,8 +6373,9 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    img?: ImageUpdateOneRequiredWithoutUserNestedInput
     posts?: PostUpdateManyWithoutAuthorNestedInput
-    reactions?: ReactionUpdateManyWithoutReactorNestedInput
+    reactions?: ReactionUpdateManyWithoutReactor_byNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -6217,8 +6385,9 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    imageId?: IntFieldUpdateOperationsInput | number
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
-    reactions?: ReactionUncheckedUpdateManyWithoutReactorNestedInput
+    reactions?: ReactionUncheckedUpdateManyWithoutReactor_byNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -6228,6 +6397,7 @@ export namespace Prisma {
     username: string
     password: string
     created_at?: Date | string
+    imageId: number
   }
 
   export type UserUpdateManyMutationInput = {
@@ -6245,58 +6415,17 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ImageCreateInput = {
-    url: string
-    created_at?: Date | string
-    posts?: PostCreateNestedManyWithoutImagesInput
-  }
-
-  export type ImageUncheckedCreateInput = {
-    id?: number
-    url: string
-    created_at?: Date | string
-    posts?: PostUncheckedCreateNestedManyWithoutImagesInput
-  }
-
-  export type ImageUpdateInput = {
-    url?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    posts?: PostUpdateManyWithoutImagesNestedInput
-  }
-
-  export type ImageUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    url?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    posts?: PostUncheckedUpdateManyWithoutImagesNestedInput
-  }
-
-  export type ImageCreateManyInput = {
-    id?: number
-    url: string
-    created_at?: Date | string
-  }
-
-  export type ImageUpdateManyMutationInput = {
-    url?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ImageUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    url?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    imageId?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostCreateInput = {
     body: string
     created_at?: Date | string
     updated_at?: Date | string
+    reaction_count: number
     visiblity?: $Enums.PostStatusEnum
-    images: ImageCreateNestedOneWithoutPostsInput
     author: UserCreateNestedOneWithoutPostsInput
+    images?: ImageCreateNestedManyWithoutImage_ofInput
     reactions?: ReactionCreateNestedManyWithoutReaction_ofInput
   }
 
@@ -6306,8 +6435,9 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     author_id: number
+    reaction_count: number
     visiblity?: $Enums.PostStatusEnum
-    imageId: number
+    images?: ImageUncheckedCreateNestedManyWithoutImage_ofInput
     reactions?: ReactionUncheckedCreateNestedManyWithoutReaction_ofInput
   }
 
@@ -6315,9 +6445,10 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reaction_count?: IntFieldUpdateOperationsInput | number
     visiblity?: EnumPostStatusEnumFieldUpdateOperationsInput | $Enums.PostStatusEnum
-    images?: ImageUpdateOneRequiredWithoutPostsNestedInput
     author?: UserUpdateOneRequiredWithoutPostsNestedInput
+    images?: ImageUpdateManyWithoutImage_ofNestedInput
     reactions?: ReactionUpdateManyWithoutReaction_ofNestedInput
   }
 
@@ -6327,8 +6458,9 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     author_id?: IntFieldUpdateOperationsInput | number
+    reaction_count?: IntFieldUpdateOperationsInput | number
     visiblity?: EnumPostStatusEnumFieldUpdateOperationsInput | $Enums.PostStatusEnum
-    imageId?: IntFieldUpdateOperationsInput | number
+    images?: ImageUncheckedUpdateManyWithoutImage_ofNestedInput
     reactions?: ReactionUncheckedUpdateManyWithoutReaction_ofNestedInput
   }
 
@@ -6338,14 +6470,15 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     author_id: number
+    reaction_count: number
     visiblity?: $Enums.PostStatusEnum
-    imageId: number
   }
 
   export type PostUpdateManyMutationInput = {
     body?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reaction_count?: IntFieldUpdateOperationsInput | number
     visiblity?: EnumPostStatusEnumFieldUpdateOperationsInput | $Enums.PostStatusEnum
   }
 
@@ -6355,20 +6488,20 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     author_id?: IntFieldUpdateOperationsInput | number
+    reaction_count?: IntFieldUpdateOperationsInput | number
     visiblity?: EnumPostStatusEnumFieldUpdateOperationsInput | $Enums.PostStatusEnum
-    imageId?: IntFieldUpdateOperationsInput | number
   }
 
   export type ReactionCreateInput = {
-    reaction: $Enums.ReactionEnum
+    reaction?: $Enums.ReactionEnum
     created_at?: Date | string
     reaction_of: PostCreateNestedOneWithoutReactionsInput
-    reactor: UserCreateNestedOneWithoutReactionsInput
+    reactor_by: UserCreateNestedOneWithoutReactionsInput
   }
 
   export type ReactionUncheckedCreateInput = {
     id?: number
-    reaction: $Enums.ReactionEnum
+    reaction?: $Enums.ReactionEnum
     created_at?: Date | string
     post_id: number
     reactor_id: number
@@ -6378,7 +6511,7 @@ export namespace Prisma {
     reaction?: EnumReactionEnumFieldUpdateOperationsInput | $Enums.ReactionEnum
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     reaction_of?: PostUpdateOneRequiredWithoutReactionsNestedInput
-    reactor?: UserUpdateOneRequiredWithoutReactionsNestedInput
+    reactor_by?: UserUpdateOneRequiredWithoutReactionsNestedInput
   }
 
   export type ReactionUncheckedUpdateInput = {
@@ -6391,7 +6524,7 @@ export namespace Prisma {
 
   export type ReactionCreateManyInput = {
     id?: number
-    reaction: $Enums.ReactionEnum
+    reaction?: $Enums.ReactionEnum
     created_at?: Date | string
     post_id: number
     reactor_id: number
@@ -6447,59 +6580,50 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type PostListRelationFilter = {
-    every?: PostWhereInput
-    some?: PostWhereInput
-    none?: PostWhereInput
+  export type PostScalarRelationFilter = {
+    is?: PostWhereInput
+    isNot?: PostWhereInput
   }
 
-  export type ReactionListRelationFilter = {
-    every?: ReactionWhereInput
-    some?: ReactionWhereInput
-    none?: ReactionWhereInput
+  export type UserListRelationFilter = {
+    every?: UserWhereInput
+    some?: UserWhereInput
+    none?: UserWhereInput
   }
 
-  export type PostOrderByRelationAggregateInput = {
+  export type UserOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type ReactionOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type UserCountOrderByAggregateInput = {
+  export type ImageCountOrderByAggregateInput = {
     id?: SortOrder
-    email?: SortOrder
-    name?: SortOrder
-    username?: SortOrder
-    password?: SortOrder
+    url?: SortOrder
     created_at?: SortOrder
+    post_id?: SortOrder
   }
 
-  export type UserAvgOrderByAggregateInput = {
+  export type ImageAvgOrderByAggregateInput = {
     id?: SortOrder
+    post_id?: SortOrder
   }
 
-  export type UserMaxOrderByAggregateInput = {
+  export type ImageMaxOrderByAggregateInput = {
     id?: SortOrder
-    email?: SortOrder
-    name?: SortOrder
-    username?: SortOrder
-    password?: SortOrder
+    url?: SortOrder
     created_at?: SortOrder
+    post_id?: SortOrder
   }
 
-  export type UserMinOrderByAggregateInput = {
+  export type ImageMinOrderByAggregateInput = {
     id?: SortOrder
-    email?: SortOrder
-    name?: SortOrder
-    username?: SortOrder
-    password?: SortOrder
+    url?: SortOrder
     created_at?: SortOrder
+    post_id?: SortOrder
   }
 
-  export type UserSumOrderByAggregateInput = {
+  export type ImageSumOrderByAggregateInput = {
     id?: SortOrder
+    post_id?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -6550,30 +6674,69 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type ImageCountOrderByAggregateInput = {
+  export type ImageScalarRelationFilter = {
+    is?: ImageWhereInput
+    isNot?: ImageWhereInput
+  }
+
+  export type PostListRelationFilter = {
+    every?: PostWhereInput
+    some?: PostWhereInput
+    none?: PostWhereInput
+  }
+
+  export type ReactionListRelationFilter = {
+    every?: ReactionWhereInput
+    some?: ReactionWhereInput
+    none?: ReactionWhereInput
+  }
+
+  export type PostOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ReactionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserCountOrderByAggregateInput = {
     id?: SortOrder
-    url?: SortOrder
+    email?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    password?: SortOrder
     created_at?: SortOrder
+    imageId?: SortOrder
   }
 
-  export type ImageAvgOrderByAggregateInput = {
+  export type UserAvgOrderByAggregateInput = {
     id?: SortOrder
+    imageId?: SortOrder
   }
 
-  export type ImageMaxOrderByAggregateInput = {
+  export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
-    url?: SortOrder
+    email?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    password?: SortOrder
     created_at?: SortOrder
+    imageId?: SortOrder
   }
 
-  export type ImageMinOrderByAggregateInput = {
+  export type UserMinOrderByAggregateInput = {
     id?: SortOrder
-    url?: SortOrder
+    email?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    password?: SortOrder
     created_at?: SortOrder
+    imageId?: SortOrder
   }
 
-  export type ImageSumOrderByAggregateInput = {
+  export type UserSumOrderByAggregateInput = {
     id?: SortOrder
+    imageId?: SortOrder
   }
 
   export type EnumPostStatusEnumFilter<$PrismaModel = never> = {
@@ -6583,14 +6746,19 @@ export namespace Prisma {
     not?: NestedEnumPostStatusEnumFilter<$PrismaModel> | $Enums.PostStatusEnum
   }
 
-  export type ImageScalarRelationFilter = {
-    is?: ImageWhereInput
-    isNot?: ImageWhereInput
-  }
-
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
+  }
+
+  export type ImageListRelationFilter = {
+    every?: ImageWhereInput
+    some?: ImageWhereInput
+    none?: ImageWhereInput
+  }
+
+  export type ImageOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type PostCountOrderByAggregateInput = {
@@ -6599,14 +6767,14 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     author_id?: SortOrder
+    reaction_count?: SortOrder
     visiblity?: SortOrder
-    imageId?: SortOrder
   }
 
   export type PostAvgOrderByAggregateInput = {
     id?: SortOrder
     author_id?: SortOrder
-    imageId?: SortOrder
+    reaction_count?: SortOrder
   }
 
   export type PostMaxOrderByAggregateInput = {
@@ -6615,8 +6783,8 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     author_id?: SortOrder
+    reaction_count?: SortOrder
     visiblity?: SortOrder
-    imageId?: SortOrder
   }
 
   export type PostMinOrderByAggregateInput = {
@@ -6625,14 +6793,14 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     author_id?: SortOrder
+    reaction_count?: SortOrder
     visiblity?: SortOrder
-    imageId?: SortOrder
   }
 
   export type PostSumOrderByAggregateInput = {
     id?: SortOrder
     author_id?: SortOrder
-    imageId?: SortOrder
+    reaction_count?: SortOrder
   }
 
   export type EnumPostStatusEnumWithAggregatesFilter<$PrismaModel = never> = {
@@ -6650,11 +6818,6 @@ export namespace Prisma {
     in?: $Enums.ReactionEnum[] | ListEnumReactionEnumFieldRefInput<$PrismaModel>
     notIn?: $Enums.ReactionEnum[] | ListEnumReactionEnumFieldRefInput<$PrismaModel>
     not?: NestedEnumReactionEnumFilter<$PrismaModel> | $Enums.ReactionEnum
-  }
-
-  export type PostScalarRelationFilter = {
-    is?: PostWhereInput
-    isNot?: PostWhereInput
   }
 
   export type ReactionCountOrderByAggregateInput = {
@@ -6703,6 +6866,84 @@ export namespace Prisma {
     _max?: NestedEnumReactionEnumFilter<$PrismaModel>
   }
 
+  export type PostCreateNestedOneWithoutImagesInput = {
+    create?: XOR<PostCreateWithoutImagesInput, PostUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: PostCreateOrConnectWithoutImagesInput
+    connect?: PostWhereUniqueInput
+  }
+
+  export type UserCreateNestedManyWithoutImgInput = {
+    create?: XOR<UserCreateWithoutImgInput, UserUncheckedCreateWithoutImgInput> | UserCreateWithoutImgInput[] | UserUncheckedCreateWithoutImgInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutImgInput | UserCreateOrConnectWithoutImgInput[]
+    createMany?: UserCreateManyImgInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutImgInput = {
+    create?: XOR<UserCreateWithoutImgInput, UserUncheckedCreateWithoutImgInput> | UserCreateWithoutImgInput[] | UserUncheckedCreateWithoutImgInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutImgInput | UserCreateOrConnectWithoutImgInput[]
+    createMany?: UserCreateManyImgInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type PostUpdateOneRequiredWithoutImagesNestedInput = {
+    create?: XOR<PostCreateWithoutImagesInput, PostUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: PostCreateOrConnectWithoutImagesInput
+    upsert?: PostUpsertWithoutImagesInput
+    connect?: PostWhereUniqueInput
+    update?: XOR<XOR<PostUpdateToOneWithWhereWithoutImagesInput, PostUpdateWithoutImagesInput>, PostUncheckedUpdateWithoutImagesInput>
+  }
+
+  export type UserUpdateManyWithoutImgNestedInput = {
+    create?: XOR<UserCreateWithoutImgInput, UserUncheckedCreateWithoutImgInput> | UserCreateWithoutImgInput[] | UserUncheckedCreateWithoutImgInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutImgInput | UserCreateOrConnectWithoutImgInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutImgInput | UserUpsertWithWhereUniqueWithoutImgInput[]
+    createMany?: UserCreateManyImgInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutImgInput | UserUpdateWithWhereUniqueWithoutImgInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutImgInput | UserUpdateManyWithWhereWithoutImgInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUncheckedUpdateManyWithoutImgNestedInput = {
+    create?: XOR<UserCreateWithoutImgInput, UserUncheckedCreateWithoutImgInput> | UserCreateWithoutImgInput[] | UserUncheckedCreateWithoutImgInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutImgInput | UserCreateOrConnectWithoutImgInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutImgInput | UserUpsertWithWhereUniqueWithoutImgInput[]
+    createMany?: UserCreateManyImgInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutImgInput | UserUpdateWithWhereUniqueWithoutImgInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutImgInput | UserUpdateManyWithWhereWithoutImgInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type ImageCreateNestedOneWithoutUserInput = {
+    create?: XOR<ImageCreateWithoutUserInput, ImageUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ImageCreateOrConnectWithoutUserInput
+    connect?: ImageWhereUniqueInput
+  }
+
   export type PostCreateNestedManyWithoutAuthorInput = {
     create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
@@ -6710,10 +6951,10 @@ export namespace Prisma {
     connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
   }
 
-  export type ReactionCreateNestedManyWithoutReactorInput = {
-    create?: XOR<ReactionCreateWithoutReactorInput, ReactionUncheckedCreateWithoutReactorInput> | ReactionCreateWithoutReactorInput[] | ReactionUncheckedCreateWithoutReactorInput[]
-    connectOrCreate?: ReactionCreateOrConnectWithoutReactorInput | ReactionCreateOrConnectWithoutReactorInput[]
-    createMany?: ReactionCreateManyReactorInputEnvelope
+  export type ReactionCreateNestedManyWithoutReactor_byInput = {
+    create?: XOR<ReactionCreateWithoutReactor_byInput, ReactionUncheckedCreateWithoutReactor_byInput> | ReactionCreateWithoutReactor_byInput[] | ReactionUncheckedCreateWithoutReactor_byInput[]
+    connectOrCreate?: ReactionCreateOrConnectWithoutReactor_byInput | ReactionCreateOrConnectWithoutReactor_byInput[]
+    createMany?: ReactionCreateManyReactor_byInputEnvelope
     connect?: ReactionWhereUniqueInput | ReactionWhereUniqueInput[]
   }
 
@@ -6724,19 +6965,19 @@ export namespace Prisma {
     connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
   }
 
-  export type ReactionUncheckedCreateNestedManyWithoutReactorInput = {
-    create?: XOR<ReactionCreateWithoutReactorInput, ReactionUncheckedCreateWithoutReactorInput> | ReactionCreateWithoutReactorInput[] | ReactionUncheckedCreateWithoutReactorInput[]
-    connectOrCreate?: ReactionCreateOrConnectWithoutReactorInput | ReactionCreateOrConnectWithoutReactorInput[]
-    createMany?: ReactionCreateManyReactorInputEnvelope
+  export type ReactionUncheckedCreateNestedManyWithoutReactor_byInput = {
+    create?: XOR<ReactionCreateWithoutReactor_byInput, ReactionUncheckedCreateWithoutReactor_byInput> | ReactionCreateWithoutReactor_byInput[] | ReactionUncheckedCreateWithoutReactor_byInput[]
+    connectOrCreate?: ReactionCreateOrConnectWithoutReactor_byInput | ReactionCreateOrConnectWithoutReactor_byInput[]
+    createMany?: ReactionCreateManyReactor_byInputEnvelope
     connect?: ReactionWhereUniqueInput | ReactionWhereUniqueInput[]
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
+  export type ImageUpdateOneRequiredWithoutUserNestedInput = {
+    create?: XOR<ImageCreateWithoutUserInput, ImageUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ImageCreateOrConnectWithoutUserInput
+    upsert?: ImageUpsertWithoutUserInput
+    connect?: ImageWhereUniqueInput
+    update?: XOR<XOR<ImageUpdateToOneWithWhereWithoutUserInput, ImageUpdateWithoutUserInput>, ImageUncheckedUpdateWithoutUserInput>
   }
 
   export type PostUpdateManyWithoutAuthorNestedInput = {
@@ -6753,26 +6994,18 @@ export namespace Prisma {
     deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
   }
 
-  export type ReactionUpdateManyWithoutReactorNestedInput = {
-    create?: XOR<ReactionCreateWithoutReactorInput, ReactionUncheckedCreateWithoutReactorInput> | ReactionCreateWithoutReactorInput[] | ReactionUncheckedCreateWithoutReactorInput[]
-    connectOrCreate?: ReactionCreateOrConnectWithoutReactorInput | ReactionCreateOrConnectWithoutReactorInput[]
-    upsert?: ReactionUpsertWithWhereUniqueWithoutReactorInput | ReactionUpsertWithWhereUniqueWithoutReactorInput[]
-    createMany?: ReactionCreateManyReactorInputEnvelope
+  export type ReactionUpdateManyWithoutReactor_byNestedInput = {
+    create?: XOR<ReactionCreateWithoutReactor_byInput, ReactionUncheckedCreateWithoutReactor_byInput> | ReactionCreateWithoutReactor_byInput[] | ReactionUncheckedCreateWithoutReactor_byInput[]
+    connectOrCreate?: ReactionCreateOrConnectWithoutReactor_byInput | ReactionCreateOrConnectWithoutReactor_byInput[]
+    upsert?: ReactionUpsertWithWhereUniqueWithoutReactor_byInput | ReactionUpsertWithWhereUniqueWithoutReactor_byInput[]
+    createMany?: ReactionCreateManyReactor_byInputEnvelope
     set?: ReactionWhereUniqueInput | ReactionWhereUniqueInput[]
     disconnect?: ReactionWhereUniqueInput | ReactionWhereUniqueInput[]
     delete?: ReactionWhereUniqueInput | ReactionWhereUniqueInput[]
     connect?: ReactionWhereUniqueInput | ReactionWhereUniqueInput[]
-    update?: ReactionUpdateWithWhereUniqueWithoutReactorInput | ReactionUpdateWithWhereUniqueWithoutReactorInput[]
-    updateMany?: ReactionUpdateManyWithWhereWithoutReactorInput | ReactionUpdateManyWithWhereWithoutReactorInput[]
+    update?: ReactionUpdateWithWhereUniqueWithoutReactor_byInput | ReactionUpdateWithWhereUniqueWithoutReactor_byInput[]
+    updateMany?: ReactionUpdateManyWithWhereWithoutReactor_byInput | ReactionUpdateManyWithWhereWithoutReactor_byInput[]
     deleteMany?: ReactionScalarWhereInput | ReactionScalarWhereInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type PostUncheckedUpdateManyWithoutAuthorNestedInput = {
@@ -6789,66 +7022,18 @@ export namespace Prisma {
     deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
   }
 
-  export type ReactionUncheckedUpdateManyWithoutReactorNestedInput = {
-    create?: XOR<ReactionCreateWithoutReactorInput, ReactionUncheckedCreateWithoutReactorInput> | ReactionCreateWithoutReactorInput[] | ReactionUncheckedCreateWithoutReactorInput[]
-    connectOrCreate?: ReactionCreateOrConnectWithoutReactorInput | ReactionCreateOrConnectWithoutReactorInput[]
-    upsert?: ReactionUpsertWithWhereUniqueWithoutReactorInput | ReactionUpsertWithWhereUniqueWithoutReactorInput[]
-    createMany?: ReactionCreateManyReactorInputEnvelope
+  export type ReactionUncheckedUpdateManyWithoutReactor_byNestedInput = {
+    create?: XOR<ReactionCreateWithoutReactor_byInput, ReactionUncheckedCreateWithoutReactor_byInput> | ReactionCreateWithoutReactor_byInput[] | ReactionUncheckedCreateWithoutReactor_byInput[]
+    connectOrCreate?: ReactionCreateOrConnectWithoutReactor_byInput | ReactionCreateOrConnectWithoutReactor_byInput[]
+    upsert?: ReactionUpsertWithWhereUniqueWithoutReactor_byInput | ReactionUpsertWithWhereUniqueWithoutReactor_byInput[]
+    createMany?: ReactionCreateManyReactor_byInputEnvelope
     set?: ReactionWhereUniqueInput | ReactionWhereUniqueInput[]
     disconnect?: ReactionWhereUniqueInput | ReactionWhereUniqueInput[]
     delete?: ReactionWhereUniqueInput | ReactionWhereUniqueInput[]
     connect?: ReactionWhereUniqueInput | ReactionWhereUniqueInput[]
-    update?: ReactionUpdateWithWhereUniqueWithoutReactorInput | ReactionUpdateWithWhereUniqueWithoutReactorInput[]
-    updateMany?: ReactionUpdateManyWithWhereWithoutReactorInput | ReactionUpdateManyWithWhereWithoutReactorInput[]
+    update?: ReactionUpdateWithWhereUniqueWithoutReactor_byInput | ReactionUpdateWithWhereUniqueWithoutReactor_byInput[]
+    updateMany?: ReactionUpdateManyWithWhereWithoutReactor_byInput | ReactionUpdateManyWithWhereWithoutReactor_byInput[]
     deleteMany?: ReactionScalarWhereInput | ReactionScalarWhereInput[]
-  }
-
-  export type PostCreateNestedManyWithoutImagesInput = {
-    create?: XOR<PostCreateWithoutImagesInput, PostUncheckedCreateWithoutImagesInput> | PostCreateWithoutImagesInput[] | PostUncheckedCreateWithoutImagesInput[]
-    connectOrCreate?: PostCreateOrConnectWithoutImagesInput | PostCreateOrConnectWithoutImagesInput[]
-    createMany?: PostCreateManyImagesInputEnvelope
-    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
-  }
-
-  export type PostUncheckedCreateNestedManyWithoutImagesInput = {
-    create?: XOR<PostCreateWithoutImagesInput, PostUncheckedCreateWithoutImagesInput> | PostCreateWithoutImagesInput[] | PostUncheckedCreateWithoutImagesInput[]
-    connectOrCreate?: PostCreateOrConnectWithoutImagesInput | PostCreateOrConnectWithoutImagesInput[]
-    createMany?: PostCreateManyImagesInputEnvelope
-    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
-  }
-
-  export type PostUpdateManyWithoutImagesNestedInput = {
-    create?: XOR<PostCreateWithoutImagesInput, PostUncheckedCreateWithoutImagesInput> | PostCreateWithoutImagesInput[] | PostUncheckedCreateWithoutImagesInput[]
-    connectOrCreate?: PostCreateOrConnectWithoutImagesInput | PostCreateOrConnectWithoutImagesInput[]
-    upsert?: PostUpsertWithWhereUniqueWithoutImagesInput | PostUpsertWithWhereUniqueWithoutImagesInput[]
-    createMany?: PostCreateManyImagesInputEnvelope
-    set?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    disconnect?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    delete?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    update?: PostUpdateWithWhereUniqueWithoutImagesInput | PostUpdateWithWhereUniqueWithoutImagesInput[]
-    updateMany?: PostUpdateManyWithWhereWithoutImagesInput | PostUpdateManyWithWhereWithoutImagesInput[]
-    deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
-  }
-
-  export type PostUncheckedUpdateManyWithoutImagesNestedInput = {
-    create?: XOR<PostCreateWithoutImagesInput, PostUncheckedCreateWithoutImagesInput> | PostCreateWithoutImagesInput[] | PostUncheckedCreateWithoutImagesInput[]
-    connectOrCreate?: PostCreateOrConnectWithoutImagesInput | PostCreateOrConnectWithoutImagesInput[]
-    upsert?: PostUpsertWithWhereUniqueWithoutImagesInput | PostUpsertWithWhereUniqueWithoutImagesInput[]
-    createMany?: PostCreateManyImagesInputEnvelope
-    set?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    disconnect?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    delete?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    update?: PostUpdateWithWhereUniqueWithoutImagesInput | PostUpdateWithWhereUniqueWithoutImagesInput[]
-    updateMany?: PostUpdateManyWithWhereWithoutImagesInput | PostUpdateManyWithWhereWithoutImagesInput[]
-    deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
-  }
-
-  export type ImageCreateNestedOneWithoutPostsInput = {
-    create?: XOR<ImageCreateWithoutPostsInput, ImageUncheckedCreateWithoutPostsInput>
-    connectOrCreate?: ImageCreateOrConnectWithoutPostsInput
-    connect?: ImageWhereUniqueInput
   }
 
   export type UserCreateNestedOneWithoutPostsInput = {
@@ -6857,11 +7042,25 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type ImageCreateNestedManyWithoutImage_ofInput = {
+    create?: XOR<ImageCreateWithoutImage_ofInput, ImageUncheckedCreateWithoutImage_ofInput> | ImageCreateWithoutImage_ofInput[] | ImageUncheckedCreateWithoutImage_ofInput[]
+    connectOrCreate?: ImageCreateOrConnectWithoutImage_ofInput | ImageCreateOrConnectWithoutImage_ofInput[]
+    createMany?: ImageCreateManyImage_ofInputEnvelope
+    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+  }
+
   export type ReactionCreateNestedManyWithoutReaction_ofInput = {
     create?: XOR<ReactionCreateWithoutReaction_ofInput, ReactionUncheckedCreateWithoutReaction_ofInput> | ReactionCreateWithoutReaction_ofInput[] | ReactionUncheckedCreateWithoutReaction_ofInput[]
     connectOrCreate?: ReactionCreateOrConnectWithoutReaction_ofInput | ReactionCreateOrConnectWithoutReaction_ofInput[]
     createMany?: ReactionCreateManyReaction_ofInputEnvelope
     connect?: ReactionWhereUniqueInput | ReactionWhereUniqueInput[]
+  }
+
+  export type ImageUncheckedCreateNestedManyWithoutImage_ofInput = {
+    create?: XOR<ImageCreateWithoutImage_ofInput, ImageUncheckedCreateWithoutImage_ofInput> | ImageCreateWithoutImage_ofInput[] | ImageUncheckedCreateWithoutImage_ofInput[]
+    connectOrCreate?: ImageCreateOrConnectWithoutImage_ofInput | ImageCreateOrConnectWithoutImage_ofInput[]
+    createMany?: ImageCreateManyImage_ofInputEnvelope
+    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
   }
 
   export type ReactionUncheckedCreateNestedManyWithoutReaction_ofInput = {
@@ -6875,20 +7074,26 @@ export namespace Prisma {
     set?: $Enums.PostStatusEnum
   }
 
-  export type ImageUpdateOneRequiredWithoutPostsNestedInput = {
-    create?: XOR<ImageCreateWithoutPostsInput, ImageUncheckedCreateWithoutPostsInput>
-    connectOrCreate?: ImageCreateOrConnectWithoutPostsInput
-    upsert?: ImageUpsertWithoutPostsInput
-    connect?: ImageWhereUniqueInput
-    update?: XOR<XOR<ImageUpdateToOneWithWhereWithoutPostsInput, ImageUpdateWithoutPostsInput>, ImageUncheckedUpdateWithoutPostsInput>
-  }
-
   export type UserUpdateOneRequiredWithoutPostsNestedInput = {
     create?: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
     connectOrCreate?: UserCreateOrConnectWithoutPostsInput
     upsert?: UserUpsertWithoutPostsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPostsInput, UserUpdateWithoutPostsInput>, UserUncheckedUpdateWithoutPostsInput>
+  }
+
+  export type ImageUpdateManyWithoutImage_ofNestedInput = {
+    create?: XOR<ImageCreateWithoutImage_ofInput, ImageUncheckedCreateWithoutImage_ofInput> | ImageCreateWithoutImage_ofInput[] | ImageUncheckedCreateWithoutImage_ofInput[]
+    connectOrCreate?: ImageCreateOrConnectWithoutImage_ofInput | ImageCreateOrConnectWithoutImage_ofInput[]
+    upsert?: ImageUpsertWithWhereUniqueWithoutImage_ofInput | ImageUpsertWithWhereUniqueWithoutImage_ofInput[]
+    createMany?: ImageCreateManyImage_ofInputEnvelope
+    set?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    disconnect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    delete?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    update?: ImageUpdateWithWhereUniqueWithoutImage_ofInput | ImageUpdateWithWhereUniqueWithoutImage_ofInput[]
+    updateMany?: ImageUpdateManyWithWhereWithoutImage_ofInput | ImageUpdateManyWithWhereWithoutImage_ofInput[]
+    deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
   }
 
   export type ReactionUpdateManyWithoutReaction_ofNestedInput = {
@@ -6903,6 +7108,20 @@ export namespace Prisma {
     update?: ReactionUpdateWithWhereUniqueWithoutReaction_ofInput | ReactionUpdateWithWhereUniqueWithoutReaction_ofInput[]
     updateMany?: ReactionUpdateManyWithWhereWithoutReaction_ofInput | ReactionUpdateManyWithWhereWithoutReaction_ofInput[]
     deleteMany?: ReactionScalarWhereInput | ReactionScalarWhereInput[]
+  }
+
+  export type ImageUncheckedUpdateManyWithoutImage_ofNestedInput = {
+    create?: XOR<ImageCreateWithoutImage_ofInput, ImageUncheckedCreateWithoutImage_ofInput> | ImageCreateWithoutImage_ofInput[] | ImageUncheckedCreateWithoutImage_ofInput[]
+    connectOrCreate?: ImageCreateOrConnectWithoutImage_ofInput | ImageCreateOrConnectWithoutImage_ofInput[]
+    upsert?: ImageUpsertWithWhereUniqueWithoutImage_ofInput | ImageUpsertWithWhereUniqueWithoutImage_ofInput[]
+    createMany?: ImageCreateManyImage_ofInputEnvelope
+    set?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    disconnect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    delete?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    update?: ImageUpdateWithWhereUniqueWithoutImage_ofInput | ImageUpdateWithWhereUniqueWithoutImage_ofInput[]
+    updateMany?: ImageUpdateManyWithWhereWithoutImage_ofInput | ImageUpdateManyWithWhereWithoutImage_ofInput[]
+    deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
   }
 
   export type ReactionUncheckedUpdateManyWithoutReaction_ofNestedInput = {
@@ -7079,12 +7298,149 @@ export namespace Prisma {
     _max?: NestedEnumReactionEnumFilter<$PrismaModel>
   }
 
+  export type PostCreateWithoutImagesInput = {
+    body: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    reaction_count: number
+    visiblity?: $Enums.PostStatusEnum
+    author: UserCreateNestedOneWithoutPostsInput
+    reactions?: ReactionCreateNestedManyWithoutReaction_ofInput
+  }
+
+  export type PostUncheckedCreateWithoutImagesInput = {
+    id?: number
+    body: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    author_id: number
+    reaction_count: number
+    visiblity?: $Enums.PostStatusEnum
+    reactions?: ReactionUncheckedCreateNestedManyWithoutReaction_ofInput
+  }
+
+  export type PostCreateOrConnectWithoutImagesInput = {
+    where: PostWhereUniqueInput
+    create: XOR<PostCreateWithoutImagesInput, PostUncheckedCreateWithoutImagesInput>
+  }
+
+  export type UserCreateWithoutImgInput = {
+    email: string
+    name: string
+    username: string
+    password: string
+    created_at?: Date | string
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    reactions?: ReactionCreateNestedManyWithoutReactor_byInput
+  }
+
+  export type UserUncheckedCreateWithoutImgInput = {
+    id?: number
+    email: string
+    name: string
+    username: string
+    password: string
+    created_at?: Date | string
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    reactions?: ReactionUncheckedCreateNestedManyWithoutReactor_byInput
+  }
+
+  export type UserCreateOrConnectWithoutImgInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutImgInput, UserUncheckedCreateWithoutImgInput>
+  }
+
+  export type UserCreateManyImgInputEnvelope = {
+    data: UserCreateManyImgInput | UserCreateManyImgInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PostUpsertWithoutImagesInput = {
+    update: XOR<PostUpdateWithoutImagesInput, PostUncheckedUpdateWithoutImagesInput>
+    create: XOR<PostCreateWithoutImagesInput, PostUncheckedCreateWithoutImagesInput>
+    where?: PostWhereInput
+  }
+
+  export type PostUpdateToOneWithWhereWithoutImagesInput = {
+    where?: PostWhereInput
+    data: XOR<PostUpdateWithoutImagesInput, PostUncheckedUpdateWithoutImagesInput>
+  }
+
+  export type PostUpdateWithoutImagesInput = {
+    body?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reaction_count?: IntFieldUpdateOperationsInput | number
+    visiblity?: EnumPostStatusEnumFieldUpdateOperationsInput | $Enums.PostStatusEnum
+    author?: UserUpdateOneRequiredWithoutPostsNestedInput
+    reactions?: ReactionUpdateManyWithoutReaction_ofNestedInput
+  }
+
+  export type PostUncheckedUpdateWithoutImagesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    body?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    author_id?: IntFieldUpdateOperationsInput | number
+    reaction_count?: IntFieldUpdateOperationsInput | number
+    visiblity?: EnumPostStatusEnumFieldUpdateOperationsInput | $Enums.PostStatusEnum
+    reactions?: ReactionUncheckedUpdateManyWithoutReaction_ofNestedInput
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutImgInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutImgInput, UserUncheckedUpdateWithoutImgInput>
+    create: XOR<UserCreateWithoutImgInput, UserUncheckedCreateWithoutImgInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutImgInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutImgInput, UserUncheckedUpdateWithoutImgInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutImgInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutImgInput>
+  }
+
+  export type UserScalarWhereInput = {
+    AND?: UserScalarWhereInput | UserScalarWhereInput[]
+    OR?: UserScalarWhereInput[]
+    NOT?: UserScalarWhereInput | UserScalarWhereInput[]
+    id?: IntFilter<"User"> | number
+    email?: StringFilter<"User"> | string
+    name?: StringFilter<"User"> | string
+    username?: StringFilter<"User"> | string
+    password?: StringFilter<"User"> | string
+    created_at?: DateTimeFilter<"User"> | Date | string
+    imageId?: IntFilter<"User"> | number
+  }
+
+  export type ImageCreateWithoutUserInput = {
+    url: string
+    created_at?: Date | string
+    image_of: PostCreateNestedOneWithoutImagesInput
+  }
+
+  export type ImageUncheckedCreateWithoutUserInput = {
+    id?: number
+    url: string
+    created_at?: Date | string
+    post_id: number
+  }
+
+  export type ImageCreateOrConnectWithoutUserInput = {
+    where: ImageWhereUniqueInput
+    create: XOR<ImageCreateWithoutUserInput, ImageUncheckedCreateWithoutUserInput>
+  }
+
   export type PostCreateWithoutAuthorInput = {
     body: string
     created_at?: Date | string
     updated_at?: Date | string
+    reaction_count: number
     visiblity?: $Enums.PostStatusEnum
-    images: ImageCreateNestedOneWithoutPostsInput
+    images?: ImageCreateNestedManyWithoutImage_ofInput
     reactions?: ReactionCreateNestedManyWithoutReaction_ofInput
   }
 
@@ -7093,8 +7449,9 @@ export namespace Prisma {
     body: string
     created_at?: Date | string
     updated_at?: Date | string
+    reaction_count: number
     visiblity?: $Enums.PostStatusEnum
-    imageId: number
+    images?: ImageUncheckedCreateNestedManyWithoutImage_ofInput
     reactions?: ReactionUncheckedCreateNestedManyWithoutReaction_ofInput
   }
 
@@ -7108,27 +7465,51 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ReactionCreateWithoutReactorInput = {
-    reaction: $Enums.ReactionEnum
+  export type ReactionCreateWithoutReactor_byInput = {
+    reaction?: $Enums.ReactionEnum
     created_at?: Date | string
     reaction_of: PostCreateNestedOneWithoutReactionsInput
   }
 
-  export type ReactionUncheckedCreateWithoutReactorInput = {
+  export type ReactionUncheckedCreateWithoutReactor_byInput = {
     id?: number
-    reaction: $Enums.ReactionEnum
+    reaction?: $Enums.ReactionEnum
     created_at?: Date | string
     post_id: number
   }
 
-  export type ReactionCreateOrConnectWithoutReactorInput = {
+  export type ReactionCreateOrConnectWithoutReactor_byInput = {
     where: ReactionWhereUniqueInput
-    create: XOR<ReactionCreateWithoutReactorInput, ReactionUncheckedCreateWithoutReactorInput>
+    create: XOR<ReactionCreateWithoutReactor_byInput, ReactionUncheckedCreateWithoutReactor_byInput>
   }
 
-  export type ReactionCreateManyReactorInputEnvelope = {
-    data: ReactionCreateManyReactorInput | ReactionCreateManyReactorInput[]
+  export type ReactionCreateManyReactor_byInputEnvelope = {
+    data: ReactionCreateManyReactor_byInput | ReactionCreateManyReactor_byInput[]
     skipDuplicates?: boolean
+  }
+
+  export type ImageUpsertWithoutUserInput = {
+    update: XOR<ImageUpdateWithoutUserInput, ImageUncheckedUpdateWithoutUserInput>
+    create: XOR<ImageCreateWithoutUserInput, ImageUncheckedCreateWithoutUserInput>
+    where?: ImageWhereInput
+  }
+
+  export type ImageUpdateToOneWithWhereWithoutUserInput = {
+    where?: ImageWhereInput
+    data: XOR<ImageUpdateWithoutUserInput, ImageUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ImageUpdateWithoutUserInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_of?: PostUpdateOneRequiredWithoutImagesNestedInput
+  }
+
+  export type ImageUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    post_id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -7156,24 +7537,24 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Post"> | Date | string
     updated_at?: DateTimeFilter<"Post"> | Date | string
     author_id?: IntFilter<"Post"> | number
+    reaction_count?: IntFilter<"Post"> | number
     visiblity?: EnumPostStatusEnumFilter<"Post"> | $Enums.PostStatusEnum
-    imageId?: IntFilter<"Post"> | number
   }
 
-  export type ReactionUpsertWithWhereUniqueWithoutReactorInput = {
+  export type ReactionUpsertWithWhereUniqueWithoutReactor_byInput = {
     where: ReactionWhereUniqueInput
-    update: XOR<ReactionUpdateWithoutReactorInput, ReactionUncheckedUpdateWithoutReactorInput>
-    create: XOR<ReactionCreateWithoutReactorInput, ReactionUncheckedCreateWithoutReactorInput>
+    update: XOR<ReactionUpdateWithoutReactor_byInput, ReactionUncheckedUpdateWithoutReactor_byInput>
+    create: XOR<ReactionCreateWithoutReactor_byInput, ReactionUncheckedCreateWithoutReactor_byInput>
   }
 
-  export type ReactionUpdateWithWhereUniqueWithoutReactorInput = {
+  export type ReactionUpdateWithWhereUniqueWithoutReactor_byInput = {
     where: ReactionWhereUniqueInput
-    data: XOR<ReactionUpdateWithoutReactorInput, ReactionUncheckedUpdateWithoutReactorInput>
+    data: XOR<ReactionUpdateWithoutReactor_byInput, ReactionUncheckedUpdateWithoutReactor_byInput>
   }
 
-  export type ReactionUpdateManyWithWhereWithoutReactorInput = {
+  export type ReactionUpdateManyWithWhereWithoutReactor_byInput = {
     where: ReactionScalarWhereInput
-    data: XOR<ReactionUpdateManyMutationInput, ReactionUncheckedUpdateManyWithoutReactorInput>
+    data: XOR<ReactionUpdateManyMutationInput, ReactionUncheckedUpdateManyWithoutReactor_byInput>
   }
 
   export type ReactionScalarWhereInput = {
@@ -7187,74 +7568,14 @@ export namespace Prisma {
     reactor_id?: IntFilter<"Reaction"> | number
   }
 
-  export type PostCreateWithoutImagesInput = {
-    body: string
-    created_at?: Date | string
-    updated_at?: Date | string
-    visiblity?: $Enums.PostStatusEnum
-    author: UserCreateNestedOneWithoutPostsInput
-    reactions?: ReactionCreateNestedManyWithoutReaction_ofInput
-  }
-
-  export type PostUncheckedCreateWithoutImagesInput = {
-    id?: number
-    body: string
-    created_at?: Date | string
-    updated_at?: Date | string
-    author_id: number
-    visiblity?: $Enums.PostStatusEnum
-    reactions?: ReactionUncheckedCreateNestedManyWithoutReaction_ofInput
-  }
-
-  export type PostCreateOrConnectWithoutImagesInput = {
-    where: PostWhereUniqueInput
-    create: XOR<PostCreateWithoutImagesInput, PostUncheckedCreateWithoutImagesInput>
-  }
-
-  export type PostCreateManyImagesInputEnvelope = {
-    data: PostCreateManyImagesInput | PostCreateManyImagesInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type PostUpsertWithWhereUniqueWithoutImagesInput = {
-    where: PostWhereUniqueInput
-    update: XOR<PostUpdateWithoutImagesInput, PostUncheckedUpdateWithoutImagesInput>
-    create: XOR<PostCreateWithoutImagesInput, PostUncheckedCreateWithoutImagesInput>
-  }
-
-  export type PostUpdateWithWhereUniqueWithoutImagesInput = {
-    where: PostWhereUniqueInput
-    data: XOR<PostUpdateWithoutImagesInput, PostUncheckedUpdateWithoutImagesInput>
-  }
-
-  export type PostUpdateManyWithWhereWithoutImagesInput = {
-    where: PostScalarWhereInput
-    data: XOR<PostUpdateManyMutationInput, PostUncheckedUpdateManyWithoutImagesInput>
-  }
-
-  export type ImageCreateWithoutPostsInput = {
-    url: string
-    created_at?: Date | string
-  }
-
-  export type ImageUncheckedCreateWithoutPostsInput = {
-    id?: number
-    url: string
-    created_at?: Date | string
-  }
-
-  export type ImageCreateOrConnectWithoutPostsInput = {
-    where: ImageWhereUniqueInput
-    create: XOR<ImageCreateWithoutPostsInput, ImageUncheckedCreateWithoutPostsInput>
-  }
-
   export type UserCreateWithoutPostsInput = {
     email: string
     name: string
     username: string
     password: string
     created_at?: Date | string
-    reactions?: ReactionCreateNestedManyWithoutReactorInput
+    img: ImageCreateNestedOneWithoutUserInput
+    reactions?: ReactionCreateNestedManyWithoutReactor_byInput
   }
 
   export type UserUncheckedCreateWithoutPostsInput = {
@@ -7264,7 +7585,8 @@ export namespace Prisma {
     username: string
     password: string
     created_at?: Date | string
-    reactions?: ReactionUncheckedCreateNestedManyWithoutReactorInput
+    imageId: number
+    reactions?: ReactionUncheckedCreateNestedManyWithoutReactor_byInput
   }
 
   export type UserCreateOrConnectWithoutPostsInput = {
@@ -7272,15 +7594,38 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
   }
 
-  export type ReactionCreateWithoutReaction_ofInput = {
-    reaction: $Enums.ReactionEnum
+  export type ImageCreateWithoutImage_ofInput = {
+    url: string
     created_at?: Date | string
-    reactor: UserCreateNestedOneWithoutReactionsInput
+    User?: UserCreateNestedManyWithoutImgInput
+  }
+
+  export type ImageUncheckedCreateWithoutImage_ofInput = {
+    id?: number
+    url: string
+    created_at?: Date | string
+    User?: UserUncheckedCreateNestedManyWithoutImgInput
+  }
+
+  export type ImageCreateOrConnectWithoutImage_ofInput = {
+    where: ImageWhereUniqueInput
+    create: XOR<ImageCreateWithoutImage_ofInput, ImageUncheckedCreateWithoutImage_ofInput>
+  }
+
+  export type ImageCreateManyImage_ofInputEnvelope = {
+    data: ImageCreateManyImage_ofInput | ImageCreateManyImage_ofInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ReactionCreateWithoutReaction_ofInput = {
+    reaction?: $Enums.ReactionEnum
+    created_at?: Date | string
+    reactor_by: UserCreateNestedOneWithoutReactionsInput
   }
 
   export type ReactionUncheckedCreateWithoutReaction_ofInput = {
     id?: number
-    reaction: $Enums.ReactionEnum
+    reaction?: $Enums.ReactionEnum
     created_at?: Date | string
     reactor_id: number
   }
@@ -7293,28 +7638,6 @@ export namespace Prisma {
   export type ReactionCreateManyReaction_ofInputEnvelope = {
     data: ReactionCreateManyReaction_ofInput | ReactionCreateManyReaction_ofInput[]
     skipDuplicates?: boolean
-  }
-
-  export type ImageUpsertWithoutPostsInput = {
-    update: XOR<ImageUpdateWithoutPostsInput, ImageUncheckedUpdateWithoutPostsInput>
-    create: XOR<ImageCreateWithoutPostsInput, ImageUncheckedCreateWithoutPostsInput>
-    where?: ImageWhereInput
-  }
-
-  export type ImageUpdateToOneWithWhereWithoutPostsInput = {
-    where?: ImageWhereInput
-    data: XOR<ImageUpdateWithoutPostsInput, ImageUncheckedUpdateWithoutPostsInput>
-  }
-
-  export type ImageUpdateWithoutPostsInput = {
-    url?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ImageUncheckedUpdateWithoutPostsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    url?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUpsertWithoutPostsInput = {
@@ -7334,7 +7657,8 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    reactions?: ReactionUpdateManyWithoutReactorNestedInput
+    img?: ImageUpdateOneRequiredWithoutUserNestedInput
+    reactions?: ReactionUpdateManyWithoutReactor_byNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPostsInput = {
@@ -7344,7 +7668,34 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    reactions?: ReactionUncheckedUpdateManyWithoutReactorNestedInput
+    imageId?: IntFieldUpdateOperationsInput | number
+    reactions?: ReactionUncheckedUpdateManyWithoutReactor_byNestedInput
+  }
+
+  export type ImageUpsertWithWhereUniqueWithoutImage_ofInput = {
+    where: ImageWhereUniqueInput
+    update: XOR<ImageUpdateWithoutImage_ofInput, ImageUncheckedUpdateWithoutImage_ofInput>
+    create: XOR<ImageCreateWithoutImage_ofInput, ImageUncheckedCreateWithoutImage_ofInput>
+  }
+
+  export type ImageUpdateWithWhereUniqueWithoutImage_ofInput = {
+    where: ImageWhereUniqueInput
+    data: XOR<ImageUpdateWithoutImage_ofInput, ImageUncheckedUpdateWithoutImage_ofInput>
+  }
+
+  export type ImageUpdateManyWithWhereWithoutImage_ofInput = {
+    where: ImageScalarWhereInput
+    data: XOR<ImageUpdateManyMutationInput, ImageUncheckedUpdateManyWithoutImage_ofInput>
+  }
+
+  export type ImageScalarWhereInput = {
+    AND?: ImageScalarWhereInput | ImageScalarWhereInput[]
+    OR?: ImageScalarWhereInput[]
+    NOT?: ImageScalarWhereInput | ImageScalarWhereInput[]
+    id?: IntFilter<"Image"> | number
+    url?: StringFilter<"Image"> | string
+    created_at?: DateTimeFilter<"Image"> | Date | string
+    post_id?: IntFilter<"Image"> | number
   }
 
   export type ReactionUpsertWithWhereUniqueWithoutReaction_ofInput = {
@@ -7367,9 +7718,10 @@ export namespace Prisma {
     body: string
     created_at?: Date | string
     updated_at?: Date | string
+    reaction_count: number
     visiblity?: $Enums.PostStatusEnum
-    images: ImageCreateNestedOneWithoutPostsInput
     author: UserCreateNestedOneWithoutPostsInput
+    images?: ImageCreateNestedManyWithoutImage_ofInput
   }
 
   export type PostUncheckedCreateWithoutReactionsInput = {
@@ -7378,8 +7730,9 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     author_id: number
+    reaction_count: number
     visiblity?: $Enums.PostStatusEnum
-    imageId: number
+    images?: ImageUncheckedCreateNestedManyWithoutImage_ofInput
   }
 
   export type PostCreateOrConnectWithoutReactionsInput = {
@@ -7393,6 +7746,7 @@ export namespace Prisma {
     username: string
     password: string
     created_at?: Date | string
+    img: ImageCreateNestedOneWithoutUserInput
     posts?: PostCreateNestedManyWithoutAuthorInput
   }
 
@@ -7403,6 +7757,7 @@ export namespace Prisma {
     username: string
     password: string
     created_at?: Date | string
+    imageId: number
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
@@ -7426,9 +7781,10 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reaction_count?: IntFieldUpdateOperationsInput | number
     visiblity?: EnumPostStatusEnumFieldUpdateOperationsInput | $Enums.PostStatusEnum
-    images?: ImageUpdateOneRequiredWithoutPostsNestedInput
     author?: UserUpdateOneRequiredWithoutPostsNestedInput
+    images?: ImageUpdateManyWithoutImage_ofNestedInput
   }
 
   export type PostUncheckedUpdateWithoutReactionsInput = {
@@ -7437,8 +7793,9 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     author_id?: IntFieldUpdateOperationsInput | number
+    reaction_count?: IntFieldUpdateOperationsInput | number
     visiblity?: EnumPostStatusEnumFieldUpdateOperationsInput | $Enums.PostStatusEnum
-    imageId?: IntFieldUpdateOperationsInput | number
+    images?: ImageUncheckedUpdateManyWithoutImage_ofNestedInput
   }
 
   export type UserUpsertWithoutReactionsInput = {
@@ -7458,6 +7815,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    img?: ImageUpdateOneRequiredWithoutUserNestedInput
     posts?: PostUpdateManyWithoutAuthorNestedInput
   }
 
@@ -7468,7 +7826,47 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    imageId?: IntFieldUpdateOperationsInput | number
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type UserCreateManyImgInput = {
+    id?: number
+    email: string
+    name: string
+    username: string
+    password: string
+    created_at?: Date | string
+  }
+
+  export type UserUpdateWithoutImgInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    reactions?: ReactionUpdateManyWithoutReactor_byNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutImgInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    reactions?: ReactionUncheckedUpdateManyWithoutReactor_byNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutImgInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostCreateManyAuthorInput = {
@@ -7476,13 +7874,13 @@ export namespace Prisma {
     body: string
     created_at?: Date | string
     updated_at?: Date | string
+    reaction_count: number
     visiblity?: $Enums.PostStatusEnum
-    imageId: number
   }
 
-  export type ReactionCreateManyReactorInput = {
+  export type ReactionCreateManyReactor_byInput = {
     id?: number
-    reaction: $Enums.ReactionEnum
+    reaction?: $Enums.ReactionEnum
     created_at?: Date | string
     post_id: number
   }
@@ -7491,8 +7889,9 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reaction_count?: IntFieldUpdateOperationsInput | number
     visiblity?: EnumPostStatusEnumFieldUpdateOperationsInput | $Enums.PostStatusEnum
-    images?: ImageUpdateOneRequiredWithoutPostsNestedInput
+    images?: ImageUpdateManyWithoutImage_ofNestedInput
     reactions?: ReactionUpdateManyWithoutReaction_ofNestedInput
   }
 
@@ -7501,8 +7900,9 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reaction_count?: IntFieldUpdateOperationsInput | number
     visiblity?: EnumPostStatusEnumFieldUpdateOperationsInput | $Enums.PostStatusEnum
-    imageId?: IntFieldUpdateOperationsInput | number
+    images?: ImageUncheckedUpdateManyWithoutImage_ofNestedInput
     reactions?: ReactionUncheckedUpdateManyWithoutReaction_ofNestedInput
   }
 
@@ -7511,78 +7911,66 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reaction_count?: IntFieldUpdateOperationsInput | number
     visiblity?: EnumPostStatusEnumFieldUpdateOperationsInput | $Enums.PostStatusEnum
-    imageId?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ReactionUpdateWithoutReactorInput = {
+  export type ReactionUpdateWithoutReactor_byInput = {
     reaction?: EnumReactionEnumFieldUpdateOperationsInput | $Enums.ReactionEnum
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     reaction_of?: PostUpdateOneRequiredWithoutReactionsNestedInput
   }
 
-  export type ReactionUncheckedUpdateWithoutReactorInput = {
+  export type ReactionUncheckedUpdateWithoutReactor_byInput = {
     id?: IntFieldUpdateOperationsInput | number
     reaction?: EnumReactionEnumFieldUpdateOperationsInput | $Enums.ReactionEnum
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     post_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ReactionUncheckedUpdateManyWithoutReactorInput = {
+  export type ReactionUncheckedUpdateManyWithoutReactor_byInput = {
     id?: IntFieldUpdateOperationsInput | number
     reaction?: EnumReactionEnumFieldUpdateOperationsInput | $Enums.ReactionEnum
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     post_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type PostCreateManyImagesInput = {
+  export type ImageCreateManyImage_ofInput = {
     id?: number
-    body: string
+    url: string
     created_at?: Date | string
-    updated_at?: Date | string
-    author_id: number
-    visiblity?: $Enums.PostStatusEnum
-  }
-
-  export type PostUpdateWithoutImagesInput = {
-    body?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    visiblity?: EnumPostStatusEnumFieldUpdateOperationsInput | $Enums.PostStatusEnum
-    author?: UserUpdateOneRequiredWithoutPostsNestedInput
-    reactions?: ReactionUpdateManyWithoutReaction_ofNestedInput
-  }
-
-  export type PostUncheckedUpdateWithoutImagesInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    body?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    author_id?: IntFieldUpdateOperationsInput | number
-    visiblity?: EnumPostStatusEnumFieldUpdateOperationsInput | $Enums.PostStatusEnum
-    reactions?: ReactionUncheckedUpdateManyWithoutReaction_ofNestedInput
-  }
-
-  export type PostUncheckedUpdateManyWithoutImagesInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    body?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    author_id?: IntFieldUpdateOperationsInput | number
-    visiblity?: EnumPostStatusEnumFieldUpdateOperationsInput | $Enums.PostStatusEnum
   }
 
   export type ReactionCreateManyReaction_ofInput = {
     id?: number
-    reaction: $Enums.ReactionEnum
+    reaction?: $Enums.ReactionEnum
     created_at?: Date | string
     reactor_id: number
+  }
+
+  export type ImageUpdateWithoutImage_ofInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    User?: UserUpdateManyWithoutImgNestedInput
+  }
+
+  export type ImageUncheckedUpdateWithoutImage_ofInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    User?: UserUncheckedUpdateManyWithoutImgNestedInput
+  }
+
+  export type ImageUncheckedUpdateManyWithoutImage_ofInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ReactionUpdateWithoutReaction_ofInput = {
     reaction?: EnumReactionEnumFieldUpdateOperationsInput | $Enums.ReactionEnum
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    reactor?: UserUpdateOneRequiredWithoutReactionsNestedInput
+    reactor_by?: UserUpdateOneRequiredWithoutReactionsNestedInput
   }
 
   export type ReactionUncheckedUpdateWithoutReaction_ofInput = {

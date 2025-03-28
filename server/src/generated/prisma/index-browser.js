@@ -117,19 +117,21 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.ImageScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  created_at: 'created_at',
+  post_id: 'post_id'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   name: 'name',
   username: 'username',
   password: 'password',
-  created_at: 'created_at'
-};
-
-exports.Prisma.ImageScalarFieldEnum = {
-  id: 'id',
-  url: 'url',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  imageId: 'imageId'
 };
 
 exports.Prisma.PostScalarFieldEnum = {
@@ -138,8 +140,8 @@ exports.Prisma.PostScalarFieldEnum = {
   created_at: 'created_at',
   updated_at: 'updated_at',
   author_id: 'author_id',
-  visiblity: 'visiblity',
-  imageId: 'imageId'
+  reaction_count: 'reaction_count',
+  visiblity: 'visiblity'
 };
 
 exports.Prisma.ReactionScalarFieldEnum = {
@@ -165,13 +167,12 @@ exports.PostStatusEnum = exports.$Enums.PostStatusEnum = {
 };
 
 exports.ReactionEnum = exports.$Enums.ReactionEnum = {
-  LIKE: 'LIKE',
-  DISLIKE: 'DISLIKE'
+  LIKE: 'LIKE'
 };
 
 exports.Prisma.ModelName = {
-  User: 'User',
   Image: 'Image',
+  User: 'User',
   Post: 'Post',
   Reaction: 'Reaction'
 };
