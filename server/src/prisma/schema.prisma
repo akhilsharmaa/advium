@@ -11,23 +11,25 @@ datasource db {
 model Image {
   id         Int      @id @default(autoincrement())
   url        String
+  image_of   Post?    @relation(fields: [post_id], references: [id])
+  post_id    Int?
+  created_by User     @relation(fields: [user_id], references: [id])
+  user_id    Int
   created_at DateTime @default(now())
-  image_of   Post     @relation(fields: [post_id], references: [id])
-  post_id    Int
-  User       User[]
 }
 
 model User {
-  id         Int        @id @default(autoincrement())
-  email      String     @unique
-  name       String
-  username   String
-  img        Image      @relation(fields: [imageId], references: [id])
-  password   String
-  created_at DateTime   @default(now())
-  posts      Post[]
-  reactions  Reaction[]
-  imageId    Int
+  id             Int        @id @default(autoincrement())
+  email          String     @unique
+  name           String
+  username       String     @unique
+  profile_img_id Int?
+  password       String
+  created_at     DateTime   @default(now())
+  posts          Post[]
+  images         Image[]
+  reactions      Reaction[]
+  comments       Comment[]
 }
 
 enum PostStatusEnum {
@@ -35,26 +37,35 @@ enum PostStatusEnum {
   PRIVATE
 }
 
-// TODO: Add comment functionality 
-// model Comment { 
-//   id             Int            @id @default(autoincrement())
-// }
-
 model Post {
   id             Int            @id @default(autoincrement())
   body           String
+  user_id        Int
+  visiblity      PostStatusEnum @default(PUBLIC)
+  created_by     User           @relation(fields: [user_id], references: [id])
   created_at     DateTime       @default(now())
   updated_at     DateTime       @default(now())
-  author         User           @relation(fields: [author_id], references: [id])
-  author_id      Int
   images         Image[]
-  reactions      Reaction[]
+  comments       Comment[]
   reaction_count Int
-  visiblity      PostStatusEnum @default(PUBLIC)
+  Reaction       Reaction[]
 }
 
 enum ReactionEnum {
   LIKE
+}
+
+model Comment {
+  id             Int          @id @default(autoincrement())
+  reaction       ReactionEnum @default(LIKE)
+  created_at     DateTime     @default(now())
+  post           Post         @relation(fields: [post_id], references: [id])
+  post_id        Int
+  commented_by   User         @relation(fields: [commenter_by], references: [id])
+  commenter_by   Int
+  parent_comment Comment?     @relation("ParentChild", fields: [parent_id], references: [id])
+  parent_id      Int?
+  replies        Comment[]    @relation("ParentChild")
 }
 
 model Reaction {
